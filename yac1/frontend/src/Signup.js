@@ -11,35 +11,32 @@ import PersonIcon from '@mui/icons-material/Person';
 function SignUp() {
   const [email, setEmail] = useState('');
   const [phone_number,setphone_number] = useState('');
-  const [Username,setusername]=useState('');
+  const [fullname,setfullname]=useState('');
   const [password, setPassword] = useState('');
-  const [password2, setPassword2] = useState('');
+
   const [showWelcome, setShowWelcome] = useState(false);
   const [theresponse,setTheresponse] = useState('');
   
   const handleEmailChange = (event) => setEmail(event.target.value);
   const handlePasswordChange = (event) => setPassword(event.target.value);
-  const handleConfirmPasswordChange = (event) => setPassword2(event.target.value);
+
   const handlePhoneChange = (event) => setphone_number(event.target.value);
-  const handleUserChange = (event) => setusername(event.target.value);
+  const handleUserChange = (event) => setfullname(event.target.value);
   const handleSubmit = async (event) => {
     event.preventDefault();
-    if (password !== password2) {
-      console.error('Passwords do not match');
-      return;
-    }
+   
     try {
       const response = await fetch('http://127.0.0.1:8000/account/register/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ email,Username, phone_number, password, password2 })
+        body: JSON.stringify({ fullname, email, phone_number, password})
       });
       const data = await response.json(); // parse the response as JSON
       console.log(data);
       setShowWelcome(true);
-       setTheresponse (data.response);
+      setTheresponse (data.response);
       // handle the sign-up result
     } catch (error) {
       console.error(error);
@@ -50,10 +47,7 @@ function SignUp() {
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
-  const [showPassword2, setShowPassword2] = React.useState(true);
-
-  const handleClickShowPassword2 = () => setShowPassword2((show) => !show);
-
+ 
   return (
     <div className="w-screen h-screen flex justify-center items-center">
       <form className="bg-white border rounded-lg p-7 shadow-black hover:">
@@ -67,11 +61,11 @@ function SignUp() {
           <TextField
           onChange={handleUserChange}
             label="Full name"
-            value={Username}
+            value={fullname}
             required
             className="hover:outline-primary w-full font-pop "
             size="small"
-            type={"Username"}
+            type={"username"}
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
@@ -142,28 +136,7 @@ function SignUp() {
         </div>}
        
                    
-       {!showWelcome && <div className="my-2">
-          <TextField
-    
-            label="Password"
-            value={password2}
-            onChange={handleConfirmPasswordChange}
-            required
-            className="hover:outline-primary w-full  font-pop"
-            size="small"
-            type={!showPassword2 ? "text" : "password"}
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton onClick={handleClickShowPassword2}>
-                    {showPassword2 ? (
-                      <VisibilityOffIcon/> ): (<RemoveRedEyeIcon/>)}
-                  </IconButton>
-                </InputAdornment>
-              ),
-            }}
-          />
-        </div>}
+      
         
            
 
@@ -200,7 +173,7 @@ function SignUp() {
       {showWelcome && (
         <div className="absolute top-0 left-0 w-full h-full bg-gray-900 bg-opacity-50 flex justify-center items-center">
           <div className="bg-white rounded-lg p-8 text-center">
-            <h2 className="text-2xl font-bold mb-4">{theresponse}</h2>
+            <h2 className="text-2xl font-bold mb-4">{theresponse }</h2>
             <button
               className="btn btn-outline w-full my-2 rounded-full bg-white text-black "
               onClick={() => setShowWelcome(false)}

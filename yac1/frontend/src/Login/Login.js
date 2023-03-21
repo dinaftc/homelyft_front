@@ -9,6 +9,7 @@ const Login= () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showWelcome, setShowWelcome] = useState(false);
+ // const [user, setUser] = useState(null);
 
   const handleEmailChange = (event) => setEmail(event.target.value);
   const handlePasswordChange = (event) => setPassword(event.target.value);
@@ -24,10 +25,12 @@ const Login= () => {
     });
     const result = await response.json();
     console.log(result);
+    
     // handle the authentication result
+  
     setShowWelcome(true);
   };
-
+ 
 
   const [showPassword, setShowPassword] = React.useState(false);
 

@@ -6,11 +6,12 @@ import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import { FcGoogle } from 'react-icons/fc';
-
+import PersonIcon from '@mui/icons-material/Person';
 
 function SignUp() {
   const [email, setEmail] = useState('');
   const [phone_number,setphone_number] = useState('');
+  const [Username,setusername]=useState('');
   const [password, setPassword] = useState('');
   const [password2, setPassword2] = useState('');
   const [showWelcome, setShowWelcome] = useState(false);
@@ -20,6 +21,7 @@ function SignUp() {
   const handlePasswordChange = (event) => setPassword(event.target.value);
   const handleConfirmPasswordChange = (event) => setPassword2(event.target.value);
   const handlePhoneChange = (event) => setphone_number(event.target.value);
+  const handleUserChange = (event) => setusername(event.target.value);
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (password !== password2) {
@@ -32,7 +34,7 @@ function SignUp() {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ email, phone_number, password, password2 })
+        body: JSON.stringify({ email,Username, phone_number, password, password2 })
       });
       const data = await response.json(); // parse the response as JSON
       console.log(data);
@@ -61,7 +63,24 @@ function SignUp() {
         <p>Create an account and start enjoying your shopping</p>
          
         
-
+        {!showWelcome && <div className="my-2 ">
+          <TextField
+          onChange={handleUserChange}
+            label="Full name"
+            value={Username}
+            required
+            className="hover:outline-primary w-full font-pop "
+            size="small"
+            type={"Username"}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <PersonIcon/>
+                </InputAdornment>
+              ),
+            }}
+          />
+        </div>}
         {!showWelcome && <div className="my-2 ">
           <TextField
           onChange={handleEmailChange}

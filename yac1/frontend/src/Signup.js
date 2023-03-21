@@ -14,7 +14,8 @@ function SignUp() {
   const [password, setPassword] = useState('');
   const [password2, setPassword2] = useState('');
   const [showWelcome, setShowWelcome] = useState(false);
-
+  const [theresponse,setTheresponse] = useState('');
+  
   const handleEmailChange = (event) => setEmail(event.target.value);
   const handlePasswordChange = (event) => setPassword(event.target.value);
   const handleConfirmPasswordChange = (event) => setPassword2(event.target.value);
@@ -36,6 +37,7 @@ function SignUp() {
       const data = await response.json(); // parse the response as JSON
       console.log(data);
       setShowWelcome(true);
+       setTheresponse (data.response);
       // handle the sign-up result
     } catch (error) {
       console.error(error);
@@ -179,7 +181,7 @@ function SignUp() {
       {showWelcome && (
         <div className="absolute top-0 left-0 w-full h-full bg-gray-900 bg-opacity-50 flex justify-center items-center">
           <div className="bg-white rounded-lg p-8 text-center">
-            <h2 className="text-2xl font-bold mb-4">Registered, {email}!</h2>
+            <h2 className="text-2xl font-bold mb-4">{theresponse}</h2>
             <button
               className="btn btn-outline w-full my-2 rounded-full bg-white text-black "
               onClick={() => setShowWelcome(false)}

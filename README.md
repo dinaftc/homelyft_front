@@ -4,17 +4,17 @@ This is the frontend repository for Homelyft, a web application that helps peopl
 
 ## Installation
 
-To get started with the Homelyft frontend, clone this repository and run the following command to install the necessary dependencies
+To get started with the Homelyft frontend, clone this repository and run the following command to install the necessary dependencies:
 
-npm install
-
+```npm install
+```
 
 ## Usage
 
 To start the application, run the following command:
 
-npm start
-
+```npm start
+```
 
 This will start a local development server on port 3000. You can view the application in your web browser at `http://localhost:3000`.
 

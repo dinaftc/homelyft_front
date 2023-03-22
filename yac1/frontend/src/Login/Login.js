@@ -9,7 +9,7 @@ const Login= () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showWelcome, setShowWelcome] = useState(false);
- // const [user, setUser] = useState(null);
+
 
   const handleEmailChange = (event) => setEmail(event.target.value);
   const handlePasswordChange = (event) => setPassword(event.target.value);
@@ -41,7 +41,7 @@ const Login= () => {
     <div className="w-screen h-screen flex justify-center items-center">
       <form className="bg-white rounded-lg py-4 px-12" onSubmit={handleSubmit} >
         <div className="my-3">
-          <h1 className="text-4xl font-pop  text-center text-primary ">
+          <h1 className="text-4xl font-bold font-pop  text-center text-primary ">
             Hello Again!
           </h1>
           <div className="my-3 flex flex-col text-center px-2">
@@ -60,7 +60,7 @@ const Login= () => {
             label="Email"
             value={email}
             required
-            className="hover:outline-primary w-full font-pop "
+            className=" hover:outline-primary w-full font-pop "
             size="small"
             type={"email"}
             InputProps={{
@@ -69,6 +69,16 @@ const Login= () => {
                   <AlternateEmailIcon/>
                 </InputAdornment>
               ),
+            }}
+            InputLabelProps={{
+              classes: {
+                root: 'font-pop',
+              },
+            }} style={{
+              backgroundColor: "#FFFFFB",
+              border: "2px ",
+              borderRadius: "10px",
+              
             }}
           />
         </div>}
@@ -91,11 +101,22 @@ const Login= () => {
                   </IconButton>
                 </InputAdornment>
               ),
+            }} 
+            InputLabelProps={{
+              classes: {
+                root: 'font-pop',
+              },
+            }}
+            style={{
+              backgroundColor: "#FFFFFB",
+              border: "2px ",
+              borderRadius: "10px",
+              
             }}
           />
         </div>}
         <div className="flex justify-end my-0.5">
-          <p className="text-primary text-sm font-pop hover:text-hoveredLog" onClick={handleEmailsent}>
+          <p className=" text-sm text-primary font-pop hover:text-hoveredLog" onClick={handleEmailsent}>
             Forgot password ?
           </p>
         </div>
@@ -106,16 +127,17 @@ const Login= () => {
           </button>
           <div className="flex flex-row justify-center">
             <div className="my-1 text-center ">
-              <p className="text-sm text-gray-500 font-pop">
-                don't have an account yet ?{" "}
+              <p className="text-sm inline-block text-gray-500 font-pop">
+                don't have an account yet ?{"  "}
               </p>
-            </div>
-            <div className="my-1 mx-1">
-              <Link to='Signup' className="text-sm text-primary font-pop hover:text-hoveredLog">
-                Sign up{" "}
+            
+            
+              <Link to='Signup' 
+              className="inline-block text-sm text-primary font-pop hover:text-hoveredLog">
+                Sign up{"   "}
               </Link>
-            </div>
            
+           </div>
           </div>
           
 <div className="container w-full flex justify-center">
@@ -123,7 +145,8 @@ const Login= () => {
           <div className="divider">OR</div>
            
           </div></div>
-          <button className="btn btn-outline text-black w-full normal-case rounded-lg  gap-2 my-2 outline-gray-500  hover:bg-hovered   ">
+          <button className="btn btn-outline  w-full normal-case rounded-lg  gap-2 my-2 outline-gray-500  border-gray-500 "
+          >
             <FcGoogle/>
             Sign up with Google
           </button>
@@ -160,3 +183,4 @@ const Login= () => {
 };
 
 export default Login;
+

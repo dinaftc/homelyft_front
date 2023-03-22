@@ -74,12 +74,7 @@ const Login= () => {
               classes: {
                 root: 'font-pop',
               },
-            }} style={{
-              backgroundColor: "#FFFFFB",
-              border: "2px ",
-              borderRadius: "10px",
-              
-            }}
+            }} 
           />
         </div>}
        {!showWelcome  && !enterEmail &&  <div className="">
@@ -107,12 +102,7 @@ const Login= () => {
                 root: 'font-pop',
               },
             }}
-            style={{
-              backgroundColor: "#FFFFFB",
-              border: "2px ",
-              borderRadius: "10px",
-              
-            }}
+            
           />
         </div>}
         <div className="flex justify-end my-0.5">

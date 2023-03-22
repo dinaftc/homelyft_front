@@ -77,12 +77,7 @@ function SignUp() {
       </InputAdornment>
     ),
   }}
-  style={{
-    backgroundColor: "#FFFFFB",
-    border: "2px ",
-    borderRadius: "10px",
-    
-  }}
+  
 />
 
 
@@ -109,12 +104,7 @@ function SignUp() {
                 root: 'font-pop',
               },
             }}
-            style={{
-              backgroundColor: "#FFFFFB",
-              border: "2px ",
-              borderRadius: "10px",
-              
-            }}
+           
           />
         </div>}
         {!showWelcome && <div className="my-3 ">
@@ -139,12 +129,7 @@ function SignUp() {
       root: 'font-pop',
     },
   }}
-   style={{
-    backgroundColor: "#FFFFFB",
-    border: "2px ",
-    borderRadius: "10px",
-    
-  }}
+  
 />
         </div>}
       
@@ -172,12 +157,7 @@ function SignUp() {
                 root: 'font-pop',
               },
             }}
-            style={{
-              backgroundColor: "#FFFFFB",
-              border: "2px ",
-              borderRadius: "10px",
-              
-            }}
+           
           />
         </div>}
        

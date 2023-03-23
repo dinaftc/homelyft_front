@@ -1,0 +1,62 @@
+.containeremail{
+    position: relative;
+    margin-bottom: 15px;
+}
+.containerpassword{
+    position: relative;
+
+}
+img {
+    position: absolute;
+  top: 50%;
+  right: 15px;
+  transform: translateY(-50%); 
+}
+.email{
+font-family: 'Poppins', sans-serif;
+font-style: normal;
+font-weight: 400;
+font-size: 16px;
+line-height: 24px;
+width: 414px;
+height: 52px;
+background: #FFFFFB;
+border: 2px solid #B1B1B1;
+border-radius: 10px;
+padding-left: 8px;
+
+}
+.password{
+    
+        font-family: 'Poppins', sans-serif;
+        font-style: normal;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 24px;
+        width: 414px;
+        height: 52px;
+        background: #FFFFFB;
+        border: 2px solid #B1B1B1;
+        border-radius: 10px;
+        padding-left: 8px;
+       
+}
+.google{
+font-family: 'Poppins';
+font-style: normal;
+font-weight: 600;
+font-size: 17px;
+line-height: 26px;
+    display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 13px 20px;
+gap: 20px;
+width: 414px;
+height: 52px;
+background: #FFFFFB;
+border: 2px solid #B1B1B1;
+border-radius: 10px;
+
+}

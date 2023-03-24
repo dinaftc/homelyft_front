@@ -1,59 +1,69 @@
-.containeremail{
+.InputBox {
     position: relative;
     margin-bottom: 15px;
 }
-.containerpassword{
-    position: relative;
-
+.InputBox input {
+    width: 400px;
+    height: 52px;
+    background: #FFFFFB;
+    border: 2px solid #B1B1B1;
+    border-radius: 10px;
+    padding-left: 20px;
+    outline: none;
+    transition: 0.5s;
 }
-img {
-    position: absolute;
+
+.InputBox img {
+position: absolute;
   top: 50%;
-  right: 15px;
+  right: 20px;
   transform: translateY(-50%); 
 }
-.email{
+.InputBox span {
 font-family: 'Poppins', sans-serif;
 font-style: normal;
 font-weight: 400;
 font-size: 16px;
 line-height: 24px;
-width: 414px;
-height: 52px;
-background: #FFFFFB;
-border: 2px solid #B1B1B1;
-border-radius: 10px;
-padding-left: 8px;
+position: absolute;
+padding:15px 20px;
+left:0%;
+color: #B1B1B1;
+transition: 0.5s;
+background-color: transparent;
+}
+.InputBox input:valid ~ span,
+.InputBox input:focus ~ span,
+.InputBox input:hover ~ span
 
-}
-.password{
+{
+    color: #1B5789;
+    transform: translateX(15px) translateY(-12px);
+    padding: 0 10px;
+    background:#FFFFFB;
     
-        font-family: 'Poppins', sans-serif;
-        font-style: normal;
-        font-weight: 400;
-        font-size: 16px;
-        line-height: 24px;
-        width: 414px;
-        height: 52px;
-        background: #FFFFFB;
-        border: 2px solid #B1B1B1;
-        border-radius: 10px;
-        padding-left: 8px;
-       
 }
+.InputBox input:valid,
+.InputBox input:focus,
+.InputBox input:hover 
+{
+    border: 2px solid #1B5789 !important;
+}
+   
+
 .google{
 font-family: 'Poppins';
 font-style: normal;
 font-weight: 600;
 font-size: 17px;
 line-height: 26px;
-    display: flex;
+display: flex;
 flex-direction: row;
 justify-content: center;
 align-items: center;
 padding: 13px 20px;
 gap: 20px;
-width: 414px;
+width: 400px;
 height: 52px;
 background: #FFFFFB;
 border: 2px solid #B1B1B1;

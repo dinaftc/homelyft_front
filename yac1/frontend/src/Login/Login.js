@@ -5,6 +5,7 @@ import { FcGoogle } from "react-icons/fc";
 import "./Login.css";
 import at from "./at.png";
 import eyeoff from "./eye-off.png";
+import eye from "./eye.png";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -37,14 +38,14 @@ const Login = () => {
   const handleEmailsent = () => setEnterEmail(!enterEmail);
   return (
     <div className="w-screen h-screen flex justify-center items-center">
-      <form className="bg-white rounded-lg py-4 px-12" onSubmit={handleSubmit}>
+      <form className="bg-offwhite rounded-lg py-4 px-12" onSubmit={handleSubmit}>
         <div className="my-2">
           <h1 className="text-3xl font-bold font-pop text-center text-primary ">
             Hello Again!
           </h1>
           <div className="my-1 flex flex-col text-center px-2 mb-7">
             <p className="text-gray-400 font-pop font-normal font-400 ">
-              Pour que vous puissent connecter avec succés
+              Pour que vous puissiez connecter avec succés
             </p>
             <p className="text-gray-400 font-pop font-normal font-400">
               veuillez saisir vos informations{" "}
@@ -52,27 +53,30 @@ const Login = () => {
           </div>
         </div>
         {!showWelcome && !enterEmail && (
-          <div className="containeremail">
+          <div className="InputBox">
             <input
               onChange={handleEmailChange}
               value={email}
               required
-              className="email"
-              placeholder="Email"
+            
             />
+            <span>Email</span>
             <img src={at} alt="" />
           </div>
         )}
         {!showWelcome && !enterEmail && (
-          <div className="containerpassword ">
+          <div className="InputBox ">
             <input
               onChange={handlePasswordChange}
               value={password}
               required
-              className="password"
-              placeholder={showPassword ? "text" : "Password"}
+             
+              type={showPassword? 'text' : 'password'}
             />
-            <img src={eyeoff} alt="" />
+            <span>Password</span>
+            <button onClick={handleClickShowPassword}>
+            {showPassword ?  <img src={eyeoff} alt="" /> : <img src={eye} alt="" />} </button>
+           
           </div>
         )}
         <div className="flex justify-end my-1">
@@ -85,7 +89,7 @@ const Login = () => {
         </div>
         <div className="my-7">
           <button
-            className="btn btn-active border-0 rounded-lg text-white w-full bg-primary normal-case font-pop font-normal font-600"
+            className=" text-lg btn btn-active border-0 rounded-lg text-white w-full bg-primary normal-case font-pop font-normal font-600"
             type="submit"
           >
             Login
@@ -112,8 +116,8 @@ const Login = () => {
               </div>
             </div>
           </div>
-          <button className="google ">
-            <FcGoogle />
+          <button className="google">
+            <FcGoogle size={28} />
             Sign up with Google
           </button>
         </div>

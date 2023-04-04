@@ -77,8 +77,7 @@ function EditProductForm({ product, onClose }) {
           value={price}
           onChange={(event) => setPrice(event.target.value)}
         />
-        <label className="font-inter font-bold text-base leading-5 leading-trim-cap text-gray-700 ">Visibility</label>
-        <br />
+       
         <input type="radio" name="visibility" id="Published" className="mr-2 " value={inStock} onChange={handleVisibilityChange} />
         <label for="Published" className="font-inter font-semibold text-base leading-5 leading-trim-cap text-gray-600">Published</label>
         <input type="radio" name="visibility" id="Hidden" class="mr-2" />

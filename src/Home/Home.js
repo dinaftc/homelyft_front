@@ -2,7 +2,7 @@ import React, { Fragment, useState } from "react";
 import { Navigate } from "react-router-dom";
 import { connect } from "react-redux";
 import { logout } from "../actions/auth";
-import Sidebar from "../Admin/components/Sidebar";
+
 function Home({ logout, isAuthenticated }) {
   const [redirect, setRedirect] = useState(false);
 
@@ -13,13 +13,13 @@ function Home({ logout, isAuthenticated }) {
 
   return (
     <div>
-
-      <li className=" flex justify-center items-center">
-       home
+      {redirect ? <Navigate to="/" /> : <Fragment></Fragment>}
+      <li className="btn flex justify-center items-center" onClick={logout_user}>
+       Logout
          
       </li>
 
-      {redirect ? <Navigate to="/" /> : <Fragment></Fragment>}
+     
     </div>
   );
 }

@@ -6,33 +6,44 @@ import inbox from "./icon/inboxic.svg";
 import insight from "./icon/insightsic.svg";
 import settings from "./icon/settingsic.svg";
 import Logout from "./icon/logout.ic.svg";
+import liftwhite from "./icon/homew.svg";
+import notifwhite from "./icon/bell.svg";
+import productswhite from "./icon/shopping-bag.svg";
+import inboxwhite from "./icon/message-circle.svg";
+import insightwhite from "./icon/bar-chart.svg";
+import settingswhite from "./icon/settings.svg";
+import logoutwhite from "./icon/logout.svg";
+import { useState } from "react";
 import { Link } from "react-router-dom";
-import { logout } from '../../../actions/auth';
-import React, { Fragment, useState } from 'react';
-import {  Navigate } from 'react-router-dom';
-
 const Sidebar = () => {
-  const [redirect, setRedirect] = useState(false);
-
-  const logout_user = () => {
-    logout();
-    setRedirect(true);
-};
+  const [selected, setSelected] = useState(true);
+  const [isSelected, setIsSelected] = useState(true);
+  const handleSelect = (index) => {
+    setSelected(index);
+    setIsSelected(null);
+  };
+  const handleIsSelected = (index) => {
+    setIsSelected(index);
+    setSelected(null);
+  };
+  const c =
+    "flex items-center gap-x-4 p-3 mx-5 bg-primary text-white font-pop rounded-full cursor-pointer   ";
+  const v =
+    "flex items-center gap-x-4 p-3 mx-5 hover:bg-hovered    hover:text-gray-500  rounded-full cursor-pointer   ";
 
   const Menus = [
-    { title: "Home", src: lift,Link:'/Home' },
-    { title: "Notifications", src: notif ,Link:'/notif'},
-    { title: "Products", src: products ,Link:'/products'},
-    { title: "Inbox", src: inbox ,Link:'/Inbox'},
-    { title: "Insights", src: insight ,Link:'/'},
+    { title: "Home", src: lift, activesrc: liftwhite, Link:'/Home' },
+    { title: "Notifications", src: notif, activesrc: notifwhite , Link:'/Home'},
+    { title: "Products", src: products, activesrc: productswhite , Link:'/products'},
+    { title: "Inbox", src: inbox, activesrc: inboxwhite , Link:'/Home' },
+    { title: "Insights", src: insight, activesrc: insightwhite , Link:'/Home'},
   ];
   const SecMenus = [
-    { title: "Settings", src: settings },
-    { title: "Logout", src: Logout,  onClick: () => {
-      logout_user() }, },
+    { title: "Settings", src: settings, activesrc: settingswhite },
+    { title: "Logout", src: Logout, activesrc: logoutwhite },
   ];
   return (
-    <div className=" shadow-md h-screen bg-white flex-row border border-gray-300 ">
+    <div className={"  h-screen bg-white flex-row  shadow-2xl"}>
       <div className="ml-5 mt-7 mr-7  ">
         <img
           className="object-center cursor-pointer"
@@ -47,11 +58,14 @@ const Sidebar = () => {
         <ul className="text-gray-500 font-pop text-base   ">
           {Menus.map((menu, index) => (
             <Link to={menu.Link}
+              activeCla
               key={index}
-              className="flex items-center gap-x-4 p-3 mx-5 hover:bg-hovered active:text-white active:bg-actif   hover:text-gray-500  rounded-full cursor-pointer   "
+              onClick={() => handleSelect(index)}
+              className={selected === index ? c : v}
             >
-              {" "}
-              <img src={menu.src} alt="" /> <span>{menu.title}</span>
+              
+              <img src={selected === index ? menu.activesrc : menu.src} alt="" />{" "}
+              <span>{menu.title}</span>
             </Link>
           ))}
         </ul>
@@ -62,17 +76,17 @@ const Sidebar = () => {
       <div>
         <ul className="font-pop text-base text-gray-500">
           {SecMenus.map((menu, index) => (
-            <li 
+            <li
               key={index}
-              className="flex items-center gap-x-4 p-3 mx-5 hover:bg-hovered active:text-white active:bg-actif hover:text-gray-500 rounded-full cursor-pointer"
+              onClick={() => handleIsSelected(index)}
+              className={isSelected === index ? c : v + isSelected}
             >
-              <img src={menu.src} /> <span>{menu.title}</span>
+              <img src={isSelected === index ? menu.activesrc : menu.src} alt=""/>{" "}
+              <span>{menu.title}</span>
             </li>
           ))}
         </ul>
       </div>
-      {redirect ? <Navigate to='/' /> : <Fragment></Fragment>}
-    
     </div>
   );
 };

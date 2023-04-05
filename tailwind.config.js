@@ -6,10 +6,11 @@ module.exports = {
       primary: " #25A5AA",
       secondary:" #B1B1B1",
       offwhite: '#FFFFFFB',
-      hovered: "#F3FAFF",
+      hovered: "#E4F8F3",
       hoveredLog: "#3A74A4",   
       grey:' #B1B1B1',
       greey:'#CFCFCF',
+      
     }},
     fontFamily: {
       pop: ["Poppins"],

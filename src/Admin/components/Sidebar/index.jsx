@@ -14,8 +14,17 @@ import insightwhite from "./icon/bar-chart.svg";
 import settingswhite from "./icon/settings.svg";
 import logoutwhite from "./icon/logout.svg";
 import { useState } from "react";
-import { Link } from "react-router-dom";
-const Sidebar = () => {
+import { Link, Navigate } from "react-router-dom";
+import { connect } from 'react-redux';
+import { logout } from '../../../actions/auth';
+
+const Sidebar = ({ isAuthenticated, logout }) => {
+
+  const logout_user = () => {
+    
+    logout();
+  };
+
   const [selected, setSelected] = useState(true);
   const [isSelected, setIsSelected] = useState(true);
   const handleSelect = (index) => {
@@ -42,6 +51,9 @@ const Sidebar = () => {
     { title: "Settings", src: settings, activesrc: settingswhite },
     { title: "Logout", src: Logout, activesrc: logoutwhite },
   ];
+  if (!isAuthenticated) {
+    return <Navigate to="/" />;
+  }
   return (
     <div className={"  h-screen bg-white flex-row  shadow-2xl"}>
       <div className="ml-5 mt-7 mr-7  ">
@@ -77,12 +89,13 @@ const Sidebar = () => {
         <ul className="font-pop text-base text-gray-500">
           {SecMenus.map((menu, index) => (
             <li
+            
               key={index}
               onClick={() => handleIsSelected(index)}
               className={isSelected === index ? c : v + isSelected}
             >
               <img src={isSelected === index ? menu.activesrc : menu.src} alt=""/>{" "}
-              <span>{menu.title}</span>
+              <span onClick={logout_user}>{menu.title}</span>
             </li>
           ))}
         </ul>
@@ -91,4 +104,8 @@ const Sidebar = () => {
   );
 };
 
-export default Sidebar;
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated,
+});
+
+export default connect(mapStateToProps, { logout })(Sidebar);

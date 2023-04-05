@@ -29,6 +29,7 @@ export default function (state = initialState, action) {
   switch (type) {
     case LOGIN_SUCCESS:
       localStorage.setItem("access", payload.access);
+      localStorage.setItem("refresh", payload.refresh);
       return {
         ...state,
         isAuthenticated: true,
@@ -36,6 +37,7 @@ export default function (state = initialState, action) {
         refresh: payload.refresh,
       };
     case SIGNUP_SUCCESS:
+    case NOT_AUTHENTICATED:
       return {
         ...state,
         isAuthenticated: false,
@@ -44,6 +46,7 @@ export default function (state = initialState, action) {
       return {
         ...state,
         user: payload,
+        isAuthenticated: true,
       };
     case LOAD_FAIL:
       return {
@@ -55,11 +58,8 @@ export default function (state = initialState, action) {
         ...state,
         isAuthenticated: true,
       };
-    case NOT_AUTHENTICATED:
-      return {
-        ...state,
-        isAuthenticated: false,
-      };
+   
+     
     case LOGIN_FAIL:
     case LOGOUT:
     case SIGNUP_FAIL:

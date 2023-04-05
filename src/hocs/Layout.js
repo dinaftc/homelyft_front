@@ -24,4 +24,4 @@ const mapStateToProps = state =>({
     isAuthenticated :state.auth.isAuthenticated
 });
 
-export default connect(mapStateToProps, { checkAuthenticated, load_user })(Layout);
+export default connect(mapStateToProps, {checkAuthenticated, load_user})(Layout);

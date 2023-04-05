@@ -1,28 +1,28 @@
-import React, { Fragment, useState } from "react";
-import { Navigate } from "react-router-dom";
-import { connect } from "react-redux";
-import { logout } from "../actions/auth";
+import React, { useState } from 'react';
+import { connect } from 'react-redux';
+import { logout } from '../actions/auth';
+import { Navigate } from 'react-router-dom';
 
-function Home({ logout, isAuthenticated }) {
-  const [redirect, setRedirect] = useState(false);
+function Home({ isAuthenticated, logout }) {
+  const [isLoggedOut, setIsLoggedOut] = useState(false);
 
   const logout_user = () => {
+    setIsLoggedOut(true);
     logout();
-    setRedirect(true);
   };
 
+  if (!isAuthenticated) {
+    return <Navigate to="/" />;
+  }
+else{
   return (
     <div>
-      {redirect ? <Navigate to="/" /> : <Fragment></Fragment>}
       <li className="btn flex justify-center items-center" onClick={logout_user}>
-       Logout
-         
+        Logout
       </li>
-
-     
     </div>
   );
-}
+}}
 
 const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated,

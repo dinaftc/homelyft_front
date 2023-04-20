@@ -21,7 +21,6 @@ import { logout } from '../../../actions/auth';
 const Sidebar = ({ isAuthenticated, logout }) => {
 
   const logout_user = () => {
-    
     logout();
   };
 

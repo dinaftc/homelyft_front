@@ -128,22 +128,22 @@ function Orders() {
             Add product
           </Link>
           <span className="filter-p">Filter by:</span>
-          <div className="dropdown dropdown-bottom dropdown-end">
+          <div className="dropdown dropdown-bottom dropdown-end bg-offwhite">
             <label tabIndex={0}>All Categories</label>
             <ul
-              tabIndex={0}
-              className="dropdown-content menu p-3 shadow bg-offwhite rounded-box flex flex-wrap items-center"
-            >
-              <li className="m-1">
+  tabIndex={0}
+  className="dropdown-content menu p-3 shadow color-white-500 bg-white opacity-100 rounded-box flex flex-wrap items-center"
+>
+              <li className="m-1 ">
                 <input
                   type="text"
                   value={priceExact}
                   onChange={(e) => setPriceExact(e.target.value)}
                   placeholder="Price"
-                  className="py-1 px-2 border border-gray-300 rounded focus:bg-offwhite"
+                  className="py-1 px-2 border border-gray-300 rounded "
                 />
               </li>
-              <li className="m-1">
+              <li className="m-1 bg-offwhite">
                 <input
                   type="text"
                   value={minPrice}
@@ -152,7 +152,7 @@ function Orders() {
                   className="py-1 px-2 border border-gray-300 rounded focus:bg-offwhite"
                 />
               </li>
-              <li className="m-1">
+              <li className="m-1 bg-offwhite">
                 <input
                   type="text"
                   value={maxPrice}

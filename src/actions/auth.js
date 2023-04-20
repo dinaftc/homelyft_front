@@ -12,58 +12,35 @@ import { Navigate } from "react-router-dom";
 
 
 export const checkAuthenticated = () => async (dispatch) => {
-  const access = localStorage.getItem('access');
-  const refresh = localStorage.getItem('refresh');
-
-  if (access) {
-    const config = {
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-      },
-    };
-    const body = JSON.stringify({ token: access });
-
-    try {
-      const res = await axios.post(
-        'http://127.0.0.1:8000/auth/jwt/verify',
-        body,
-        config
-      );
-
-      if (res.data.code !== 'token_not_valid') {
-        dispatch({ type: 'AUTHENTICATED' });
-      } else if (refresh) {
-        try {
-          const refreshConfig = {
-            headers: {
-              'Content-Type': 'application/json',
-              'Accept': 'application/json',
-            },
-          };
-          const refreshBody = JSON.stringify({ refresh });
-
-          const refreshRes = await axios.post(
-            'http://127.0.0.1:8000/auth/jwt/refresh',
-            refreshBody,
-            refreshConfig
-          );
-
-          localStorage.setItem('access', refreshRes.data.access);
-          dispatch(refresh(refreshRes.data.access));
-        } catch (err) {
-          dispatch({ type: 'NOT_AUTHENTICATED' });
+    const access = localStorage.getItem('access');
+    if (access) {
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+      };
+      const body = JSON.stringify({ token: localStorage.getItem('access') });
+  
+      try {
+        const res = await axios.post(
+          'http://127.0.0.1:8000/auth/jwt/verify/',
+          body,
+          config
+        );
+  
+        if (res.data.code !== 'token_not_valid') {
+          dispatch({ type: AUTHENTICATED });
+        } 
+         else {
+          dispatch({ type: NOT_AUTHENTICATED});
         }
-      } else {
-        dispatch({ type: 'NOT_AUTHENTICATED' });
+      } catch (err) {
+        dispatch({ type: NOT_AUTHENTICATED });
       }
-    } catch (err) {
-      dispatch({ type: 'NOT_AUTHENTICATED' });
     }
-  } else {
-    dispatch({ type: 'NOT_AUTHENTICATED' });
-  }
-};
+  };
+  
 
 
 export const load_user = () => async dispatch => {

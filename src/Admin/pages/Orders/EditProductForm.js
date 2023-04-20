@@ -77,13 +77,13 @@ function EditProductForm({ product, onClose }) {
           value={price}
           onChange={(event) => setPrice(event.target.value)}
         />
-        <label className="font-inter font-bold text-base leading-5 leading-trim-cap text-gray-700 ">Visibility</label>
-        <br />
-        <input type="radio" name="visibility" id="Published" className="mr-2 " value={inStock} onChange={handleVisibilityChange} />
+        <label className="font-inter font-bold text-base  text-gray-700 mx-2 ">Visibility</label>
+    
+        <input type="radio" name="visibility" id="Published" className="mx-2 " value={inStock} onChange={handleVisibilityChange} />
         <label for="Published" className="font-inter font-semibold text-base leading-5 leading-trim-cap text-gray-600">Published</label>
-        <input type="radio" name="visibility" id="Hidden" class="mr-2" />
+        <input type="radio" name="visibility" id="Hidden" class="mx-2" />
         <label for="Hidden" className="font-inter font-semibold text-base leading-5 leading-trim-cap text-gray-600">Hidden</label>
-        <input type="radio" name="visibility" id="Scheduled" class="mr-2" />
+        <input type="radio" name="visibility" id="Scheduled" class="mx-2" />
         <label for="Scheduled" className="font-inter font-semibold text-base leading-5 leading-trim-cap text-gray-600">Scheduled</label>
         <div className="flex justify-end w-full">
           <button className="bg-greey rounded-full p-3 m-3">Cancel</button>

@@ -4,10 +4,10 @@ import { logout } from '../actions/auth';
 import { Navigate } from 'react-router-dom';
 
 function Home({ isAuthenticated, logout }) {
-  const [isLoggedOut, setIsLoggedOut] = useState(false);
+
 
   const logout_user = () => {
-    setIsLoggedOut(true);
+    
     logout();
   };
 

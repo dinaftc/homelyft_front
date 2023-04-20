@@ -13,7 +13,7 @@ const [quantity, setQuantity] = useState("");
 const [in_stock, setInStock] = useState("");
 const [subcategory, setSubCategory] = useState("");
 const [categories, setCategories] = useState([]);
-const [alert,setAlert] = useState(false);
+
 useEffect(() => {
   fetch('http://127.0.0.1:8000/homeLift/categories/')
     .then(response => response.json())
@@ -58,7 +58,7 @@ const handleAddProduct = (event) => {
   })
   .then((response) => {
     console.log("Product added successfully");
-    setAlert(true)
+    window.alert("Product added successfully")
     // Reset the input values
     setName("");
     setImage("");
@@ -79,14 +79,12 @@ const handleAddProduct = (event) => {
   }
  
    
-
- 
    
   return (
   
 <div className="dashboard-content bg-white">
   <DashboardHeader />
-  {alert && window.alert("Product added successfully") }
+
   <form onSubmit={handleAddProduct} className="block">
     <div className="flex justify-between  w-full">
       <div className="mt-5 mx-5 p-5 bg-offwhite w-3/5 shadow-md rounded-2xl h-120">

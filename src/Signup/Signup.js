@@ -16,7 +16,7 @@ import { FcGoogle } from "react-icons/fc";
 function Signup({ signup, isAuthenticated }) {
   const [email, setEmail] = useState("");
   const [phone_number, setphone_number] = useState("");
-  const [fullname, setfullname] = useState("");
+  const [full_name, setfullname] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = React.useState(true);
 
@@ -31,7 +31,7 @@ function Signup({ signup, isAuthenticated }) {
     event.preventDefault();
 
     
-      signup(fullname, email, phone_number, password);
+      signup(full_name, email, phone_number, password);
       setAccountCreated(true);
       alert("User created successfully! Please check your email");
 
@@ -61,7 +61,7 @@ if (accountCreated) {
           <div className="InputBox">
             <input
               onChange={handleUserChange}
-              value={fullname}
+              value={full_name}
               required
               type='text'/>
            <span>Full name</span>

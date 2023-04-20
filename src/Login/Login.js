@@ -29,15 +29,12 @@ const Login = ({login, isAuthenticated}) => {
   const onSubmit = async (event) => {
     event.preventDefault();
    login(email,password)
-
-   
   };
 
 
   if (isAuthenticated) {
     return <Navigate to='/Home' />
 }
-
 
   return (
     <div className="w-screen h-screen flex justify-center items-center ">

@@ -98,13 +98,12 @@ if (accountCreated) {
               onChange={handlePasswordChange}
               value={password}
               required
+             
               type={showPassword? 'text' : 'password'}
-              minLength={8}
             />
             <span>Password</span>
-           
-             <img src={showPassword ? eyeoff : eye } alt=""  onClick={handleClickShowPassword}/> 
-            
+            <button onClick={handleClickShowPassword}>
+            {showPassword ?  <img src={eyeoff} alt="" /> : <img src={eye} alt="" />} </button>
            
           </div>
       

@@ -91,13 +91,13 @@ const handleAddProduct = (event) => {
       <label className="font-inter font-bold text-base leading-5 leading-trim-cap text-gray-700 mb-5">Basic informations</label>
         <input
         placeholder="Product name"
-        className="bg-fffffb border-2 border-gray-300 rounded-lg w-full p-3 my-3 h-13"
+        className="bg-fffffb border-2 border-gray-300 outline-none rounded-lg w-full p-3 my-3 h-13"
           type="text"
           value={name}
           onChange={(event) => setName(event.target.value)}
         />
         <br />
-        <select  className="bg-fffffb border-2 border-gray-300 rounded-lg w-full p-3 my-3 h-13 font-poppins font-normal text-base leading-6 text-gray-400 " value={subcategory} onChange={handleCategoryChange}>
+        <select  className=" outline-none bg-fffffb border-2 border-gray-300 rounded-lg w-full p-3 my-3 h-13 font-poppins font-normal text-base leading-6 " value={subcategory} onChange={handleCategoryChange}>
           <option value="" className="font-poppins font-normal text-base leading-6 text-gray-400 ">Category</option>
           {categories.map((category) => (
             <option key={category.id} value={category.id}>
@@ -106,7 +106,7 @@ const handleAddProduct = (event) => {
           ))}
         </select>
         <br />
-        <textarea  className="textarea textarea-bordered bg-fffffb border-2 border-gray-300 rounded-lg w-full p-3 mt-3 "
+        <textarea  className="textarea textarea-bordered  outline-none bg-fffffb border-2 border-gray-300 rounded-lg w-full p-3 mt-3 "
             value={description}
             onChange={(event) => setDescription(event.target.value)}
           />
@@ -114,7 +114,7 @@ const handleAddProduct = (event) => {
         
       </div>
       <div className="mx-5 my-5 p-5 bg-offwhite h-80 shadow-md rounded-2xl">
-  <label className="font-inter font-bold text-base leading-5 leading-trim-cap text-gray-700 mb-5">Product Image</label>
+  <label className=" outline-none font-inter font-bold text-base leading-5 leading-trim-cap text-gray-700 mb-5">Product Image</label>
   <div id="form-file-upload" >
     <input type="file" id="input-file-upload" multiple={true} onChange={handleChange} />
     <label id="label-file-upload" htmlFor="input-file-upload">
@@ -134,14 +134,14 @@ const handleAddProduct = (event) => {
     <div class="flex my-2">
       <input
         placeholder="Quantity"
-        class="bg-fffffb border-2 border-gray-300 rounded-lg w-1/2 p-3  mx-5 h-13"
+        class="bg-fffffb outline-none border-2 border-gray-300 rounded-lg w-1/2 p-3  mx-5 h-13"
         type="number"
         value={quantity}
         onChange={(event) => setQuantity(event.target.value)}
       />
       <input
         placeholder="Price"
-        class="bg-fffffb border-2 border-gray-300 rounded-lg w-1/2 p-3 mx-5 h-13"
+        class="bg-fffffb border-2 outline-none border-gray-300 rounded-lg w-1/2 p-3 mx-5 h-13"
         type="number"
         value={price}
         onChange={(event) => setPrice(event.target.value)}
@@ -150,21 +150,21 @@ const handleAddProduct = (event) => {
   </div>
 
   <div className="mr-5 ml-12 my-5 p-5 bg-offwhite shadow-md rounded-2xl "  style={{flex: 1}}>
-    <label className="font-inter font-bold text-base leading-5 leading-trim-cap text-gray-700 ">Visibility</label>
+    <label className="font-inter font-bold text-base  outline-none leading-5 leading-trim-cap text-gray-700 ">Visibility</label>
     <br />
     <div class="my-2">
   <div class="flex items-center">
-    <input type="radio" name="visibility" id="Published" className="mr-2 " value={in_stock}onChange={handleVisibilityChange}/>
+    <input type="radio" name="visibility" id="Published" className="mr-2 outline-none " value={in_stock}onChange={handleVisibilityChange}/>
     <label for="Published" className="font-inter font-semibold text-base leading-5 leading-trim-cap text-gray-600
 ">Published</label>
   </div>
   <div class="flex items-center">
-    <input type="radio" name="visibility" id="Hidden" class="mr-2" />
+    <input type="radio" name="visibility" id="Hidden" class="mr-2 outline-none" />
     <label for="Hidden" className="font-inter font-semibold text-base leading-5 leading-trim-cap text-gray-600
 ">Hidden</label>
   </div>
   <div class="flex items-center">
-    <input type="radio" name="visibility" id="Scheduled" class="mr-2" />
+    <input type="radio" name="visibility" id="Scheduled" class="mr-2 outline-none" />
     <label for="Scheduled" className="font-inter font-semibold text-base leading-5 leading-trim-cap text-gray-600
 ">Scheduled</label>
   </div>

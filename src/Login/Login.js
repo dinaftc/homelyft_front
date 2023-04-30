@@ -1,11 +1,11 @@
 /* eslint-disable no-unused-vars */
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
 import { Link, Navigate } from "react-router-dom";
 
 import { connect } from "react-redux";
 
-import { login} from "../actions/auth";
+import { login } from "../actions/auth";
 
 import { FcGoogle } from "react-icons/fc";
 
@@ -14,7 +14,7 @@ import at from "./at.png";
 import eyeoff from "./eye-off.png";
 import eye from "./eye.png";
 
-const Login = ({login, isAuthenticated}) => {
+const Login = ({ login, isAuthenticated }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const handleEmailChange = (event) => setEmail(event.target.value);
@@ -24,21 +24,18 @@ const Login = ({login, isAuthenticated}) => {
   const [enterEmail, setEnterEmail] = useState(false);
   const handleEmailsent = () => setEnterEmail(!enterEmail);
 
-
-
   const onSubmit = async (event) => {
     event.preventDefault();
-   login(email,password)
+    login(email, password);
   };
 
-
   if (isAuthenticated) {
-    return <Navigate to='/Home' />
-}
+    return <Navigate to="/Home" />;
+  }
 
   return (
     <div className="w-screen h-screen flex justify-center items-center ">
-      <form className=" rounded-lg py-4 px-12" onSubmit={e=>onSubmit(e)}>
+      <form className=" rounded-lg py-4 px-12" onSubmit={(e) => onSubmit(e)}>
         <div className="my-2">
           <h1 className="text-3xl font-bold font-pop text-center text-primary ">
             Hello Again!
@@ -52,35 +49,39 @@ const Login = ({login, isAuthenticated}) => {
             </p>
           </div>
         </div>
-        
-          <div className="InputBox">
-            <input
-              onChange={handleEmailChange}
-              value={email}
-              required
-            
-            />
-            <span>Email</span>
-            <img src={at} alt="" />
-          </div>
-       
-          <div className="InputBox ">
-            <input
-              onChange={handlePasswordChange}
-              value={password}
-              required
-              type={showPassword? 'text' : 'password'}
-              minLength={8}
-            />
-            <span>Password</span>
-           
-             <img src={showPassword ? eyeoff : eye } alt=""  onClick={handleClickShowPassword}/> 
-            
-           
-          </div>
-        
+
+        <div className="InputBox">
+          <input
+            onChange={handleEmailChange}
+            value={email}
+            required
+            className="text-black"
+          />
+          <span>Email</span>
+          <img src={at} alt="" />
+        </div>
+
+        <div className="InputBox ">
+          <input
+            onChange={handlePasswordChange}
+            value={password}
+            required
+            type={showPassword ? "text" : "password"}
+            minLength={8}
+            className="text-black"
+          />
+          <span>Password</span>
+
+          <img
+            src={showPassword ? eyeoff : eye}
+            alt=""
+            onClick={handleClickShowPassword}
+          />
+        </div>
+
         <div className="flex justify-end my-1">
-          <Link to='/Resetpwd'
+          <Link
+            to="/Resetpwd"
             className="text-sm font-pop font-normal font-400  text-primary  "
             onClick={handleEmailsent}
           >
@@ -89,7 +90,7 @@ const Login = ({login, isAuthenticated}) => {
         </div>
         <div className="my-7">
           <button
-            className=" text-lg btn btn-active border-0 rounded-lg text-white w-full bg-primary normal-case font-pop font-normal font-600"
+            className=" text-lg btn btn-active border-0 rounded-lg text-white w-full bg-primary normal-case font-pop font-normal font-600 "
             type="submit"
           >
             Login
@@ -122,15 +123,12 @@ const Login = ({login, isAuthenticated}) => {
           </button>
         </div>
       </form>
-      
-     
     </div>
-  
   );
 };
 
-const mapStateToProps = state => ({
-  isAuthenticated: state.auth.isAuthenticated
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated,
 });
 
 export default connect(mapStateToProps, { login })(Login);

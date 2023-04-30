@@ -1,14 +1,13 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 import "../Login/Login.css";
-import { Link,Navigate } from "react-router-dom";
-import { connect } from 'react-redux';
-import { signup } from '../actions/auth';
-
+import { Link, Navigate } from "react-router-dom";
+import { connect } from "react-redux";
+import { signup } from "../actions/auth";
 
 import at from "../Login/at.png";
 import eyeoff from "../Login/eye-off.png";
-import eye from '../Login/eye.png'
+import eye from "../Login/eye.png";
 import hash from "../Login/hash.png";
 import user from "../Login/user.png";
 import { FcGoogle } from "react-icons/fc";
@@ -30,19 +29,17 @@ function Signup({ signup, isAuthenticated }) {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    
-      signup(full_name, email, phone_number, password);
-      setAccountCreated(true);
-      alert("User created successfully! Please check your email");
-
+    signup(full_name, email, phone_number, password);
+    setAccountCreated(true);
+    alert("User created successfully! Please check your email");
   };
 
   if (isAuthenticated) {
-    return <Navigate to='/Home' />
-}
-if (accountCreated) {
-    return <Navigate to='/' />
-}
+    return <Navigate to="/Home" />;
+  }
+  if (accountCreated) {
+    return <Navigate to="/" />;
+  }
 
   return (
     <div className="w-screen h-screen flex justify-center items-center">
@@ -53,60 +50,60 @@ if (accountCreated) {
           </h1>
           <div className="my-1 flex flex-col text-center mb-7">
             <p className="text-gray-400 font-pop font-normal font-400">
-              Create an account and enjoy your shopping 
+              Create an account and enjoy your shopping
             </p>
           </div>
         </div>
- 
-          <div className="InputBox">
-            <input
-              onChange={handleUserChange}
-              value={full_name}
-              required
-              type='text'/>
-           <span>Full name</span>
-            <img src={user} alt="" />
-          </div>
-    
-       
-          <div className="InputBox">
-            <input
-              onChange={handleEmailChange}
-              value={email}
-              required
-              type='email'
-             
-            />
-            <span>Email</span>
-            <img src={at} alt="" />
-          </div>
-      
-          <div className="InputBox">
-            <input
-              onChange={handlePhoneChange}
-              value={phone_number}
-              required
-              type='tel'
-             
-            />
-            <span>Phone number</span>
-            <img src={hash} alt="" />
-          </div>
-       
-          <div className="InputBox ">
-            <input
-              onChange={handlePasswordChange}
-              value={password}
-              required
-             
-              type={showPassword? 'text' : 'password'}
-            />
-            <span>Password</span>
-            <button onClick={handleClickShowPassword}>
-            {showPassword ?  <img src={eyeoff} alt="" /> : <img src={eye} alt="" />} </button>
-           
-          </div>
-      
+
+        <div className="InputBox">
+          <input
+            onChange={handleUserChange}
+            value={full_name}
+            required
+            type="text"
+          />
+          <span>Full name</span>
+          <img src={user} alt="" />
+        </div>
+
+        <div className="InputBox">
+          <input
+            onChange={handleEmailChange}
+            value={email}
+            required
+            type="email"
+          />
+          <span>Email</span>
+          <img src={at} alt="" />
+        </div>
+
+        <div className="InputBox">
+          <input
+            onChange={handlePhoneChange}
+            value={phone_number}
+            required
+            type="tel"
+          />
+          <span>Phone number</span>
+          <img src={hash} alt="" />
+        </div>
+
+        <div className="InputBox ">
+          <input
+            onChange={handlePasswordChange}
+            value={password}
+            required
+            type={showPassword ? "text" : "password"}
+          />
+          <span>Password</span>
+          <button onClick={handleClickShowPassword}>
+            {showPassword ? (
+              <img src={eyeoff} alt="" />
+            ) : (
+              <img src={eye} alt="" />
+            )}{" "}
+          </button>
+        </div>
 
         <div className="my-7">
           <button
@@ -141,12 +138,11 @@ if (accountCreated) {
           </button>
         </div>
       </form>
-     
     </div>
   );
 }
-const mapStateToProps = state => ({
-  isAuthenticated: state.auth.isAuthenticated
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated,
 });
 
 export default connect(mapStateToProps, { signup })(Signup);

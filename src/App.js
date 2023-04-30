@@ -11,13 +11,8 @@ import store from "./Login/store";
 import Orders from "./Admin/pages/Orders/index";
 import AddProduct from "./Admin/pages/Orders/AddProduct";
 import Modal2 from "./Admin/components/Modal/Modal2";
-
 function App() {
-  return (
-    <div className="App">
-      <Modal2 />
-    </div>
-  );
+  return <Modal2 />;
 }
 
 export default App;

@@ -44,6 +44,7 @@ const Sidebar = ({ isAuthenticated, logout }) => {
     { title: "Notifications", src: notif, activesrc: notifwhite , Link:'/Home'},
     { title: "Products", src: products, activesrc: productswhite , Link:'/products'},
     { title: "Inbox", src: inbox, activesrc: inboxwhite , Link:'/Home' },
+    { title: "Clients", src: inbox, activesrc: inboxwhite , Link:'/Home' },
     { title: "Insights", src: insight, activesrc: insightwhite , Link:'/Home'},
   ];
   const SecMenus = [

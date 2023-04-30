@@ -3,7 +3,41 @@ import { useState } from "react";
 import * as React from "react";
 import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
+import axios from "axios";
 const Modal2 = () => {
+  const [category, setCategory] = useState();
+  const handleAddCategory = (event) => {
+    event.preventDefault();
+    axios
+      .post("http://127.0.0.1:8000/homeLift/categories/", category, {
+        headers: {
+          "content-type": "application/json",
+        },
+      })
+      .then((response) => {
+        const id = response.data.id;
+        console.log("category  added successfully");
+        axios
+          .post(
+            `http://127.0.0.1:8000/homeLift/categories/${id}/subcategory-create/`,
+            subCategories[0],
+            {
+              headers: {
+                "content-type": "application/json",
+              },
+            }
+          )
+          .then((response) => {
+            console.log("sub category added succesfully ");
+          })
+          .catch((error) => {
+            console.error("Failed to add product image", error);
+          });
+      })
+      .catch((error) => {
+        console.error("Failed to add product", error);
+      });
+  };
   const [subCategories, setSubCategories] = useState([]);
   const handleAddSubCategory = () => {
     const subCategoryInput = document.getElementById("sub-category-input");
@@ -51,6 +85,7 @@ const Modal2 = () => {
         <div class="relative mt-3 w-full">
           <input
             type="text"
+            value={category}
             id="floating_outlined"
             class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-primary focus:outline-none focus:ring-0 focus:border-primary peer"
             placeholder=" "
@@ -70,6 +105,7 @@ const Modal2 = () => {
         <div className="flex flex-row mt-3 space-x-2 w-full">
           <div className=" relative basis-3/5">
             <input
+              onChange={(event) => setCategory(event.target.value)}
               type="text"
               id="sub-category-input"
               class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-primary focus:outline-none focus:ring-0 focus:border-primary peer"
@@ -131,7 +167,10 @@ const Modal2 = () => {
             </button>
           </div>
           <div>
-            <button className=" font-pop w-20 btn normal-case text-white rounded-full bg-primary  border-primary hover:bg-hoverADD hover:border-hoverADD ">
+            <button
+              onClick={handleAddCategory}
+              className=" font-pop w-20 btn normal-case text-white rounded-full bg-primary  border-primary hover:bg-hoverADD hover:border-hoverADD "
+            >
               Add{" "}
             </button>
           </div>

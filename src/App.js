@@ -10,9 +10,33 @@ import { Provider } from "react-redux";
 import store from "./Login/store";
 import Orders from "./Admin/pages/Orders/index";
 import AddProduct from "./Admin/pages/Orders/AddProduct";
-import Modal2 from "./Admin/components/Modal/Modal2";
 function App() {
-  return <Modal2 />;
+  return (
+    <Provider store={store}>
+      <Router>
+        <Layout>
+          <Routes>
+            <Route path="/" element={<Login />} />
+            <Route path="/Signup" element={<Signup />} />
+            <Route path="/Home" element={<Home />} />
+            <Route path="/Resetpwd" element={<Resetpwd />} />
+
+            <Route
+              path="/password/reset/confirm/:uid/:token"
+              element={<ResetpwdConfirm />}
+            />
+            <Route path="/activate/:uid/:token" element={<Activate />} />
+            <Route exact path="/products" element={<Orders />} />
+            <Route
+              exact
+              path="/products/Add_product"
+              element={<AddProduct />}
+            />
+          </Routes>
+        </Layout>
+      </Router>
+    </Provider>
+  );
 }
 
 export default App;

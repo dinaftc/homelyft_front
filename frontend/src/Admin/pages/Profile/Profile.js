@@ -265,7 +265,7 @@ export default function Profile() {
                   {user.payment_info}
                 </p>
                 <p class="text-center text-sm text-gray-400 font-medium">
-                  {(user.role = 3 ? "client" : "employee")}
+                  {(user.role == 3 ? "client" : "employee")}
                 </p>
               </div>
               <div className="flex justify-end">

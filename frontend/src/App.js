@@ -8,9 +8,9 @@ import Activate from "./Signup/Activate";
 import ResetpwdConfirm from "./Login/ResetpwdConfirm";
 import { Provider } from "react-redux";
 import store from "./Login/store";
-import Orders from './Admin/pages/Orders/index';
-import AddProduct from './Admin/pages/Orders/AddProduct'
-import EditProductForm from "./Admin/pages/Orders/EditProductForm";
+import Orders from './Admin/pages/Products/index';
+import AddProduct from './Admin/pages/Products/AddProduct'
+import EditProductForm from "./Admin/pages/Products/EditProductForm";
 import Profile from "./Admin/pages/Profile/Profile"
 import Settings from "./Admin/pages/Settings/Settings";
 import Addstaff from "./Admin/pages/Settings/Add_staff";

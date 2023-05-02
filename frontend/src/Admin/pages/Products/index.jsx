@@ -12,6 +12,8 @@ import EditProductForm from "./EditProductForm";
 import Sidebar from "../../components/Sidebar";
 import { connect } from 'react-redux';
 import { logout } from '../../../actions/auth';
+import Categories from './Categories'
+
 export let products;
 export let setProducts;
 function Orders({ isAuthenticated, logout }) {
@@ -349,14 +351,17 @@ else{
           </div>
         )}
         
-      </div>}
+      </div> }
+      <Categories></Categories>
       {showEditForm && (
           <EditProductForm
             product={selectedProduct}
             onClose={() => setShowEditForm(false)}
           />
         )}
+        
     </div>
+   
   );}
 }
 

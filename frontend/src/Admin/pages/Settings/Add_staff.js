@@ -91,7 +91,7 @@ function Add_staff() {
               value={full_name}
               required
               type='text'/>
-           <span>Full name</span>
+           <span>Full name*</span>
             <img src={user} alt="" />
           </div>
     
@@ -104,7 +104,7 @@ function Add_staff() {
               type='email'
              
             />
-            <span>Email</span>
+            <span>Email*</span>
             <img src={at} alt="" />
           </div>
       
@@ -116,7 +116,9 @@ function Add_staff() {
               type='tel'
              
             />
-            <span>Phone number</span>
+            <span>Phone number
+              8
+            </span>
             <img src={hash} alt="" />
           </div>
        
@@ -128,7 +130,7 @@ function Add_staff() {
               type={showPassword? 'text' : 'password'}
               minLength={8}
             />
-            <span>Password</span>
+            <span>Password*</span>
            
              <img src={showPassword ? eyeoff : eye } alt=""  onClick={handleClickShowPassword}/> 
             

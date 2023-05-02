@@ -149,7 +149,7 @@ function AddProduct() {
             Basic informations
           </label>
           <input
-            placeholder="Product name"
+            placeholder="Product name*"
             className="bg-fffffb border-2 border-gray-300 outline-none rounded-lg w-full p-3 my-3 h-13"
             type="text"
             value={name}
@@ -257,14 +257,14 @@ function AddProduct() {
           <br />
           <div class="flex my-2">
             <input
-              placeholder="Quantity"
+              placeholder="Quantity*"
               class="bg-fffffb outline-none border-2 border-gray-300 rounded-lg w-1/2 p-3  mx-5 h-13"
               type="number"
               value={quantity}
               onChange={(event) => setQuantity(event.target.value)}
             />
             <input
-              placeholder="Price"
+              placeholder="Price*"
               class="bg-fffffb border-2 outline-none border-gray-300 rounded-lg w-1/2 p-3 mx-5 h-13"
               type="number"
               value={price}

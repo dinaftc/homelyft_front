@@ -4,11 +4,6 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 
-
-
-
-
-
 function EditProductForm({ product,onClose }) {
   const [name, setName] = useState(product.name);
   const [price, setPrice] = useState(product.price);
@@ -94,10 +89,6 @@ function EditProductForm({ product,onClose }) {
       setInStock(false);
     }
   };
-
-
-
-
 
 
   return (<div>

@@ -352,14 +352,14 @@ else{
         )}
         
       </div> }
-      <Categories></Categories>
+      
       {showEditForm && (
           <EditProductForm
             product={selectedProduct}
             onClose={() => setShowEditForm(false)}
           />
         )}
-        
+        <Categories></Categories>
     </div>
    
   );}

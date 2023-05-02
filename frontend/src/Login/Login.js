@@ -75,7 +75,7 @@ const Login = ({login, isAuthenticated,LOGIN_FAIL}) => {
               required
             
             />
-            <span>Email</span>
+            <span>Email*</span>
             <img src={at} alt="" />
           </div>
        
@@ -87,7 +87,7 @@ const Login = ({login, isAuthenticated,LOGIN_FAIL}) => {
               type={showPassword? 'text' : 'password'}
               minLength={8}
             />
-            <span>Password</span>
+            <span>Password*</span>
            
              <img src={showPassword ? eyeoff : eye } alt=""  onClick={handleClickShowPassword}/> 
             

@@ -118,6 +118,7 @@ export default function Settings() {
                 className="p-5 pl-14 bg-transparent outline-none"
                 value={searchTerm}
                 placeholder="Search"
+              
                 onChange={(e) => setSearchTerm(e.target.value)}
                 onKeyDown={handleKeyPress}
               />

@@ -25,7 +25,7 @@ function Orders({ isAuthenticated, logout }) {
   const [imagee, setImagee] = useState([]);
 const [TotalOrders,setTotalOrders]=useState(0);
 const [triggerFetch, setTriggerFetch] = useState(false);
-
+const place='homeLift/products'
   products = orders;
   setProducts = setOrders;
 
@@ -161,7 +161,7 @@ else{
     
     <div className="dashboard-content">
       
-      <DashboardHeader />
+      <DashboardHeader place={place} />
 {!showEditForm &&
       <div className="dashboard-content-container">
         <div className="dashboard-content-header">

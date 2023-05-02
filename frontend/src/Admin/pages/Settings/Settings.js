@@ -7,10 +7,12 @@ import { Link } from "react-router-dom";
 import search from "../../assets/icons/search.png";
 import axios from "axios";
 import Profile from "../Profile/Profile";
+import DashboardHeader from './../../components/DashboardHeader/index';
 export default function Settings() {
   const [staff, setStaff] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [user, setUser] = useState({});
+  const place='account/staff-list'
    const handleSearch = () => {
     const filteredStaff = staff.filter((item) =>
       item.fullname.toLowerCase().includes(searchTerm.toLowerCase())
@@ -105,6 +107,7 @@ export default function Settings() {
     <>
       {user.role !== 3 && (
         <div className="dashboard-content">
+          <DashboardHeader place={place}></DashboardHeader>
           <Profile />
           <div className="dashboard-content-header  ml-7 my-5">
             <p className="font-pop font-normal text-lg md:text-xl font-medium text-gray-800 leading-normal

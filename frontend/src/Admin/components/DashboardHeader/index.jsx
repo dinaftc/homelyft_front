@@ -4,13 +4,13 @@ import "./styles.css";
 import search from "../../assets/icons/search.png";
 import axios from "axios";
 import { Link } from "react-router-dom";
-function DashboardHeader({ orders }) {
+function DashboardHeader({ orders,place }) {
   const [searchTerm, setSearchTerm] = useState("");
 
-  const handleSearch = () => {
+  const handleSearch = (place) => {
     axios
-      .get(`http://127.0.0.1:8000/homeLift/products/?search=${searchTerm}`)
-      .then((response) => {
+      .get(`http://127.0.0.1:8000/${place}/?search=${searchTerm}`)
+       .then((response) => {
         // handle the response data here
         console.log(response.data);
         setProducts(response.data);
@@ -22,7 +22,7 @@ function DashboardHeader({ orders }) {
   };
   const handleKeyPress = (e) => {
     if (e.key === "Enter") {
-      handleSearch();
+      handleSearch(place);
     }
   };
 
@@ -56,7 +56,7 @@ function DashboardHeader({ orders }) {
         onKeyDown={handleKeyPress}
       />
 
-      <img src={search} alt="" className="search-img" onClick={handleSearch} />
+      <img src={search} alt="" className="search-img" onClick={()=>handleSearch(place)} />
 
       <div className="dashbord-header-right">
         <img

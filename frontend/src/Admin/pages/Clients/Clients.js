@@ -22,7 +22,7 @@ function Clients({ isAuthenticated, logout }) {
   const [imagee, setImagee] = useState([]);
 const [TotalOrders,setTotalOrders]=useState(0);
 const [triggerFetch, setTriggerFetch] = useState(false);
-
+const place='account/customer-list'
   
 
  
@@ -97,7 +97,7 @@ else{
     
     <div className="dashboard-content">
       
-      <DashboardHeader />
+      <DashboardHeader place={place}/>
 
       <div className="dashboard-content-container">
         <div className="dashboard-content-header">

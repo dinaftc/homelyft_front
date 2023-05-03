@@ -25,7 +25,7 @@ const Category = () => {
         setCategories(data);
       })
       .catch((error) => console.error(error));
-  }, [Categories,subCategories]);
+  }, []);
 
   return (
     <div className="dashboard-content-container">

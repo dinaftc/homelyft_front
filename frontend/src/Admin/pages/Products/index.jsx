@@ -345,11 +345,13 @@ else{
               Next
             </button>
           </div>
+          
         ) : (
           <div className="dashboard-content-footer">
             <span className="empty-table">No data</span>
           </div>
-        )}
+        )
+        }
         
       </div> }
       
@@ -359,7 +361,7 @@ else{
             onClose={() => setShowEditForm(false)}
           />
         )}
-        <Categories></Categories>
+      {!showEditForm &&  <Categories></Categories>}
     </div>
    
   );}

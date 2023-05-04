@@ -347,7 +347,7 @@ else{
           </div>
           
         ) : (
-          <div className="dashboard-content-footer">
+          <div className="">
             <span className="empty-table">No data</span>
           </div>
         )

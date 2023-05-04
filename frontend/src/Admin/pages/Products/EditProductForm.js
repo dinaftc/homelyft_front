@@ -2,80 +2,118 @@ import { useState } from "react";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import { MdOutlineCancel } from "react-icons/md";
 function EditProductForm({ product, onClose }) {
   const [name, setName] = useState(product.name);
   const [price, setPrice] = useState(product.price);
   const [description, setDescription] = useState(product.description);
   const [quantity, setQuantity] = useState(product.quantity);
-  const [inStock, setInStock] = useState(product.in_stock);
+
   const [id] = useState(product.id);
   const [subcategory] = useState(product.subcategory);
-  const [image, setImage] = useState(product.image);
-  const [selectedFile, setSelectedFile] = useState(null);
-  const handleChange = function (e) {
-    e.preventDefault();
-    if (e.target.files && e.target.files[0]) {
-      const file = e.target.files[0];
-      setSelectedFile(file.name);
-      setImage(file);
-    }
+
+  const [productImages, setProductImages] = useState(product.productImages);
+  const [selectedFiles, setSelectedFiles] = useState([]);
+
+  const [previewImages, setPreviewImages] = useState([]);
+
+  const handleFileSelect = (e) => {
+    const files = e.target.files;
+    const selectedFilesArray = Array.from(files);
+    setSelectedFiles(selectedFilesArray);
+
+    const previewImagesArray = selectedFilesArray.map((file) => {
+      return URL.createObjectURL(file);
+    });
+    setPreviewImages(previewImagesArray);
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    axios
-      .get(`http://127.0.0.1:8000/homeLift/products/${id}/images/`)
-      .then((response) => response.json())
-      .then((data) => {
-        const ID = data.id;
 
-        axios
-          .put(
-            `http://127.0.0.1:8000/homeLift/homeLift/products/images/${ID}/`,
-            image,
-            {
-              headers: {
-                "content-type": "multipart/form-data",
-              },
-            }
-          )
+    const formData = new FormData();
+    formData.append("name", name);
+    formData.append("subcategory", subcategory);
+    formData.append("price", price);
+    formData.append("description", description);
+    formData.append("quantity", quantity);
 
-          .then(() => {
-            toast.success("Product image Edited !", {
-              position: "top-center",
-              autoClose: 5000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "light",
-            });
-          })
+    try {
+      const response = await axios.put(
+        `http://127.0.0.1:8000/homeLift/products/${id}/`,
+        formData
+      );
 
-          .catch((error) => {
-            console.error(error);
-            toast.error("Could not Edit Product", {
-              position: "top-center",
-              autoClose: 5000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "light",
-            });
-          });
+      if (productImages.length < 5) {
+        const formData = new FormData();
+
+        selectedFiles.forEach((file) => {
+          formData.append("image", file);
+        });
+
+        await axios.post(
+          `http://127.0.0.1:8000/homeLift/products/${response.data.id}/images-create/`,
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
+        console.log("Product edited successfully");
+        toast.success("Product edited successfully!", {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      } else {
+        toast.error("Please delete an image to add another one!", {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error("Could not edit product", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
       });
+    }
   };
 
-  const handleVisibilityChange = (event) => {
-    if (event.target.id === "Published") {
-      setInStock(true);
-    } else {
-      setInStock(false);
-    }
+  const handleDeleteImage = (ID) => {
+    fetch(`http://127.0.0.1:8000/homeLift/products/images/${ID}/`, {
+      method: "DELETE",
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Failed to delete image.");
+        }
+        // remove the deleted image from the state
+        setProductImages(productImages.filter((file) => file.id !== ID));
+      })
+      .catch((error) => {
+        console.error(error);
+        // display an error message to the user
+        alert("Failed to delete image.");
+      });
   };
 
   return (
@@ -112,21 +150,63 @@ function EditProductForm({ product, onClose }) {
               type="file"
               id="input-file-upload"
               multiple={true}
-              onChange={handleChange}
+              onChange={handleFileSelect}
             />
             <label id="label-file-upload" htmlFor="input-file-upload">
               <div>
-                {selectedFile ? (
-                  <ul className="upload-button">
-                    {selectedFile && (
-                      <p className="font-inter font-normal text-xs leading-4 leading-trim-cap text-gray-400">
-                        {selectedFile} selected
-                      </p>
-                    )}
-                  </ul>
-                ) : (
-                  <p className="upload-button"> Upload your product image.</p>
-                )}
+                <ul className="upload-button">
+                  {selectedFiles.length === 0 ? (
+                    
+                      <div class="flex flex-wrap">
+                        {productImages.map((file) => (
+                          <li key={file.name} class="w-1/5 mx-2 mb-4">
+                            <img
+                              src={file.image}
+                              alt=""
+                              class="w-full h-full"
+                            />
+                            <button
+                              class="absolute bottom-14 left-10 "
+                              onClick={() => handleDeleteImage(file.id)}
+                            >
+                              <MdOutlineCancel />
+                            </button>
+                          </li>
+                        ))}
+                      </div>
+                   
+                  ) : (
+                    <div class="flex flex-wrap">
+                      {productImages.map((file) => (
+                        <li key={file.name} class="w-1/5 mx-2 mb-4">
+                          <img src={file.image} alt="" class="w-full h-full" />
+                          <button
+                            class="absolute bottom-14 left-10 "
+                            onClick={() => handleDeleteImage(file.id)}
+                          >
+                            <MdOutlineCancel />
+                          </button>
+                        </li>
+                      ))}
+                      {previewImages.map((file) => (
+                        <li key={file.name} class="w-1/5 mx-2 mb-4 relative">
+                          <img
+                             src={file}
+                            alt=""
+                            class="w-full h-full"
+                          />
+                          <button
+                            class="absolute bottom-14 left-10 "
+                           
+                          >
+                            <MdOutlineCancel />
+                          </button>
+                        </li>
+                       
+                      ))}
+                  </div>
+                  )}
+                </ul>
               </div>
             </label>
           </div>
@@ -178,9 +258,6 @@ function EditProductForm({ product, onClose }) {
                 name="visibility"
                 id="Published"
                 className="mr-2 outline-none "
-                value={inStock}
-                checked={inStock === true}
-                onChange={handleVisibilityChange}
               />
               <label
                 for="Published"

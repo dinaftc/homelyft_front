@@ -84,24 +84,7 @@ function AddProduct() {
               console.error("Error adding product images:", error);
             });
         });
-        axios
-          .post(
-            `http://127.0.0.1:8000/homeLift/products/${response.data.id}/images-create/`,
-            formData,
-            {
-              headers: {
-                "content-type": "multipart/form-data",
-              },
-            }
-          )
-          .then((response) => {
-            console.log("Product images added successfully");
-            console.log(response.data);
-            window.alert("Product added successfully");
-          })
-          .catch((error) => {
-            console.error("Error adding product images:", error);
-          });
+        
       })
       .catch((error) => {
         console.log("Failed to add product");
@@ -233,7 +216,7 @@ function AddProduct() {
                   {selectedFiles ? (
                     <ul className="upload-button">
                       {selectedFiles.map((file) => (
-                        <li key={file.name}>{file.name}</li>
+                        <li key={file}>{file}</li>
                       ))}
                     </ul>
                   ) : (

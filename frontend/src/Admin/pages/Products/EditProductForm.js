@@ -141,7 +141,7 @@ function EditProductForm({ product, onClose }) {
             onChange={(event) => setDescription(event.target.value)}
           />
         </div>
-        <div className="mx-5 my-5 p-5 bg-offwhite h- shadow-md rounded-2xl">
+        <div className="mx-5 my-5 p-5 bg-white h-80 shadow-md rounded-2xl">
           <label className="outline-none font-inter font-bold text-base leading-5 leading-trim-cap text-gray-700 mb-5">
             Product Image
           </label>
@@ -156,10 +156,10 @@ function EditProductForm({ product, onClose }) {
               <div>
                 <ul className="upload-button">
                   {selectedFiles.length === 0 ? (
-                    
-                      <div class="flex flex-wrap">
+                    <ul className="upload-button">
+                      <div class="flex flex-wrap justify-start">
                         {productImages.map((file) => (
-                          <li key={file.name} class="w-1/5 mx-2 mb-4">
+                          <li key={file.name} class="w-1/5 mx-2 mb-4 relative">
                             <img
                               src={file.image}
                               alt=""
@@ -174,11 +174,12 @@ function EditProductForm({ product, onClose }) {
                           </li>
                         ))}
                       </div>
-                   
+                    </ul>
                   ) : (
-                    <div class="flex flex-wrap">
+                    <ul className="upload-button">
+                       <div class="flex flex-wrap justify-start">
                       {productImages.map((file) => (
-                        <li key={file.name} class="w-1/5 mx-2 mb-4">
+                        <li key={file.name} class="w-1/5 mx-2 mb-4 relative">
                           <img src={file.image} alt="" class="w-full h-full" />
                           <button
                             class="absolute bottom-14 left-10 "
@@ -191,20 +192,20 @@ function EditProductForm({ product, onClose }) {
                       {previewImages.map((file) => (
                         <li key={file.name} class="w-1/5 mx-2 mb-4 relative">
                           <img
-                             src={file}
+                            src={file}
                             alt=""
                             class="w-full h-full"
                           />
                           <button
                             class="absolute bottom-14 left-10 "
-                           
+                            
                           >
                             <MdOutlineCancel />
                           </button>
                         </li>
-                       
                       ))}
-                  </div>
+                      </div>
+                    </ul>
                   )}
                 </ul>
               </div>

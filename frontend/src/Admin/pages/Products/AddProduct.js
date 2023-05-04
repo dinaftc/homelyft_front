@@ -213,19 +213,28 @@ function AddProduct() {
               />
               <label id="label-file-upload" htmlFor="input-file-upload">
                 <div>
-                  {selectedFiles ? (
+                {selectedFiles ? (
                     <ul className="upload-button">
-                      {selectedFiles.map((file) => (
-                        <li key={file}>{file}</li>
+                       <div class="flex flex-wrap justify-start">
+                       {previewImages.map((file) => (
+                        <li key={file.name} class="w-1/5 mx-2 mb-4 relative">
+                          <img
+                            src={file}
+                            alt=""
+                            class="w-full h-full"
+                          />
+                          
+                        </li>
                       ))}
+                      </div>
                     </ul>
                   ) : (
-                    <p className="upload-button"> Upload your product image.</p>
+                    <><p className="upload-button"> Upload your product image.</p><p className="font-inter font-normal text-xs leading-4 leading-trim-cap text-gray-400">
+                          Only PNG, JPG format allowed <br />
+                          500x500 pixels are recommended
+                        </p></>
                   )}
-                  <p className="font-inter font-normal text-xs leading-4 leading-trim-cap text-gray-400">
-                    Only PNG, JPG format allowed <br />
-                    500x500 pixels are recommended{" "}
-                  </p>
+                  
                 </div>
               </label>
             </div>

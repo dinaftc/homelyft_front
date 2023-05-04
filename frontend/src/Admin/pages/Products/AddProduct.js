@@ -4,15 +4,15 @@ import DashboardHeader from "../../components/DashboardHeader";
 import "./AddProduct.css";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function AddProduct() {
   const [name, setName] = useState("");
-
-  const [selectedFile, setSelectedFile] = useState(null);
+  const [ setSelectedFile] = useState(null);
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
   const [quantity, setQuantity] = useState("");
-  const [in_stock, setInStock] = useState("");
   const [subcategories, setSubCategories] = useState([]);
   const [categories, setCategories] = useState([]);
   const [subcategory, setSubCategory] = useState('');
@@ -50,7 +50,6 @@ function AddProduct() {
     formData.append("price", price);
     formData.append("description", description);
     formData.append("quantity", quantity);
-    formData.append("in_stock", in_stock);
     formData.append("category", category);
     formData.append("subcategory", subcategory);
 
@@ -78,7 +77,16 @@ function AddProduct() {
             .then((response) => {
               console.log("Product images added successfully");
               console.log(response.data);
-              window.alert("Product added successfully");
+              toast.success("Product edited successfully!", {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+              });
             })
             .catch((error) => {
               console.error("Error adding product images:", error);
@@ -98,7 +106,7 @@ function AddProduct() {
         setPrice("");
         setDescription("");
         setQuantity("");
-        setInStock("");
+        
         setSubCategory("");
         setCategory("");
         // Close the modal
@@ -280,7 +288,7 @@ function AddProduct() {
                 name="visibility"
                 id="Published"
                 className="mr-2 outline-none "
-                value={in_stock}
+              
               />
               <label
                 for="Published"
@@ -338,6 +346,7 @@ function AddProduct() {
           Add Product
         </button>
       </div>
+      <ToastContainer />
     </div>
   );
 }

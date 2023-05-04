@@ -189,11 +189,12 @@ function AddProduct() {
             onChange={(event) => setDescription(event.target.value)}
           />
         </div>
-        <div className="mx-5 my-5 p-5 bg-white h-80 shadow-md rounded-2xl">
-          <label className=" outline-none font-inter font-bold text-base leading-5 leading-trim-cap text-gray-700 mb-5">
-            Product Image
-          </label>
+        
           {!images ? (
+            <div className="mx-5 my-5 p-5 bg-white h-80 shadow-md rounded-2xl">
+            <label className=" outline-none font-inter font-bold text-base leading-5 leading-trim-cap text-gray-700 mb-5">
+              Product Image
+            </label>
             <div id="form-file-upload">
               <input
                 type="file"
@@ -206,48 +207,64 @@ function AddProduct() {
                   <p className="upload-button">Upload your product image.</p>
                   <p className="font-inter font-normal text-xs leading-4 leading-trim-cap text-gray-400">
                     Only PNG, JPG format allowed <br />
-                    500x500 pixels are recommended{" "}
+                    500x500 pixels are recommended
                   </p>
-                </div>{" "}
-              </label>
-            </div>
-          ) : (
-            <div id="form-file-upload">
-              <input
-                type="file"
-                id="input-file-upload"
-                multiple={true}
-                onChange={handleFileSelect}
-              />
-              <label id="label-file-upload" htmlFor="input-file-upload">
-                <div>
-                {selectedFiles ? (
-                    <ul className="upload-button">
-                       <div class="flex flex-wrap justify-start">
-                       {previewImages.map((file) => (
-                        <li key={file.name} class="w-1/5 mx-2 mb-4 relative">
-                          <img
-                            src={file}
-                            alt=""
-                            class="w-full h-full"
-                          />
-                          
-                        </li>
-                      ))}
-                      </div>
-                    </ul>
-                  ) : (
-                    <><p className="upload-button"> Upload your product image.</p><p className="font-inter font-normal text-xs leading-4 leading-trim-cap text-gray-400">
-                          Only PNG, JPG format allowed <br />
-                          500x500 pixels are recommended
-                        </p></>
-                  )}
-                  
                 </div>
               </label>
             </div>
-          )}
+            </div>
+          ) :<div className="mx-5 my-5 p-5 bg-white h-96 shadow-md rounded-2xl">
+          <label className="outline-none font-inter font-bold text-base leading-5 leading-trim-cap text-gray-700 mb-5">
+            Product Image
+          </label>
+          <div id="form-file-upload">
+            <input
+              type="file"
+              id="input-file-upload"
+              multiple={true}
+              onChange={handleFileSelect}
+            />
+            <label id="label-file-upload" htmlFor="input-file-upload">
+            {selectedFiles ? (
+              <div className="image-preview-container">
+                <img
+                  className="w-full h-full absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+                  src={previewImages[0]}
+                  alt=""
+                />
+                <div className="smaller-images-container">
+                  {previewImages.slice(1).map((file) => (
+                    <li
+                      
+                      className="w-1/5 mx-2 mb-4 relative list-none"
+                    >
+                      <img
+                        src={file}
+                        alt=""
+                        className="smaller-image"
+                      />
+                     
+                    </li>
+                  ))}
+                </div>
+              </div>
+            ) : (
+              <>
+                <label id="label-file-upload" htmlFor="input-file-upload">
+                  <div className="upload-button">
+                    Upload your product image.
+                  </div>
+                  <p className="font-inter font-normal text-xs leading-4 leading-trim-cap text-gray-400">
+                    Only PNG, JPG format allowed <br />
+                     500x500 pixels are recommended
+                  </p>
+                </label>
+              </>
+            )}</label>
+          </div>
         </div>
+        }
+        
       </div>
       <div className="flex justify-between w-full">
         <div className="my-5 ml-5 mr-12 pt-4 px-5 pb-16 bg-white w-3/5 shadow-md rounded-2xl h-3/5">

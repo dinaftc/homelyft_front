@@ -3,6 +3,7 @@ import Signup from "./Signup/Signup";
 import {BrowserRouter as Router , Routes, Route } from "react-router-dom";
 import Layout from "./hocs/Layout";
 import Home from "./Home/Home";
+import Bag from "./Home/Bag";
 import Resetpwd from "./Login/Resetpwd";
 import Activate from "./Signup/Activate";
 import ResetpwdConfirm from "./Login/ResetpwdConfirm";
@@ -24,9 +25,9 @@ function App() {
       <Layout>
 
           <Routes>
-            <Route path="/" element={<Login />} />
+            <Route path="/Login" element={<Login />} />
             <Route path="/Signup" element={<Signup />} />
-            <Route path="/Home" element={<Home />} />
+            <Route path="/" element={<Home />} />
             <Route path="/Resetpwd" element={<Resetpwd />} />
             
              <Route  path="/password/reset/confirm/:uid/:token" element={<ResetpwdConfirm/>}/>
@@ -38,6 +39,7 @@ function App() {
              <Route exact path="/settings" element={<Settings/>} />
              <Route exact path="/add_staff" element={<Addstaff/>} />
              <Route exact path="/clients" element={<Clients/>} />
+             <Route exact path="/Shopping-bag" element={<Bag/>} />
           </Routes>
           </Layout>
 

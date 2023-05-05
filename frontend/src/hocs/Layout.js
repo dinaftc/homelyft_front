@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { checkAuthenticated, load_user } from '../actions/auth';
 import Sidebar from '../Admin/components/Sidebar';
 import './Admin/App.css';
-import DashboardHeader from '../Admin/components/DashboardHeader';
+
 const Layout = ({isAuthenticated, checkAuthenticated, load_user, children }) => {
     useEffect(() => {
         checkAuthenticated();

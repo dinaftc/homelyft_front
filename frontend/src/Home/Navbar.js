@@ -3,7 +3,34 @@ import search from "../Admin/assets/icons/search.png";
 import person from "./assets/person.svg";
 import panier from "./assets/panier.png";
 import { Link } from "react-router-dom";
-function Navbar() {
+import { connect } from 'react-redux';
+import { logout } from '../actions/auth';
+import { useState,useEffect } from "react";
+import axios from "axios";
+function Navbar({ isAuthenticated, logout }) {
+  const [user, setUser] = useState({});
+
+  useEffect(() => {
+    axios
+      .get("http://127.0.0.1:8000/auth/users/me/", {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("access")}`,
+          Accept: "application/json",
+        },
+      })
+      .then((response) => {
+        setUser(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+  const logout_user = () => {
+    
+    logout();
+  };
+
   return (
     <div class="bg-white flex">
       <img
@@ -26,6 +53,9 @@ function Navbar() {
         </div>
       </div>
       <div class="relative w-1/5">
+        {isAuthenticated? <button class="absolute top-0 right-0 h-full flex items-center" onClick={logout_user}>{user.fullname}</button> :
+
+       
         <div class="absolute top-0 right-0 h-full flex items-center">
           <img src={person} alt="" class="h-6 w-6 mr-2" />
           <p> Hey! &nbsp;</p>
@@ -33,6 +63,7 @@ function Navbar() {
           <p>&nbsp;or&nbsp;</p>
           <Link to="/Signup">Sign up</Link>
         </div>
+         }
       </div>
       <div class="relative p-8">
         <div class="absolute top-0 right-0 h-full flex items-center">
@@ -44,6 +75,11 @@ function Navbar() {
       </div>
     </div>
   );
-}
 
-export default Navbar;
+}
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated,
+});
+
+export default connect(mapStateToProps, { logout })(Navbar);
+

@@ -77,7 +77,7 @@ function AddProduct() {
             .then((response) => {
               console.log("Product images added successfully");
               console.log(response.data);
-              toast.success("Product edited successfully!", {
+              toast.success("Product added successfully!", {
                 position: "top-center",
                 autoClose: 5000,
                 hideProgressBar: false,
@@ -174,7 +174,7 @@ function AddProduct() {
               value=""
               className="font-poppins font-normal text-base leading-6 text-gray-400 "
             >
-              Category
+              SubCategory
             </option>
             {subcategories.map((subcategory) => (
               <option key={subcategory.id} value={subcategory.id}>

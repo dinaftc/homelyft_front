@@ -41,7 +41,7 @@ const Sidebar = ({ isAuthenticated, logout }) => {
     "flex items-center gap-x-4 p-3 mx-5 hover:bg-hovered    hover:text-gray-500  rounded-full cursor-pointer   ";
 
   const Menus = [
-    { title: "Home", src: lift, activesrc: liftwhite, Link: "/Home" },
+    { title: "Home", src: lift, activesrc: liftwhite, Link: "/" },
     {
       title: "Notifications",
       src: notif,

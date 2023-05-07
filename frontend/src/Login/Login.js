@@ -47,8 +47,8 @@ const Login = ({login, isAuthenticated,LOGIN_FAIL}) => {
   };
  
 
-  if (isAuthenticated) {
-    return <Navigate to='/Home' />
+  if (isAuthenticated ) {
+    return <Navigate to='/' />
 }
 
   return (

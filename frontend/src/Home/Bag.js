@@ -14,8 +14,6 @@ function Bag({ isAuthenticated, logout }) {
   const [showModal, setShowModal] = useState(false);
   const [isEditingQuantity, setIsEditingQuantity] = useState(false);
   const [editedQuantity, setEditedQuantity] = useState(0);
-  const [selectedProductId, setSelectedProductId] = useState("");
-
 
   useEffect(() => {
     axios
@@ -62,17 +60,16 @@ function Bag({ isAuthenticated, logout }) {
       });
   };
 
- 
-  const handleEditQuantity = (productId,orderQuantity) => {
+  const handleEditQuantity = (productId, orderQuantity) => {
     setIsEditingQuantity(true);
-    setSelectedProductId(productId);
+    
     setEditedQuantity(orderQuantity);
   };
 
-  const handleEditSubmit = (orderId) => {
+  const handleEditSubmit = (id) => {
     setIsEditingQuantity(false);
     fetch(
-      `http://127.0.0.1:8000/home/${user.id}/${selectedProductId}/addtocart/${orderId}`,
+      `http://127.0.0.1:8000/home/${user.id}/view-cart/${id}/`,
       {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
@@ -84,7 +81,7 @@ function Bag({ isAuthenticated, logout }) {
         // Update the orders state with the updated quantity
         setOrders(
           orders.map((order) => {
-            if (order.id === orderId) {
+            if (order.id === id) {
               return { ...order, Quantity: editedQuantity };
             } else {
               return order;
@@ -121,8 +118,7 @@ function Bag({ isAuthenticated, logout }) {
                     <h2 className="card-title">{order.product.name}</h2>
                     <p>description: {order.product.description}</p>
                     <p>price: {order.product.price}</p>
-                    {isEditingQuantity &&
-                    selectedProductId === order.Product_id ? (
+                    {isEditingQuantity ? (
                       <div>
                         <input
                           type="number"
@@ -135,28 +131,32 @@ function Bag({ isAuthenticated, logout }) {
                         >
                           Edit
                         </button>
-                        <button onClick={() => setIsEditingQuantity(false)}  className=" m-3 p-3 bg-gray-300 text-black  rounded-full border-transparent "
-           >
+                        <button
+                          onClick={() => setIsEditingQuantity(false)}
+                          className="m-3 p-3 bg-gray-300 text-black rounded-full border-transparent"
+                        >
                           Cancel
                         </button>
                       </div>
-                    ) : ( <div>
-                      <p>Quantity: {order.Quantity}</p>
-                      <button
-                      onClick={() => handleEditQuantity(order.Product_id,order.Quantity)}
-                      className=" font-pop  btn normal-case text-white rounded-full bg-primary  border-primary hover:bg-hoverADD hover:border-hoverADD "
-                    >
-                      Edit
-                    </button>
-                    <button
-                      onClick={() => handleDelete(order.id)}
-                      className=" font-pop  btn normal-case text-white rounded-full bg-red-500 outline-none border-none "
-                    >
-                      Delete
-                    </button>
-                    </div>
+                    ) : (
+                      <div>
+                        <p>Quantity: {order.Quantity}</p>
+                        <button
+                          onClick={() =>
+                            handleEditQuantity(order.id, order.Quantity)
+                          }
+                          className="font-pop btn normal-case text-white rounded-full bg-primary border-primary hover:bg-hoverADD hover:border-hoverADD"
+                        >
+                          Edit
+                        </button>
+                        <button
+                          onClick={() => handleDelete(order.id)}
+                          className="font-pop btn normal-case text-white rounded-full bg-red-500 outline-none border-none"
+                        >
+                          Delete
+                        </button>
+                      </div>
                     )}
-
                     
                   </div>
                 </div>

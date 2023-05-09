@@ -3,6 +3,9 @@ import { connect } from 'react-redux';
 
 import Navbar from './Navbar';
 import axios from "axios";
+import Sidebar from '../Admin/components/Sidebar';
+import DashboardHeader from './../Admin/components/DashboardHeader/index';
+import { products } from './../Admin/pages/Products/index';
 
 function Home({ isAuthenticated }) {
   const [user, setUser] = useState({});
@@ -73,7 +76,7 @@ function Home({ isAuthenticated }) {
   
   return (
     <div>
-      <Navbar />
+    { (isAuthenticated && (user.role==3 )) || !isAuthenticated?<div> <Navbar /> 
       <div className="card-container bg-white" style={{ display: "flex" }}>
         {products.map((product, index) => (
           <div className="card card-compact w-96 bg-base-100 shadow-xl m-5">
@@ -174,7 +177,7 @@ function Home({ isAuthenticated }) {
         .popup-inner button:hover {
           background-color: #1a237e;
         }
-      `}</style>
+      `}</style></div> : <p>admin</p>}
     </div>
   );}
   const mapStateToProps = (state) => ({

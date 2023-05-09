@@ -37,11 +37,11 @@ const categoryJson = JSON.stringify(categoryObj);
             console.log("sub category added succesfully ");
           })
           .catch((error) => {
-            console.error("Failed to add product image", error);
+            console.error("Failed to add subcat", error);
           });
       })
       .catch((error) => {
-        console.error("Failed to add product", error);
+        console.error("Failed to add category", error);
       });
       setShowModal(!showModal)
   };

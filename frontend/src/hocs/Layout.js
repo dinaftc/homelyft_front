@@ -29,7 +29,7 @@ const Layout = ({isAuthenticated, checkAuthenticated, load_user, children }) => 
     });
     },[checkAuthenticated, load_user]);
     return ( <div>
-    {(isAuthenticated && user.role!==3) ? (
+    {(isAuthenticated && ((user.role==1)||(user.role==2))) ? (
         <div className='dashboard-container'>
           
           <Sidebar />

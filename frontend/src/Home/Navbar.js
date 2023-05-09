@@ -53,7 +53,7 @@ function Navbar({ isAuthenticated, logout }) {
         </div>
       </div>
       <div class="relative w-1/5">
-        {isAuthenticated? <button class="absolute top-0 right-0 h-full flex items-center" onClick={logout_user}>{user.fullname}</button> :
+        {isAuthenticated? <Link class="absolute top-0 right-0 h-full flex items-center" to='/profile'>{user.fullname}</Link> :
 
        
         <div class="absolute top-0 right-0 h-full flex items-center">

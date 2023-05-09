@@ -116,7 +116,7 @@ const Login = ({login, isAuthenticated,LOGIN_FAIL}) => {
               </p>
 
               <Link
-                to="Signup"
+                to="/Signup"
                 className="text-sm inline-block text-primary font-pop font-normal font-400 "
               >
                 Sign up

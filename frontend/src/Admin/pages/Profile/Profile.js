@@ -56,10 +56,9 @@ export default function Profile() {
       fullname: user.fullname,
       email: user.email,
       phone_number: user.phone_number,
-
       payment_info: user.payment_info,
       profile_picture: user.profile_picture,
-      password: user.password,
+     
     });
   };
 
@@ -76,10 +75,10 @@ export default function Profile() {
     if (formData.profile_picture !== user.profile_picture) {
       data.append("profile_picture", user.password);
     }
-    data.append("password", formData.password);
+ 
 
     axios
-      .put(`http://127.0.0.1:8000/account/${id}/view-profile/`, data, {
+      .patch(`http://127.0.0.1:8000/account/${id}/view-profile/`, data, {
         headers: {
           "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${localStorage.getItem("access")}`,

@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { connect } from 'react-redux';
 import { logout } from '../actions/auth';
 import { useState,useEffect } from "react";
+import { FiLogOut } from 'react-icons/fi';
 import axios from "axios";
 function Navbar({ isAuthenticated, logout }) {
   const [user, setUser] = useState({});
@@ -66,11 +67,17 @@ function Navbar({ isAuthenticated, logout }) {
          }
       </div>
       <div class="relative p-8">
-        <div class="absolute top-0 right-0 h-full flex items-center">
+        <div class="absolute top-0 right-0 h-full flex items-center mx-2">
           <Link to='/Shopping-bag'>
            
-            <img src={panier} alt="" class="h-6 w-6 mr-2" />
+            <img src={panier} alt="" class="h-6 w-6 " />
           </Link>
+        </div>
+        <div class="absolute top-0 left-0 p-2  h-full flex items-center ">
+          <button onClick={logout_user}>
+           
+          <FiLogOut/>
+          </button>
         </div>
       </div>
     </div>

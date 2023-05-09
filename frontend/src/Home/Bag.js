@@ -71,7 +71,7 @@ function Bag({ isAuthenticated, logout }) {
     fetch(
       `http://127.0.0.1:8000/home/${user.id}/view-cart/${id}/`,
       {
-        method: "PUT",
+        method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ Quantity: editedQuantity }),
       }

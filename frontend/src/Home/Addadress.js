@@ -46,10 +46,7 @@ export default function Addadress({ showModal, setShowModal }) {
     console.log(user.email)
     const id = user.id;
     const data = new FormData();
-    data.append("fullname", user.fullname);
-    data.append("email", user.email);
-    data.append("phone_number", user.phone_number);
-    data.append("password", user.password);
+
     data.append("adresse_line", formData.adresse_line);
     data.append("code_postal", formData.code_postal);
     data.append("daira", formData.daira);
@@ -58,7 +55,7 @@ export default function Addadress({ showModal, setShowModal }) {
     data.append("wilaya", formData.wilaya);
 
     axios
-      .put(`http://127.0.0.1:8000/account/${id}/view-profile/`, data, {
+      .patch(`http://127.0.0.1:8000/account/${id}/view-profile/`, data, {
         headers: {
           "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${localStorage.getItem("access")}`,

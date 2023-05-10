@@ -6,47 +6,35 @@ import { Navigate } from "react-router-dom";
 import axios from "axios";
 import Addadress from "./Addadress";
 
-function Bag({ isAuthenticated, logout }) {
+function Bag({ isAuthenticated,user }) {
   const [orders, setOrders] = useState([]);
-
-  const [user, setUser] = useState({});
   const [items, setItems] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [isEditingQuantity, setIsEditingQuantity] = useState(false);
   const [editedQuantity, setEditedQuantity] = useState(0);
 
   useEffect(() => {
-    axios
-      .get("http://127.0.0.1:8000/auth/users/me/", {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("access")}`,
-          Accept: "application/json",
-        },
-      })
-      .then((response) => {
-        setUser(response.data);
-        fetch(`http://127.0.0.1:8000/home/${response.data.id}/view-cart/`)
-          .then((response) => response.json())
-          .then(async (data) => {
-            // Map through the items and fetch product information for each item
-            const updatedItems = await Promise.all(
-              data.map(async (item) => {
-                const response = await fetch(
-                  `http://127.0.0.1:8000/homeLift/products/${item.Product_id}/`
-                );
-                const product = await response.json();
-                return { ...item, product };
-              })
+    fetch(`http://127.0.0.1:8000/home/${user.id}/view-cart/`)
+      .then((response) => response.json())
+      .then(async (data) => {
+        // Map through the items and fetch product information for each item
+        const updatedItems = await Promise.all(
+          data.map(async (item) => {
+            const response = await fetch(
+              `http://127.0.0.1:8000/homeLift/products/${item.Product_id}/`
             );
-
-            setItems(updatedItems);
-          });
+            const product = await response.json();
+            return { ...item, product };
+          })
+        );
+  
+        setItems(updatedItems);
       })
       .catch((error) => {
         console.log(error);
       });
-  }, []);
+  }, [user.id]);
+  
 
   const handleDelete = (id) => {
     axios
@@ -97,6 +85,7 @@ function Bag({ isAuthenticated, logout }) {
   if (!isAuthenticated) {
     return <Navigate to="/" replace></Navigate>;
   } else {
+
     return (
       <div className="bg-white h-full w-full">
         <Navbar></Navbar>
@@ -106,67 +95,64 @@ function Bag({ isAuthenticated, logout }) {
           </h1>
 
           {items.length === 0 ? (
-            <p className="p-5">No items in your shopping bag.</p>
+  <p className="p-5">No items in your shopping bag.</p>
+) : (
+  <div className="card-container bg-white" style={{ display: "flex" }}>
+    {items.map((order, index) => (
+      <div key={index} className="card card-compact  bg-base-100 shadow-xl m-5">
+        <div className="card-body">
+          <h2 className="card-title">{order.product.name}</h2>
+          <p>description: {order.product.description}</p>
+          <p>price: {order.product.price}</p>
+          {isEditingQuantity ? (
+            <div key={index}>
+              <input
+                type="number"
+                value={editedQuantity}
+                onChange={(e) => setEditedQuantity(e.target.value)}
+              />
+              <button
+                onClick={() => handleEditSubmit(order.id)}
+                className="text-white bg-primary rounded-full m-3 p-3"
+              >
+                Edit
+              </button>
+              <button
+                onClick={() => setIsEditingQuantity(false)}
+                className="m-3 p-3 bg-gray-300 text-black rounded-full border-transparent"
+              >
+                Cancel
+              </button>
+            </div>
           ) : (
-            <div
-              className="card-container bg-white"
-              style={{ display: "flex" }}
-            >
-              {items.map((order, index) => (
-                <div className="card card-compact w-96 bg-base-100 shadow-xl m-5">
-                  <div className="card-body">
-                    <h2 className="card-title">{order.product.name}</h2>
-                    <p>description: {order.product.description}</p>
-                    <p>price: {order.product.price}</p>
-                    {isEditingQuantity ? (
-                      <div>
-                        <input
-                          type="number"
-                          value={editedQuantity}
-                          onChange={(e) => setEditedQuantity(e.target.value)}
-                        />
-                        <button
-                          onClick={() => handleEditSubmit(order.id)}
-                          className="text-white bg-primary rounded-full m-3 p-3"
-                        >
-                          Edit
-                        </button>
-                        <button
-                          onClick={() => setIsEditingQuantity(false)}
-                          className="m-3 p-3 bg-gray-300 text-black rounded-full border-transparent"
-                        >
-                          Cancel
-                        </button>
-                      </div>
-                    ) : (
-                      <div>
-                        <p>Quantity: {order.Quantity}</p>
-                        <button
-                          onClick={() =>
-                            handleEditQuantity(order.id, order.Quantity)
-                          }
-                          className="font-pop btn normal-case text-white rounded-full bg-primary border-primary hover:bg-hoverADD hover:border-hoverADD"
-                        >
-                          Edit
-                        </button>
-                        <button
-                          onClick={() => handleDelete(order.id)}
-                          className="font-pop btn normal-case text-white rounded-full bg-red-500 outline-none border-none"
-                        >
-                          Delete
-                        </button>
-                      </div>
-                    )}
-                    
-                  </div>
-                </div>
-              ))}
+            <div key={index}>
+              <p>Quantity: {order.Quantity}</p>
+              <button
+                onClick={() =>
+                  handleEditQuantity(order.id, order.Quantity)
+                }
+                className="font-pop btn normal-case text-white rounded-full bg-primary border-primary hover:bg-hoverADD hover:border-hoverADD"
+              >
+                Edit
+              </button>
+              <button
+                onClick={() => handleDelete(order.id)}
+                className="font-pop btn normal-case text-white rounded-full bg-red-500 outline-none border-none"
+              >
+                Delete
+              </button>
             </div>
           )}
+        </div>
+      </div>
+    ))}
+  </div>
+)}
 
+              
           <div style={{ display: "flex" }}>
             <h1 className="text-black text-2xl font-bold m-5 font-pop">
-              Delivery?{" "}
+              Delivery?
             </h1>
             <button
               className="btn text-white rounded-full bg-primary outline-none border-none m-3"
@@ -184,8 +170,9 @@ function Bag({ isAuthenticated, logout }) {
   }
 }
 
-const mapStateToProps = (state) => ({
-  isAuthenticated: state.auth.isAuthenticated,
-});
+ const mapStateToProps = (state) => ({
+    isAuthenticated: state.auth.isAuthenticated,
+    user : state.auth.user,
+  });
 
 export default connect(mapStateToProps, { logout })(Bag);

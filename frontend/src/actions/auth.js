@@ -6,10 +6,9 @@ PASSWORD_RESET_CONFIRM_FAIL,
 SIGNUP_SUCCESS,
 SIGNUP_FAIL,
 ACTIVATION_SUCCESS,
-ACTIVATION_FAIL, } from "./types";
+ACTIVATION_FAIL} from "./types";
 import axios from "axios";
 import { Navigate } from "react-router-dom";
-
 
 export const checkAuthenticated = () => async (dispatch) => {
     const access = localStorage.getItem('access');

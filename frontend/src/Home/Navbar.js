@@ -5,28 +5,13 @@ import panier from "./assets/panier.png";
 import { Link } from "react-router-dom";
 import { connect } from 'react-redux';
 import { logout } from '../actions/auth';
-import { useState,useEffect } from "react";
 import { FiLogOut } from 'react-icons/fi';
-import axios from "axios";
-function Navbar({ isAuthenticated, logout }) {
-  const [user, setUser] = useState({});
+import { useEffect } from "react";
 
-  useEffect(() => {
-    axios
-      .get("http://127.0.0.1:8000/auth/users/me/", {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("access")}`,
-          Accept: "application/json",
-        },
-      })
-      .then((response) => {
-        setUser(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
+function Navbar({ isAuthenticated, logout ,user }) {
+  
+ 
+ 
   const logout_user = () => {
     
     logout();
@@ -54,7 +39,13 @@ function Navbar({ isAuthenticated, logout }) {
         </div>
       </div>
       <div class="relative w-1/5">
-        {isAuthenticated? <Link class="absolute top-0 right-0 h-full flex items-center" to='/profile'>{user.fullname}</Link> :
+        {isAuthenticated? <div class="absolute top-0 right-0 h-full flex items-center">
+        <Link  to='/profile'>{user.fullname}</Link> 
+          <button onClick={logout_user}>
+           
+          <FiLogOut/>
+          </button></div>
+        :
 
        
         <div class="absolute top-0 right-0 h-full flex items-center">
@@ -73,12 +64,7 @@ function Navbar({ isAuthenticated, logout }) {
             <img src={panier} alt="" class="h-6 w-6 " />
           </Link>
         </div>
-        <div class="absolute top-0 left-0 p-2  h-full flex items-center ">
-          <button onClick={logout_user}>
-           
-          <FiLogOut/>
-          </button>
-        </div>
+       
       </div>
     </div>
   );
@@ -86,6 +72,7 @@ function Navbar({ isAuthenticated, logout }) {
 }
 const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated,
+  user : state.auth.user,
 });
 
 export default connect(mapStateToProps, { logout })(Navbar);

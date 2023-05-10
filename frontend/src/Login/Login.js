@@ -15,9 +15,10 @@ import eyeoff from "./eye-off.png";
 import eye from "./eye.png";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
   
 
-const Login = ({login, isAuthenticated,LOGIN_FAIL}) => {
+const Login = ({login, isAuthenticated}) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const handleEmailChange = (event) => setEmail(event.target.value);
@@ -32,8 +33,8 @@ const Login = ({login, isAuthenticated,LOGIN_FAIL}) => {
   const onSubmit = async (event) => {
     event.preventDefault();
    login(email,password);
-   if (LOGIN_FAIL){
-    toast.warn('Please submit a valid email and password', {
+   if (!isAuthenticated){
+    toast.error('Please submit a valid email and password', {
       position: "top-center",
       autoClose: 5000,
       hideProgressBar: false,
@@ -146,7 +147,6 @@ const Login = ({login, isAuthenticated,LOGIN_FAIL}) => {
 
 const mapStateToProps = state => ({
   isAuthenticated: state.auth.isAuthenticated,
-  LOGIN_FAIL:state.auth.LOGIN_FAIL
 });
 
 export default connect(mapStateToProps, { login })(Login);

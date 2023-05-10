@@ -1,30 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, {  useState } from "react";
 import axios from "axios";
-
+import { connect } from 'react-redux';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
-export default function Addadress({ showModal, setShowModal }) {
-  const [user, setUser] = useState({});
-
-  useEffect(() => {
-    axios
-      .get("http://127.0.0.1:8000/auth/users/me/", {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("access")}`,
-          Accept: "application/json",
-        },
-      })
-      .then((response) => {
-        setUser(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
+import { load_user } from "../actions/auth";
+ function Addadress({ showModal, setShowModal ,user,load_user}) {
+ 
   const [formData, setFormData] = useState({
-    adresse_line: user.adresse_line,
+  
     code_postal: user.code_postal,
     daira: user.daira,
     mairie: user.mairie,
@@ -47,7 +30,7 @@ export default function Addadress({ showModal, setShowModal }) {
     const id = user.id;
     const data = new FormData();
 
-    data.append("adresse_line", formData.adresse_line);
+
     data.append("code_postal", formData.code_postal);
     data.append("daira", formData.daira);
     data.append("mairie", formData.mairie);
@@ -75,7 +58,7 @@ export default function Addadress({ showModal, setShowModal }) {
           progress: undefined,
           theme: "light",
         });
-        setUser(response.data);
+        load_user()
       })
       .catch((error) => {
         console.error("Error updating profile:", error);
@@ -154,17 +137,7 @@ export default function Addadress({ showModal, setShowModal }) {
             />
             <span>street</span>
           </div>
-          <div className="InputBox">
-            <input
-              name="adresse_line"
-              id="adresse_line"
-              value={formData.adresse_line}
-              onChange={handleChange}
-              type="text"
-            />
-            <span>adresse line</span>
-          </div>
-
+         
           <div className="my-5">
             <button
               className=" font-pop w-20 btn normal-case text-white rounded-full bg-primary  border-primary hover:bg-hoverADD hover:border-hoverADD "
@@ -187,3 +160,9 @@ export default function Addadress({ showModal, setShowModal }) {
     
   );
 }
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated,
+  user : state.auth.user,
+
+});
+export default connect(mapStateToProps, { load_user})(Addadress);

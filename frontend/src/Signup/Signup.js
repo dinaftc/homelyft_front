@@ -32,7 +32,7 @@ function Signup({ signup, isAuthenticated, SIGNUP_SUCCESS }) {
   const handleSubmit = async (event) => {
     event.preventDefault();
       signup(full_name, email, phone_number, password);
-      if (!SIGNUP_SUCCESS){
+      if (SIGNUP_SUCCESS){
         toast.success('Account Created Sucessfully! Check your email', {
           position: "top-center",
           autoClose: 5000,

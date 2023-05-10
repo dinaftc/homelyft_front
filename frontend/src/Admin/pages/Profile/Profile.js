@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, {  useState } from "react";
 import axios from "axios";
-
+import { load_user } from "../../../actions/auth";
+import { connect } from 'react-redux';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-export default function Profile() {
-  const [user, setUser] = useState({});
+ function Profile({user,load_user}) {
+
   const [editMode, setEditMode] = useState(false);
   const [formData, setFormData] = useState({
     username: "",
@@ -17,22 +18,7 @@ export default function Profile() {
     profile_picture: null,
   });
 
-  useEffect(() => {
-    axios
-      .get("http://127.0.0.1:8000/auth/users/me/", {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("access")}`,
-          Accept: "application/json",
-        },
-      })
-      .then((response) => {
-        setUser(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, [user.id]);
+ 
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -73,7 +59,7 @@ export default function Profile() {
 
     data.append("payment_info", formData.payment_info);
     if (formData.profile_picture !== user.profile_picture) {
-      data.append("profile_picture", user.password);
+      data.append("profile_picture",formData.profile_picture );
     }
  
 
@@ -98,7 +84,7 @@ export default function Profile() {
           progress: undefined,
           theme: "light",
         });
-        setUser(response.data);
+        load_user ();
         setEditMode(false);
       })
       .catch((error) => {
@@ -116,7 +102,7 @@ export default function Profile() {
       });
   };
 
-  if (editMode) {
+  if (editMode && user) {
     return (
       <div className="dashboard-content">
         <div className="w-full h-full relative flex  my-20 justify-center items-center">
@@ -242,7 +228,7 @@ export default function Profile() {
                   {user.payment_info}
                 </p>
                 <p class="text-center text-sm text-gray-400 font-medium">
-                  {user.role == 3 ? "client" : "employee"}
+                  {user.role === 3 ? "client" : "employee"}
                 </p>
               </div>
               <div className="flex justify-end">
@@ -261,3 +247,8 @@ export default function Profile() {
     );
   }
 }
+const mapStateToProps = (state) => ({
+  user : state.auth.user,
+});
+  
+export default connect(mapStateToProps, {load_user })(Profile);

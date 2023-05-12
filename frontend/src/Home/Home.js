@@ -6,7 +6,9 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 function Home({ isAuthenticated, user }) {
-  const [products, setProducts] = useState([]);
+   const [products, setProducts] = useState([]);
+
+ 
   const [showPopup, setShowPopup] = useState(false);
   const [selectedProductId, setSelectedProductId] = useState(null);
   const [quantity, setSelectedQuantity] = useState(1);
@@ -88,7 +90,7 @@ function Home({ isAuthenticated, user }) {
         <>
           {(isAuthenticated && user.role === 3) || !isAuthenticated ? (
             <div>
-              <Navbar></Navbar>
+          <Navbar setProducts={setProducts} />
               <div
                 className="card-container bg-white"
                 style={{ display: "flex" }}
@@ -229,3 +231,4 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, {})(Home);
+

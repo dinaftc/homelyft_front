@@ -6,10 +6,30 @@ import { Link } from "react-router-dom";
 import { connect } from 'react-redux';
 import { logout } from '../actions/auth';
 import { FiLogOut } from 'react-icons/fi';
-import { useEffect } from "react";
+import { useState } from "react";
+import {setProducts} from './Home'
+import axios from "axios";
+function Navbar({ isAuthenticated, logout ,user, setProducts }) {
+  const [searchTerm, setSearchTerm] = useState("");
 
-function Navbar({ isAuthenticated, logout ,user }) {
-  
+  const handleSearch = () => {
+    axios
+      .get(`http://127.0.0.1:8000/homeLift/products/?search=${searchTerm}`)
+       .then((response) => {
+        // handle the response data here
+        console.log(response.data);
+       setProducts(response.data);
+      })
+      .catch((error) => {
+        // handle errors here
+        console.log(error);
+      });
+  };
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      handleSearch();
+    }
+  };
  
  
   const logout_user = () => {
@@ -25,11 +45,13 @@ function Navbar({ isAuthenticated, logout ,user }) {
         alt="HomeLift admin"
       />
       <div class="relative w-3/5 px-5">
-        <div class="relative ">
+        <div class="relative " >
           <input
             type="text"
             class="w-full h-10 py-6 px-10 m-5 rounded-full leading-5 bg-gray-200 text-gray-900 placeholder-gray-400 focus:outline-none focus:placeholder-gray-400"
             placeholder="What are you looking for?"
+            onChange={(e) => setSearchTerm(e.target.value)}
+            onKeyDown={handleKeyPress}
           />
           <img
             src={search}

@@ -33,24 +33,17 @@ const Login = ({login, isAuthenticated}) => {
   const onSubmit = async (event) => {
     event.preventDefault();
    login(email,password);
-   if (!isAuthenticated){
-    toast.error('Please submit a valid email and password', {
-      position: "top-center",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-      });
-   }
-  };
+
+    }
+ 
+  
+  
  
 
   if (isAuthenticated ) {
     return <Navigate to='/' />
 }
+
 
   return (
     <div className="w-screen h-screen flex justify-center items-center ">

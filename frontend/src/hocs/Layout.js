@@ -16,16 +16,15 @@ const Layout = ({isAuthenticated, checkAuthenticated, load_user,user, children }
     
     },[checkAuthenticated, load_user]);
     return ( <div>
-    {(isAuthenticated && ((user.role===1)||(user.role===2))) ? (
-        <div className='dashboard-container'>
-          
-          <Sidebar />
-          
-          <div className='dashboard-body'>{children}</div>
-        </div>
-      ) : (
-        <div className='dashboard-body'>{children}</div>
-      )}
+   {(!isAuthenticated || (user && user.role === 3)) && (
+  <div className='dashboard-body'>{children}</div>
+) }{ (user && user.role !== 3) &&  (
+  <div className='dashboard-container'>
+    <Sidebar />
+    <div className='dashboard-body'>{children}</div>
+  </div>
+)}
+
    </div> )
 };
 const mapStateToProps = state =>({

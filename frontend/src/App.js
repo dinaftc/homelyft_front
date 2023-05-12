@@ -4,6 +4,7 @@ import {BrowserRouter as Router , Routes, Route } from "react-router-dom";
 import Layout from "./hocs/Layout";
 import Home from "./Home/Home";
 import Bag from "./Home/Bag";
+import Addresse from "./Home/Addadress";
 import Resetpwd from "./Login/Resetpwd";
 import Activate from "./Signup/Activate";
 import ResetpwdConfirm from "./Login/ResetpwdConfirm";
@@ -40,6 +41,7 @@ function App() {
              <Route exact path="/add_staff" element={<Addstaff/>} />
              <Route exact path="/clients" element={<Clients/>} />
              <Route exact path="/Shopping-bag" element={<Bag/>} />
+             <Route exact path="/Delivery" element={<Addresse/>} />
           </Routes>
           </Layout>
 

@@ -60,11 +60,6 @@ const place='account/customer-list'
       })
       .then(function (response) {
         console.log(" successfully");
-        fetch("http://127.0.0.1:8000/account/staff-list/")
-          .then((response) => response.json())
-          .then((data) => {
-            setOrders(data);
-          });
           toast.success('operation done Successfully', {
             position: "top-center",
             autoClose: 5000,
@@ -75,6 +70,7 @@ const place='account/customer-list'
             progress: undefined,
             theme: "light",
           })
+          setTriggerFetch(true);
       })
       .catch(function (error) {
         console.log(error);

@@ -4,13 +4,13 @@ import * as React from "react";
 import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
 import axios from "axios";
-const Modal2 = ({ showModal, setShowModal }) => {
+const Modal2 = ({ showModal, setShowModal,TriggerFetch,setTriggerFetch }) => {
   const [Category, setCategory] = useState('');
   const handleAddCategory = (event) => {
     event.preventDefault();
     const categoryObj = { name: Category };
-const categoryJson = JSON.stringify(categoryObj);
-
+    const categoryJson = JSON.stringify(categoryObj);
+  
     axios
       .post("http://127.0.0.1:8000/homeLift/categories/", categoryJson, {
         headers: {
@@ -18,33 +18,37 @@ const categoryJson = JSON.stringify(categoryObj);
         },
       })
       .then((response) => {
-        const id = response.data.id;
-        const subcategoryObj = { name: subCategories[0] };
-        const subcategoryJson = JSON.stringify(subcategoryObj);
-        
-        console.log("category  added successfully");
-        axios
-          .post(
-            `http://127.0.0.1:8000/homeLift/categories/${id}/subcategory-create/`,
-            subcategoryJson,
-            {
-              headers: {
-                "content-type": "application/json",
-              },
-            }
-          )
-          .then((response) => {
-            console.log("sub category added succesfully ");
+        const categoryId = response.data.id;
+        console.log("category added successfully");
+        Promise.all(
+          subCategories.map((subCategory) => {
+            const subcategoryObj = { name: subCategory };
+            const subcategoryJson = JSON.stringify(subcategoryObj);
+            return axios.post(
+              `http://127.0.0.1:8000/homeLift/categories/${categoryId}/subcategory-create/`,
+              subcategoryJson,
+              {
+                headers: {
+                  "content-type": "application/json",
+                },
+              }
+            );
+          })
+        )
+          .then(() => {
+            console.log("subcategories added successfully");
           })
           .catch((error) => {
-            console.error("Failed to add subcat", error);
+            console.error("Failed to add subcategories", error);
           });
       })
       .catch((error) => {
         console.error("Failed to add category", error);
       });
-      setShowModal(!showModal)
+    setShowModal(!showModal);
+    setTriggerFetch(true);
   };
+  
   const [subCategories, setSubCategories] = useState([]);
   const handleAddSubCategory = () => {
     const subCategoryInput = document.getElementById("sub-category-input");

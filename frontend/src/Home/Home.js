@@ -49,9 +49,9 @@ function Home({ isAuthenticated, user }) {
             { Quantity: quantity },
             { headers: { "Content-Type": "application/json" } }
           );
-
+  
           console.log(response.data);
-          if (response.status >= 200 && response.status < 300) {
+          if (response.status === 201) {
             toast.success("Added to cart", {
               position: "top-center",
               autoClose: 5000,
@@ -63,7 +63,7 @@ function Home({ isAuthenticated, user }) {
               theme: "light",
             });
           } else {
-            toast.error("Product already exist", {
+            toast.error("Product already exists in cart", {
               position: "top-center",
               autoClose: 5000,
               hideProgressBar: false,
@@ -79,6 +79,8 @@ function Home({ isAuthenticated, user }) {
         }
       }
     }
+  
+  
     setShowPopup(false);
     setSelectedProductId(null);
     setSelectedQuantity(1);

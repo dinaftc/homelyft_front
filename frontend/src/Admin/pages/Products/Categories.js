@@ -11,11 +11,11 @@ const Categories = () => {
   const [TotalCategories, setTotalCategories] = useState(1);
   const [showModal, setShowModal] = useState(false);
   const [showModalSub, setShowModalSub] = useState(false);
-
+  const [TriggerFetch, setTriggerFetch] = useState(false);
   const handleDeleteSubCategory = (categoryId, subCategoryId) => {
     axios
       .delete(
-        `http://127.0.0.1:8000/homeLift/categories/${categoryId}/subcategory-delete/${subCategoryId}`
+        `http://127.0.0.1:8000/homeLift/categories/subcategory/${subCategoryId}`
       )
       .then((response) => {
         // If the request is successful, update the state by removing the deleted subcategory
@@ -33,7 +33,6 @@ const Categories = () => {
       .catch((error) => console.error(error));
   };
 
-  
   useEffect(() => {
     fetch("http://127.0.0.1:8000/homeLift/categories/")
       .then((response) => response.json())
@@ -43,7 +42,7 @@ const Categories = () => {
         setCategories(data);
       })
       .catch((error) => console.error(error));
-  }, []);
+  }, [TriggerFetch]);
 
   return (
     <div className="dashboard-content-container ">
@@ -138,13 +137,14 @@ const Categories = () => {
                               categoryId={category.id}
                               Categories={Categories}
                               setCategories={setCategories}
+                              TriggerFetch={TriggerFetch}
+                              setTriggerFetch={setTriggerFetch}
                             />
                           )}
                         </div>
                       </div>
                     </td>
                   </tr>
-                  
                 </React.Fragment>
               ))}
             </tbody>

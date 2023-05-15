@@ -130,6 +130,8 @@ function AddProduct() {
     console.log(subcategory)
   }
 
+ 
+
   return (
     <div className="dashboard-content ">
       <DashboardHeader />
@@ -186,6 +188,7 @@ function AddProduct() {
           <textarea
             className="textarea textarea-bordered  outline-none bg-fffffb border-2 border-gray-300 rounded-lg w-full p-3 mt-3 "
             value={description}
+            maxLength={200}
             onChange={(event) => setDescription(event.target.value)}
           />
         </div>

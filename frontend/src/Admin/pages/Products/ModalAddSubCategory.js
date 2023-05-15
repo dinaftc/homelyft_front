@@ -28,9 +28,10 @@ const ModalAddSubCategory = ({
           }
         });
         setCategories(updatedCategories);
-        setShowModalSub(false);
+        setShowModalSub(!showModalSub);
       })
       .catch((error) => console.error(error));
+      setShowModalSub(!showModalSub);
   };
   //const subCategoryInput = document.getElementById("sub-category-input");
   //const newSubCategory = subCategoryInput.value.trim();

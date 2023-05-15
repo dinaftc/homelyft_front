@@ -46,7 +46,7 @@ const Modal2 = ({ showModal, setShowModal,TriggerFetch,setTriggerFetch }) => {
         console.error("Failed to add category", error);
       });
     setShowModal(!showModal);
-    setTriggerFetch(true);
+    setTriggerFetch(true)
   };
   
   const [subCategories, setSubCategories] = useState([]);

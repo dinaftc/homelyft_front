@@ -1,19 +1,80 @@
 import { Icon, IconButton } from "@mui/material";
 import React, { useState, useEffect } from "react";
-
+import { useLocation } from "react-router-dom";
+import Navbar from "./Navbar";
 import "react-toastify/dist/ReactToastify.css";
-const ProductInfo = () => {
+import { connect } from "react-redux";
+import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+const ProductInfo = ({isAuthenticated,user}) => {
+  const location = useLocation();
+  const product = location.state.product;
+ 
   const [products, setProducts] = useState([]);
-  let [quantity, setQuantity] = useState(1);
-  const soustractQuantity = () => {
-    if (quantity === 1) {
-      alert("Quantity minimum is 1 ");
-    } else setQuantity(quantity - 1);
+   
+
+
+  const [Quantity, setQuantity] = useState(0);
+  const handleAddSubmit = (Quantity) => {
+   if (isAuthenticated) {
+    axios
+      .post(
+        `http://127.0.0.1:8000/home/${user.id}/${product.id}/addtocart/`,
+        { Quantity: Quantity },
+        { headers: { "Content-Type": "application/json" } }
+      )
+      .then((response) => {
+        // Update the orders state with the updated quantity
+        console.log(response);
+        toast.success("Added to cart", {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      })
+      .catch((error) => {
+        console.error(error);
+        toast.error("error", {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      });}
+      else {
+        toast.error("Please login", {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        }) 
+      }
   };
-  const addQuantity = () => {
-    if (quantity > 9) {
-      alert("Quantity non disponible");
-    } else setQuantity(quantity + 1);
+  
+  const incNum = () => {
+    setQuantity((prevQuantity) => prevQuantity + 1);
+  };
+  
+  const decNum = () => {
+    setQuantity((prevQuantity) => prevQuantity - 1);
+  };
+  
+  const handleChange = (event) => {
+    setQuantity(event.target.value);
   };
   useEffect(() => {
     fetch("http://127.0.0.1:8000/homeLift/products/")
@@ -29,20 +90,19 @@ const ProductInfo = () => {
   const DESCRIPTION_LIMIT = 100;
 
   return (
-    <div className="">
+    <div className="bg-white">
+      <Navbar></Navbar>
       <div className="flex px-10 py-5  ">
         <div className="w-2/3 grid grid-cols-2 border border-gray-500 p-5 rounded-lg">
-          <img src={products[1].image} />
-          
-          <img src={products[1].image} />
-          <img src={products[1].image} />
-          <img src={products[1].image} />
+        {product.productImages.map((image) => {
+              <img src={image} alt="" />
+               })}
         </div>
         <div className=" ml-10 w-1/3 space-y-2">
-          <p className="text-lg font-bold font-pop">Product name</p>
+          <p className="text-lg font-bold font-pop">{product.name}</p>
           <div className="flex flex-row">
             <p className="text-gray-500 font pop justify-start">
-              hhhhhhhhhhhhhhhhhhhhhhhhhhhhh
+             {product.description}
             </p>
             <IconButton className="justify-end">
               <svg
@@ -64,19 +124,35 @@ const ProductInfo = () => {
           <p className="text-black font-pop font-bold text-xl">10 000 DA</p>
           <p className="text-gray-500 font-pop text-md"> QTY</p>
           <div className="flex justify-between space-x-2  ">
-            <div className="flex justify-between px-3 w-1/2 bg-white border border-primary rounded-full space-x-2 ">
-              <IconButton className="" onClick={soustractQuantity}>
-                {" "}
-                -{" "}
-              </IconButton>
-              <p className="mt-3 font-pop font "> {quantity} </p>
-              <IconButton className="" onClick={addQuantity}>
-                +
-              </IconButton>
-            </div>
+          <div className="flex relative rounded-full border-2 border-primary w-28 h-10">
+                            <button
+                              className="absolute left-0 top-2 px-2 rounded-full bg-white text-center"
+                              type="button"
+                              onClick={() => decNum()}
+                            >
+                              -
+                            </button>
+
+                            <input
+                              className="text-center  w-full bg-transparent outline-none"
+                              type="text"
+                              value={Quantity}
+                              onChange={(event) => handleChange(event)}
+                            />
+
+                            <button
+                              className="absolute right-0 top-2 px-2 rounded-full bg-white text-center"
+                              type="button"
+                              onClick={() => incNum()}
+                            >
+                              +
+                            </button>
+                          </div>
             <div className="w-full ">
-              <button className=" w-1/2 text-white btn outline-none border border-none rounded-full hover:bg-primary bg-primary normal-case  ">
-                Add to cart
+            <button
+        className="w-1/2 text-white btn outline-none border border-none rounded-full hover:bg-primary bg-primary normal-case"
+        onClick={() => handleAddSubmit(Quantity)}
+      >     Add to cart
               </button>
             </div>
           </div>
@@ -181,6 +257,7 @@ const ProductInfo = () => {
                         </div>
                       </div>
                     </div>
+                  
                   </div>
                 );
               })}
@@ -294,8 +371,13 @@ const ProductInfo = () => {
           </p>
         </div>
       </footer>
+      <ToastContainer />
     </div>
   );
 };
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated,
+  user: state.auth.user,
+});
 
-export default ProductInfo;
+export default connect(mapStateToProps, {}) (ProductInfo);

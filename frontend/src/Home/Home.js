@@ -99,12 +99,12 @@ function Home({ isAuthenticated, user }) {
               >
               {Categories.map((category) => (
   <div key={category.id} className="relative inline-block">
-    <select className="select w-36 max-w-xs bg-transparent outline-none border-none focus:bg-offwhite">
-      <option disabled selected>
+    <select className="select w-36 max-w-xs bg-transparent  outline-none border-none focus:bg-offwhite">
+      <option className="" disabled selected>
         {category.name}
       </option>
       {category.subCategories.map((subcategory) => (
-        <option key={subcategory.id} className="bg-transparent outline-none border-none hover:bg-primary focus:bg-offwhite">
+        <option key={subcategory.id} className=" bg-transparent  outline-none hover:bg-primary focus:bg-offwhite">
           {subcategory.name}
         </option>
       ))}
@@ -121,7 +121,7 @@ function Home({ isAuthenticated, user }) {
                     <div className="card-body">
                       <h2 className="card-title">{product.name}</h2>
                       <p>{product.description}</p>
-                      <p>Price: {product.price} DA</p>
+                      <p> <span className="font-pop text-bold text-primary">Price:</span> {product.price} DA</p>
                       <div className="card-actions justify-end">
                         <button
                           className="btn bg-primary border-none outline-none"

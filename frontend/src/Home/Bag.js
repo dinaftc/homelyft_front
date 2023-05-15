@@ -230,7 +230,7 @@ function Bag({ isAuthenticated, user }) {
               <button class="w-full text-white my-5 h-20 bg-primary border-none rounded px-4 py-2">
                 Continue to Checkout
               </button>
-            </Link> :  <button class="w-full text-white my-5 h-20 bg-primary border-none rounded px-4 py-2" onClick={()=> handleCheckout()}>
+            </Link> :  <button class="w-full text-white my-5 h-20 bg-primary border-none rounded px-4 py-2" >
                 Checkout
               </button> }
           </div>

@@ -77,7 +77,7 @@ const Sidebar = ({ isAuthenticated, logout }) => {
     return <Navigate to="/" />;
   } else {
     return (
-      <div className={" h-screen bg-white flex-row  shadow-2xl"}>
+      <div className={" h-screen bg-white fixed flex-row  shadow-2xl"}>
         <div className="ml-5 mt-7 mr-7  ">
           <img
             className="object-center cursor-pointer"

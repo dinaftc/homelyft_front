@@ -18,35 +18,13 @@ import Settings from "./Admin/pages/Settings/Settings";
 import Addstaff from "./Admin/pages/Settings/Add_staff";
 
 import Clients from "./Admin/pages/Clients/Clients";
+import ProductsPerCategory from "./Home/ProductsPerCategory";
+import ProductInfo from "./Home/ProductInfo";
 function App() {
   return (
  
-      <Provider store={store}>
-      <Router>
-      <Layout>
-
-          <Routes>
-            <Route path="/Login" element={<Login />} />
-            <Route path="/Signup" element={<Signup />} />
-            <Route path="/" element={<Home />} />
-            <Route path="/Resetpwd" element={<Resetpwd />} />
-            
-             <Route  path="/password/reset/confirm/:uid/:token" element={<ResetpwdConfirm/>}/>
-             <Route  path="/activate/:uid/:token" element={<Activate/>}/>
-             <Route exact path="/products" element={< Orders/>} />
-             <Route exact path="/products/Add_product" element={<AddProduct/>} />
-             <Route exact path="/products/Edit_product" element={<EditProductForm/>} />
-             <Route exact path="/profile" element={<Profile/>} />
-             <Route exact path="/settings" element={<Settings/>} />
-             <Route exact path="/add_staff" element={<Addstaff/>} />
-             <Route exact path="/clients" element={<Clients/>} />
-             <Route exact path="/Shopping-bag" element={<Bag/>} />
-             <Route exact path="/Delivery" element={<Addresse/>} />
-          </Routes>
-          </Layout>
-
-      </Router>
-      </Provider>
+      //<ProductsPerCategory/>
+      <ProductInfo/>
     
   );
 }

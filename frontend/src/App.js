@@ -16,7 +16,7 @@ import EditProductForm from "./Admin/pages/Products/EditProductForm";
 import Profile from "./Admin/pages/Profile/Profile"
 import Settings from "./Admin/pages/Settings/Settings";
 import Addstaff from "./Admin/pages/Settings/Add_staff";
-
+import ProductInfo from "./Home/ProductInfo";
 import Clients from "./Admin/pages/Clients/Clients";
 function App() {
   return (
@@ -42,6 +42,7 @@ function App() {
              <Route exact path="/clients" element={<Clients/>} />
              <Route exact path="/Shopping-bag" element={<Bag/>} />
              <Route exact path="/Delivery" element={<Addresse/>} />
+             <Route path="/product-details/:id"  element={<ProductInfo/>}/>
           </Routes>
           </Layout>
 

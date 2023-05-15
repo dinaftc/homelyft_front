@@ -61,7 +61,7 @@ const Categories = () => {
           </div>
         </div>
         {showModal && (
-          <Modal2 showModal={showModal} setShowModal={setShowModal} />
+          <Modal2 showModal={showModal} setShowModal={setShowModal} setTriggerFetch={setTriggerFetch} />
         )}
 
         <div class="w-full overflow-x-auto p-5 ">

@@ -20,7 +20,7 @@ import Addstaff from "./Admin/pages/Settings/Add_staff";
 import Clients from "./Admin/pages/Clients/Clients";
 function App() {
   return (
-
+ 
       <Provider store={store}>
       <Router>
       <Layout>
@@ -30,7 +30,7 @@ function App() {
             <Route path="/Signup" element={<Signup />} />
             <Route path="/" element={<Home />} />
             <Route path="/Resetpwd" element={<Resetpwd />} />
-
+            
              <Route  path="/password/reset/confirm/:uid/:token" element={<ResetpwdConfirm/>}/>
              <Route  path="/activate/:uid/:token" element={<Activate/>}/>
              <Route exact path="/products" element={< Orders/>} />
@@ -47,6 +47,8 @@ function App() {
 
       </Router>
       </Provider>
-
+    
   );
 }
+
+export default App;

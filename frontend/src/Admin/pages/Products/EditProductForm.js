@@ -158,7 +158,7 @@ function EditProductForm({ product, onClose }) {
                 <div className="image-preview-container">
                   <img
                     className="w-full h-full absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
-                    src={productImages[0].image}
+                    src={productImages[0]}
                     alt=""
                   />
                   <div className="smaller-images-container">
@@ -201,7 +201,7 @@ function EditProductForm({ product, onClose }) {
                 <div className="image-preview-container ">
                   <img
                     className="w-full h-full absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
-                    src={productImages[0].image}
+                    src={productImages[0]}
                     alt=""
                     
                   />

@@ -2,12 +2,15 @@ import Logo from "../Admin/components/Sidebar/icon/home.svg";
 import search from "../Admin/assets/icons/search.png";
 import person from "./assets/person.svg";
 import panier from "./assets/panier.png";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { connect } from 'react-redux';
 import { logout } from '../actions/auth';
 import { FiLogOut } from 'react-icons/fi';
 import { useState } from "react";
-import {setProducts} from './Home'
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+
 import axios from "axios";
 function Navbar({ isAuthenticated, logout ,user, setProducts }) {
   const [searchTerm, setSearchTerm] = useState("");
@@ -35,6 +38,7 @@ function Navbar({ isAuthenticated, logout ,user, setProducts }) {
   const logout_user = () => {
     
     logout();
+    return (<Navigate to="/" replace />)
   };
 
   return (
@@ -61,10 +65,10 @@ function Navbar({ isAuthenticated, logout ,user, setProducts }) {
         </div>
       </div>
       <div class="relative w-1/5">
-        {isAuthenticated? <div class="absolute top-0 right-0 h-full flex items-center">
+        {isAuthenticated? 
+        <div class="absolute top-0 right-0 h-full flex items-center">
         <Link  to='/profile'>{user.fullname}</Link> 
-          <button onClick={logout_user}>
-           
+          <button onClick={logout_user} className="m-8">
           <FiLogOut/>
           </button></div>
         :
@@ -81,13 +85,24 @@ function Navbar({ isAuthenticated, logout ,user, setProducts }) {
       </div>
       <div class="relative p-8">
         <div class="absolute top-0 right-0 h-full flex items-center mx-2">
-          <Link to='/Shopping-bag'>
+          {isAuthenticated?   <Link to='/Shopping-bag'>
            
-            <img src={panier} alt="" class="h-6 w-6 " />
-          </Link>
+           <img src={panier} alt="" class="h-6 w-6 " />
+         </Link> : <button onClick={()=>{toast.error("Please login first", {
+              position: "top-center",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+            })}}>   <img src={panier} alt="" class="h-6 w-6 " /></button> }
+        
         </div>
        
       </div>
+      <ToastContainer />
     </div>
   );
 

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { logout } from "../actions/auth";
 import Navbar from "./Navbar";
-import { Navigate } from "react-router-dom";
+import { Navigate, Link } from "react-router-dom";
 import axios from "axios";
 
 import truck from "./assets/truck.svg";
@@ -10,12 +10,9 @@ import store from "./assets/store.svg";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Divider } from "@mui/material";
-import { Link } from "react-router-dom";
 function Bag({ isAuthenticated, user }) {
-  const [orders, setOrders] = useState([]);
   const [items, setItems] = useState([]);
-  const [showModal, setShowModal] = useState(false);
-  const [isEditingQuantity, setIsEditingQuantity] = useState(false);
+  const [ setIsEditingQuantity] = useState(false);
   const [editedQuantity, setEditedQuantity] = useState(0);
   const [Total, setTotal] = useState(0);
   const [triggerFetch, setTriggerFetch] = useState(false);
@@ -98,6 +95,9 @@ function Bag({ isAuthenticated, user }) {
         console.error(error);
       });
   };
+  const handleCheckout =()=>{
+
+  }
 
   if (!isAuthenticated) {
     return <Navigate to="/" replace></Navigate>;
@@ -122,7 +122,7 @@ function Bag({ isAuthenticated, user }) {
                   Delivery
                 </p>
               </button>
-              <button class="flex items-center mr-12 text-center w-1/2 border-gray-300 border rounded px-4 py-2 m-1 focus:border-primary">
+              <button class="flex items-center mr-12 text-center w-1/2 border-gray-300 border rounded px-4 py-2 m-1 focus:border-primary" onClick={()=>setDelivery(false)}>
                 <img src={store} alt="" class="mr-2" />
                 <p class="ml-8 text-gray-700 text-md font-semibold">
                   Collect from store
@@ -141,14 +141,14 @@ function Bag({ isAuthenticated, user }) {
                       />
                       <div className="flex flex-col justify-between ">
                         <div className="flex flex-row justify-between">
-                          <h1 className="text-3xl font-bold">
+                          <h1 className="text-2xl font-bold">
                             {item.product.name}
                           </h1>
-                          <p className="text-right text-xl font-bold ml-4 self-center">
+                          <p className="text-right text-xl font-bold  mr-4">
                             {item.product.price} dzd
                           </p>
                         </div>
-
+                       
                         <div className="flex mt-12">
                           <div className="flex relative rounded-full border-2 border-primary w-28 h-10">
                             <button
@@ -194,33 +194,33 @@ function Bag({ isAuthenticated, user }) {
           </div>
           <div className=" w-1/4 mr-8 fixed top-26 right-0">
             <div className="justify-between flex flex-row">
-              <p className="text-gray-400 text-xl font-semibold m-5 font-pop">
+              <p className="text-gray-400 text-xl font-semibold mx-5 my-4 font-pop">
                 Products price
               </p>
-              <p className="text-gray-400 text-xl font-semibold m-5 font-pop">
+              <p className="text-gray-400 text-xl font-semibold mx-5 my-4 font-pop">
               {Total}DA
               </p>
             </div>
-            <p className="text-gray-700 text-xl font-semibold m-5 font-pop">
+            <p className="text-gray-700 text-xl font-semibold mx-5 my-4 font-pop">
               Order Summaey{" "}
             </p>
             <div className="justify-between flex flex-row">
-              <p className="text-gray-400 text-xl font-semibold m-5 font-pop">
+              <p className="text-gray-400 text-xl font-semibold mx-5 my-5 font-pop">
                 Delivery
               </p>
-              {Delivery ? <p className="text-gray-400 text-xl font-semibold m-5 font-pop">
+              {Delivery ? <p className="text-gray-400 text-xl font-semibold mx-5 my-5 font-pop">
                200 DA
               </p>:
-              <p className="text-gray-400 text-xl font-semibold m-5 font-pop">
-                to be determined
+              <p className="text-gray-400 text-xl font-semibold mx-5 my-5 font-pop">
+                None
               </p>}
             </div>
             <hr className="border-black" />
             <div className="justify-between flex flex-row">
-              <p className="text-gray-700 text-xl font-semibold m-5 font-pop">
+              <p className="text-gray-700 text-xl font-semibold mx-5 my-5 font-pop">
                 Total to pay
               </p>
-              <p className="text-gray-700 text-xl font-semibold m-5 font-pop">
+              <p className="text-gray-700 text-xl font-semibold mx-5 my-5 font-pop">
               {Total}DA
               </p>
             </div>
@@ -230,7 +230,7 @@ function Bag({ isAuthenticated, user }) {
               <button class="w-full text-white my-5 h-20 bg-primary border-none rounded px-4 py-2">
                 Continue to Checkout
               </button>
-            </Link> :  <button class="w-full text-white my-5 h-20 bg-primary border-none rounded px-4 py-2" >
+            </Link> :  <button class="w-full text-white my-5 h-20 bg-primary border-none rounded px-4 py-2" onClick={()=> handleCheckout()}>
                 Checkout
               </button> }
           </div>

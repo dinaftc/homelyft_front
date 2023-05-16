@@ -93,10 +93,12 @@ const ProductInfo = ({isAuthenticated,user}) => {
     <div className="bg-white">
       <Navbar></Navbar>
       <div className="flex px-10 py-5  ">
-        <div className="w-2/3 grid grid-cols-2 border border-gray-500 p-5 rounded-lg">
-        {product.productImages.map((image) => {
+        <div className="w-2/3 border border-gray-500 p-5 rounded-lg">
+        {/*product.productImages.map((image) => {
               <img src={image} alt="" />
-               })}
+              grid grid-cols-2  fl classname
+               })*/}
+               <img src={product.image} alt=""  className="w-full h-full"/>
         </div>
         <div className=" ml-10 w-1/3 space-y-2">
           <p className="text-lg font-bold font-pop">{product.name}</p>

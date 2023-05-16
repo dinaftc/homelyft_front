@@ -109,12 +109,10 @@ function Home({ isAuthenticated, user }) {
       {(user || !isAuthenticated) && (
         <>
           {(isAuthenticated && user.role === 3) || !isAuthenticated ? (
-            <div>
+            <div className="bg-white">
               <Navbar setProducts={setProducts} />
-              <div
-                className="card-container bg-white"
-                style={{ display: "flex" }}
-              >
+             
+                 <div className="mb-5 ">
                 {Categories.map((category) => (
                   <div key={category.id} className="relative inline-block">
                     <select
@@ -136,6 +134,11 @@ function Home({ isAuthenticated, user }) {
                   </div>
                 ))}
                 <hr />
+                 </div>
+                 <div
+                className="card-container bg-white "
+                style={{ display: "flex" }}
+              >
                 {products.map((product, index) => {
           const shortDescription = product.description.slice(
             0,

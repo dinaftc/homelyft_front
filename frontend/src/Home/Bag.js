@@ -13,9 +13,9 @@ import { Divider } from "@mui/material";
 
 function Bag({ isAuthenticated, user }) {
   const [items, setItems] = useState([]);
-  const [Total, setTotal] = useState(0);
+  const [total, setTotal] = useState(0);
   const [triggerFetch, setTriggerFetch] = useState(false);
-  const [Delivery, setDelivery] = useState(false);
+  const [delivery, setDelivery] = useState(false);
 
   useEffect(() => {
     fetch(`http://127.0.0.1:8000/home/${user.id}/view-cart/`)
@@ -32,7 +32,6 @@ function Bag({ isAuthenticated, user }) {
             return { ...item, product };
           })
         );
-
         setItems(updatedItems);
       })
       .catch((error) => {
@@ -113,162 +112,171 @@ function Bag({ isAuthenticated, user }) {
     const handleCheckout = () => {};
     
     if (!isAuthenticated) {
-    return <Navigate to="/" replace />;
+      return <Navigate to="/" replace />;
     } else {
-    return (
-    <div className="bg-white h-full w-full">
-    <Navbar />
-    <Divider />
-    <div className="flex w-full">
-    <div className="bg-white rounded-lg p-5 w-3/4">
-    <h1 className="text-gray-700 text-3xl font-bold mb-5 font-pop">
-    Shopping Bag
-    </h1>
-    <p className="text-gray-700 text-xl font-bold mb-5 font-pop">
-    How would you like to receive your order?
-    </p>
-    <div className="flex h-20 w-full">
-    <button
-    className="flex items-center ml-12 text-center w-1/2 border-gray-300 border rounded px-4 py-2 m-1 focus:border-primary"
-    onClick={() => setDelivery(true)}
-    >
-    <img src={truck} alt="" className="mr-2" />
-    <p className="ml-14 text-gray-700 text-md font-semibold">
-    Delivery
-    </p>
-    </button>
-    <button
-    className="flex items-center mr-12 text-center w-1/2 border-gray-300 border rounded px-4 py-2 m-1 focus:border-primary"
-    onClick={() => setDelivery(false)}
-    >
-    <img src={store} alt="" className="mr-2" />
-    <p className="ml-8 text-gray-700 text-md font-semibold">
-    Collect from store
-    </p>
-    </button>
-    </div>
-    {items.length !== 0 ? (
-    <div>
-    {items.map((item, index) => (
-    <div className="hero h-1/3" key={item.id}>
-    <div className="hero-content flex-col lg:flex-row">
-    <img
-                         src={item.product.image}
-                         className="h-1/3 w-1/3 rounded-lg shadow-2xl"
-                         alt={item.product.name}
-                       />
-    <div className="flex flex-col justify-between ">
-    <div className="flex flex-row justify-between">
-    <h1 className="text-2xl font-bold">
-    {item.product.name}
-    </h1>
-    <p className="text-right text-xl font-bold  mr-4">
-    {item.product.price} dzd
-    </p>
-    </div>
-    <div className="flex mt-12">
-    <div className="flex relative rounded-full border-2 border-primary w-28 h-10">
-    <button
-    className="absolute left-0 top-2 px-2 rounded-full bg-white text-center"
-    type="button"
-    onClick={() => decNum(item.id)}
-    >
-    -
-    </button>
-    <input
-    className="text-center w-full bg-transparent outline-none"
-    type="text"
-    value={item.quantity}
-    onChange={(event) => handleChange(event, item.id)}
-    />
-    <button
-    className="absolute right-0 top-2 px-2 rounded-full bg-white text-center"
-    type="button"
-    onClick={() => incNum(item.id)}
-    >
-    +
-    </button>
-    </div>
-    <button
-    onClick={() => handleDelete
-    
-    (item.id)}
-    className="font-pop normal-case text-gray-400 rounded-full bg-none outline-none border-none w-28 ml-4"
-    >
-    Remove
-    </button>
-    </div>
-    </div>
-    </div>
-    </div>
-    ))}
-    <Divider />
-    </div>
-    ) : (
-    <p>Fetching data ...</p>
-    )}
-    </div>
-    <div className="w-1/4 mr-8 fixed top-26 right-0">
-    <div className="justify-between flex flex-row">
-    <p className="text-gray-400 text-xl font-semibold mx-5 my-4 font-pop">
-    Products price
-    </p>
-    <p className="text-gray-400 text-xl font-semibold mx-5 my-4 font-pop">
-    {Total}DA
-    </p>
-    </div>
-    <p className="text-gray-700 text-xl font-semibold mx-5 my-4 font-pop">
-    Order Summary
-    </p>
-    <div className="justify-between flex flex-row">
-    <p className="text-gray-400 text-xl font-semibold mx-5 my-5 font-pop">
-    Delivery
-    </p>
-    {Delivery ? (
-    <p className="text-gray-400 text-xl font-semibold mx-5 my-5 font-pop">
-    200 DA
-    </p>
-    ) : (
-    <p className="text-gray-400 text-xl font-semibold mx-5 my-5 font-pop">
-    None
-    </p>
-    )}
-    </div>
-    <hr className="border-black" />
-    <div className="justify-between flex flex-row">
-    <p className="text-gray-700 text-xl font-semibold mx-5 my-5 font-pop">
-    Total to pay
-    </p>
-    <p className="text-gray-700 text-xl font-semibold mx-5 my-5 font-pop">
-    {Total}DA
-    </p>
-    </div>
-    <Divider />
-    {Delivery ? (
-    <Link to="/Delivery">
-    <button className="w-full text-white my-5 h-20 bg-primary border-none rounded px-4 py-2">
-    Continue to Checkout
-    </button>
-    </Link>
-    ) : (
-    <button
-    className="w-full text-white my-5 h-20 bg-primary border-none rounded px-4 py-2"
-    onClick={() => handleCheckout()}
-    >
-    Checkout
-    </button>
-    )}
-    </div>
-    </div>
-    <ToastContainer />
-    </div>
-    );
+      return (
+        <div className="bg-white h-full w-full">
+          <Navbar />
+          <Divider />
+  
+          <div className="flex flex-col sm:flex-row">
+            <div className="bg-white rounded-lg p-5 sm:w-3/4">
+              <h1 className="text-gray-700 text-3xl font-bold mb-5 font-pop">
+                Shopping Bag
+              </h1>
+              <p className="text-gray-700 text-xl font-bold mb-5 font-pop">
+                How would you like to receive your order?
+              </p>
+  
+              <div className="flex flex-col h-20 sm:flex-row">
+                <button
+                  className={`flex items-center text-center w-full sm:w-1/2 border-gray-300 border rounded px-4 py-2 m-1 focus:border-primary ${
+                    delivery ? 'bg-primary text-white' : ''
+                  }`}
+                  onClick={() => setDelivery(true)}
+                >
+                  <img src={truck} alt="" className="mr-2" />
+                  <p className="ml-14 text-gray-700 text-md font-semibold">
+                    Delivery
+                  </p>
+                </button>
+  
+                <button
+                  className={`flex items-center text-center w-full sm:w-1/2 border-gray-300 border rounded px-4 py-2 m-1 focus:border-primary ${
+                    !delivery ? 'bg-primary text-white' : ''
+                  }`}
+                  onClick={() => setDelivery(false)}
+                >
+                  <img src={store} alt="" className="mr-2" />
+                  <p className="ml-8 text-gray-700 text-md font-semibold">
+                    Collect from store
+                  </p>
+                </button>
+              </div>
+  
+              {items.length !== 0 ? (
+                <div>
+                  {items.map((item, index) => (
+                    <div className="hero h-1/3" key={item.id}>
+                      <div className="hero-content flex-col lg:flex-row">
+                        <img
+                          src={item.product.image}
+                          className="h-1/3 w-1/3 rounded-lg shadow-2xl"
+                          alt={item.product.name}
+                        />
+                        <div className="flex flex-col justify-between">
+                          <div className="flex flex-row justify-between">
+                            <h1 className="text-2xl font-bold">
+                              {item.product.name}
+                            </h1>
+                            <p className="text-right text-xl font-bold  mr-4">
+                              {item.product.price} dzd
+                            </p>
+                          </div>
+                          <div className="flex mt-12">
+                            <div className="flex relative rounded-full border-2 border-primary w-28 h-10">
+                              <button
+                                className="absolute left-0 top-2 px-2 rounded-full bg-white text-center"
+                                type="button"
+                                onClick={() => decNum(item.id)}
+                              >
+                                -
+                              </button>
+                              <input
+                                className="text-center w-full bg-transparent outline-none"
+                                type="text"
+                                value={item.quantity}
+                                onChange={(event) =>
+                                  handleChange(event, item.id)
+                                }
+                              />
+                              <button
+                                className="absolute right-0 top-2 px-2 rounded-full bg-white text-center"
+                                type="button"
+                                onClick={() => incNum(item.id)}
+                              >
+                                +
+                              </button>
+                            </div>
+                            <button
+                              onClick={() => handleDelete(item.id)}
+                              className="font-pop normal-case text-gray-400 rounded-full bg-none outline-none border-none w-28 ml-4"
+                            >
+                              Remove
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                  <Divider />
+                </div>
+              ) : (
+                <p>Fetching data ...</p>
+              )}
+            </div>
+  
+            <div className="w-full mr-5 sm:w-1/4 sm:ml-8 mt-8 sm:mt-0">
+              <div className="justify-between flex flex-row">
+                <p className="text-gray-400 text-xl font-semibold mx-5 my-4 font-pop">
+                  Products price
+                </p>
+                <p className="text-gray-400 text-xl font-semibold mx-5 my-4 font-pop">
+                  {total}DA
+                </p>
+              </div>
+              <p className="text-gray-700 text-xl font-semibold mx-5 my-4 font-pop">
+                Order Summary
+              </p>
+              <div className="justify-between flex flex-row">
+                <p className="text-gray-400 text-xl font-semibold mx-5 my-5 font-pop">
+                  Delivery
+                </p>
+                {delivery ? (
+                  <p className="text-gray-400 text-xl font-semibold mx-5 my-5 font-pop">
+                    200 DA
+                  </p>
+                ) : (
+                  <p className="text-gray-400 text-xl font-semibold mx-5 my-5 font-pop">
+                    None
+                  </p>
+                )}
+              </div>
+              <hr className="border-black" />
+              <div className="justify-between flex flex-row">
+                <p className="text-gray-700 text-xl font-semibold mx-5 my-5 font-pop">
+                  Total to pay
+                </p>
+                <p className="text-gray-700 text-xl font-semibold mx-5 my-5 font-pop">
+                  {total}DA
+                </p>
+              </div>
+              <Divider />
+              {delivery ? (
+                <Link to="/Delivery">
+                  <button className="w-full text-white my-5 h-20 bg-primary border-none rounded px-4 py-2">
+                    Continue to Checkout
+                  </button>
+                </Link>
+              ) : (
+                <button
+                  className="w-full text-white my-5 h-20 bg-primary border-none rounded px-4 py-2"
+                  onClick={() => handleCheckout()}
+                >
+                  Checkout
+                </button>
+              )}
+            </div>
+          </div>
+          <ToastContainer />
+        </div>
+      );
     }
-    }
-    
-    const mapStateToProps = (state) => ({
+  };
+  
+  const mapStateToProps = (state) => ({
     isAuthenticated: state.auth.isAuthenticated,
     user: state.auth.user,
-    });
-    
-    export default connect(mapStateToProps, { logout })(Bag);    
+  });
+  
+  export default connect(mapStateToProps, { logout })(Bag);

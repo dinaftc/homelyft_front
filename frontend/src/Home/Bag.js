@@ -55,30 +55,30 @@ function Bag({ isAuthenticated, user }) {
   const incNum = (id) => {
     const updatedItems = items.map((item) => {
       if (item.id === id) {
-        return { ...item, quantity: item.quantity + 1 };
+        return { ...item, Quantity: item.Quantity + 1 };
       }
       return item;
     });
     setItems(updatedItems);
-    handleEditSubmit(id, updatedItems.find((item) => item.id === id).quantity);
+    handleEditSubmit(id, updatedItems.find((item) => item.id === id).Quantity);
   };
 
   const decNum = (id) => {
     const updatedItems = items.map((item) => {
-      if (item.id === id && item.quantity > 0) {
-        return { ...item, quantity: item.quantity - 1 };
+      if (item.id === id && item.Quantity > 0) {
+        return { ...item, Quantity: item.Quantity - 1 };
       }
       return item;
     });
     setItems(updatedItems);
-    handleEditSubmit(id, updatedItems.find((item) => item.id === id).quantity);
+    handleEditSubmit(id, updatedItems.find((item) => item.id === id).Quantity);
   };
 
   const handleChange = (event, id) => {
     const newQuantity = parseInt(event.target.value);
     const updatedItems = items.map((item) => {
       if (item.id === id) {
-        return { ...item, quantity: newQuantity };
+        return { ...item, Quantity: newQuantity };
       }
       return item;
     });
@@ -169,7 +169,7 @@ function Bag({ isAuthenticated, user }) {
                             <h1 className="text-2xl font-bold">
                               {item.product.name}
                             </h1>
-                            <p className="text-right text-xl font-bold  mr-4">
+                            <p className="text-right text-xl font-bold py-5 self-center mr-4">
                               {item.product.price} dzd
                             </p>
                           </div>
@@ -185,7 +185,7 @@ function Bag({ isAuthenticated, user }) {
                               <input
                                 className="text-center w-full bg-transparent outline-none"
                                 type="text"
-                                value={item.quantity}
+                                value={item.Quantity}
                                 onChange={(event) =>
                                   handleChange(event, item.id)
                                 }

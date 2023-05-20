@@ -2,7 +2,7 @@ import { Icon, IconButton } from "@mui/material";
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import Navbar from "./Navbar";
-import "react-toastify/dist/ReactToastify.css";
+
 import { connect } from "react-redux";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
@@ -17,13 +17,13 @@ const ProductInfo = ({isAuthenticated,user}) => {
    
 
 
-  const [Quantity, setQuantity] = useState(0);
+  const [quantity, setQuantity] = useState(0);
   const handleAddSubmit = (Quantity) => {
    if (isAuthenticated) {
     axios
       .post(
         `http://127.0.0.1:8000/home/${user.id}/${product.id}/addtocart/`,
-        { Quantity: Quantity },
+        { Quantity: quantity },
         { headers: { "Content-Type": "application/json" } }
       )
       .then((response) => {
@@ -136,7 +136,7 @@ const ProductInfo = ({isAuthenticated,user}) => {
             <input
               className="text-center w-full bg-transparent outline-none"
               type="text"
-              value={Quantity}
+              value={quantity}
               onChange={(event) => handleChange(event)}
             />
   
@@ -151,7 +151,7 @@ const ProductInfo = ({isAuthenticated,user}) => {
           <div className="w-full">
             <button
               className="w-full text-white btn outline-none border border-none rounded-full hover:bg-primary bg-primary normal-case"
-              onClick={() => handleAddSubmit(Quantity)}
+              onClick={() => handleAddSubmit(quantity)}
             >
               Add to cart
             </button>

@@ -9,6 +9,8 @@ import { Link } from "react-router-dom";
 
 function Addadress({ user, load_user }) {
   const [items, setItems] = useState([]);
+  const [total, setTotal] = useState(0);
+  const [triggerFetch, setTriggerFetch] = useState(false);
   const [step1, setStep1] = useState(false);
   const [formData, setFormData] = useState({
     fullname: user.fullname,
@@ -25,9 +27,10 @@ function Addadress({ user, load_user }) {
     fetch(`http://127.0.0.1:8000/home/${user.id}/view-cart/`)
       .then((response) => response.json())
       .then(async (data) => {
+        setTotal(data[0].total_amount);
         // Map through the items and fetch product information for each item
         const updatedItems = await Promise.all(
-          data.map(async (item) => {
+          data[0].items.map(async (item) => {
             const response = await fetch(
               `http://127.0.0.1:8000/homeLift/products/${item.Product_id}/`
             );
@@ -35,14 +38,12 @@ function Addadress({ user, load_user }) {
             return { ...item, product };
           })
         );
-
         setItems(updatedItems);
       })
       .catch((error) => {
         console.log(error);
       });
-  }, [user.id]);
-
+  }, [triggerFetch, user.id]);
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormData({
@@ -108,7 +109,7 @@ function Addadress({ user, load_user }) {
     <div className="bg-white h-full w-full">
       <Navbar></Navbar>
 
-      <div className="flex">
+      <div className="flex mr-5">
         {!step1 ? (
           <div className=" bg-white rounded-lg p-5 m-5 w-3/4">
             <h1 className="text-black text-3xl ml-5 font-bold mb-5 font-pop relative">
@@ -208,8 +209,9 @@ function Addadress({ user, load_user }) {
               </button>
             </div>
             <hr />
+            <br />
             <h1 className="text-gray-400 text-3xl ml-5 font-bold m-5 font-pop relative">
-              <span className="absolute rounded-full bg-white text-gray-400 border-2 border-gray-400 text-xl font-bold px-3 py-1  -left-11 top-0">
+              <span className="absolute rounded-full bg-white text-gray-400 border-2 border-gray-400 text-xl font-bold px-3 py-1 -left-11 top-0">
                 2
               </span>
               Payment Details
@@ -260,7 +262,7 @@ function Addadress({ user, load_user }) {
             </h1>
           </div>
         )}
-        <div className=" w-1/4 mr-8 fixed top-26 right-0">
+        <div className=" w-1/4 mr-3 fixed top-24 -right-1">
           <div className="justify-between flex flex-row">
             <p className="text-black text-xl font-semibold mr-5 my-5  font-pop">
               Your Order
@@ -272,14 +274,14 @@ function Addadress({ user, load_user }) {
               Edit
             </Link>
           </div>
-          <div className="flex overflow-x-auto">
+          <div className="flex overflow-x-auto ">
             {items.length !== 0 ? (
               items.map((item) => (
                 <img
-                  src={item.product.image}
-                  alt=""
-                  className="h-20 w-20 mr-4 ml-2 object-cover"
-                />
+                src={item.product.image}
+                className="h-20 w-20 mr-4 ml-2 "
+                alt={item.product.name}
+              />
               ))
             ) : (
               <p>Fetching ...</p>
@@ -290,20 +292,32 @@ function Addadress({ user, load_user }) {
             Order Summary
           </p>
           <div className="justify-between flex flex-col">
-            <p className="text-gray-400 text-xl font-semibold m-2 font-pop">
-              Subtotal
-            </p>
-            <p className="text-gray-400 text-xl font-semibold m-2 font-pop">
-              Delivery
-            </p>
+          <div className="justify-between flex flex-row">
+                <p className="text-gray-400 text-xl font-semibold mx-5 my-4 font-pop">
+                  Subtotal
+                </p>
+                <p className="text-gray-400 text-xl font-semibold mx-5 my-4 font-pop">
+                  {total}DA
+                </p>
+              </div>
+              <div className="justify-between flex flex-row">
+                <p className="text-gray-400 text-xl font-semibold mx-5 my-4 font-pop">
+                  Delivery
+                </p>
+                <p className="text-gray-400 text-xl font-semibold mx-5 my-4 font-pop">
+                 200.00 DA
+                </p>
+              </div>
           </div>
           <hr className="border-black m-2" />
           <div className="justify-between flex flex-row">
-            <p className="text-gray-700 text-xl font-semibold m-2 font-pop">
+            <p className="text-gray-700 text-xl font-semibold  mx-5 my-4 font-pop">
               Total to pay
             </p>
-          <hr />
+            <p className="text-gray-700 text-xl font-semibold  mx-5 my-4 font-pop">
+              {total  }DA </p>
           </div>
+          <hr />
         </div>
       </div>
       <ToastContainer />

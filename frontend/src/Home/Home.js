@@ -20,7 +20,7 @@ function Home({ isAuthenticated, user }) {
 
   const [showPopup, setShowPopup] = useState(false);
 
-  const [Quantity, setSelectedQuantity] = useState(1);
+  const [quantity, setSelectedQuantity] = useState(1);
   const [Categories, setCategories] = useState([]);
   const [selectedSubcategory, setSelectedSubcategory] = useState("");
 
@@ -57,7 +57,7 @@ function Home({ isAuthenticated, user }) {
   };
 
   const handleAddToCartSubmit = async () => {
-    if (selectedProductId !== null && Quantity > 0) {
+    if (selectedProductId !== null && quantity > 0) {
       console.log(selectedProductId);
       if (!isAuthenticated) {
         alert("Please sign up or login to buy");
@@ -65,7 +65,7 @@ function Home({ isAuthenticated, user }) {
         try {
           const response = await axios.post(
             `http://127.0.0.1:8000/home/${user.id}/${selectedProductId}/addtocart/`,
-            { Quantity: Quantity },
+            { Quantity: quantity },
             { headers: { "Content-Type": "application/json" } }
           );
 
@@ -234,7 +234,7 @@ function Home({ isAuthenticated, user }) {
                       <h3>Enter Quantity</h3>
                       <input
                         type="number"
-                        value={Quantity}
+                        value={quantity}
                         onChange={(e) => setSelectedQuantity(e.target.value)}
                       />
                       <button onClick={handleAddToCartSubmit}>Add to Cart</button>

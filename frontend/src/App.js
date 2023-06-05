@@ -18,6 +18,7 @@ import Settings from "./Admin/pages/Settings/Settings";
 import Addstaff from "./Admin/pages/Settings/Add_staff";
 import ProductInfo from "./Home/ProductInfo";
 import Clients from "./Admin/pages/Clients/Clients";
+import Statistics from "./Admin/pages/Statistics/Statistics";
 function App() {
   return (
  
@@ -36,6 +37,7 @@ function App() {
              <Route exact path="/products" element={< Orders/>} />
              <Route exact path="/products/Add_product" element={<AddProduct/>} />
              <Route exact path="/products/Edit_product" element={<EditProductForm/>} />
+             <Route path="/Statistics"  element={<Statistics/>}/>
              <Route exact path="/profile" element={<Profile/>} />
              <Route exact path="/settings" element={<Settings/>} />
              <Route exact path="/add_staff" element={<Addstaff/>} />

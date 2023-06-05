@@ -34,6 +34,19 @@ const Categories = () => {
       .catch((error) => console.error(error));
   };
 
+  const handleDeleteCategory = (categoryId) => {
+    axios
+      .delete(
+        `http://127.0.0.1:8000/homeLift/categories/${categoryId}`
+      )
+      .then((response) => {
+        // If the request is successful, update the state by removing the deleted subcategory
+      setTriggerFetch(true)
+      })
+      .catch((error) => console.error(error));
+  };
+
+
   useEffect(() => {
     fetch("http://127.0.0.1:8000/homeLift/categories/")
       .then((response) => response.json())
@@ -76,7 +89,7 @@ const Categories = () => {
             <tbody className="text-xl">
               <tr>
                 <th class=" align-middle text-lg">Category</th>
-                <th class=" align-middle text-center text-lg">Quantity</th>
+               
                 <th class=" align-middle text-left text-lg">Sub-Categories</th>
               </tr>
             </tbody>
@@ -84,10 +97,30 @@ const Categories = () => {
               {Categories.map((category) => (
                 <React.Fragment key={category.id}>
                   <tr>
-                    <td class="  align-middle">{category.name}</td>
-                    <td class="  align-middle text-center">
-                      {category.quantity}
-                    </td>
+                    <td class="  align-middle"> <ul className="  border-primary mx-1 border pl-2 text-sm rounded-full bg-white font-pop outline-primary text-black hover:text-white hover:bg-primary">
+                            <label>{category.name}</label>
+                            <IconButton
+                              id="deleteSubCategory"
+                              onClick={() =>
+                                handleDeleteCategory(
+                                  category.id,
+                                 
+                                )
+                              }
+                            >
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                height="18px"
+                                viewBox="0 0 24 24"
+                                width="18px"
+                                fill="#f44335"
+                              >
+                                <path d="M0 0h24v24H0z" fill="none" />
+                                <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
+                              </svg>
+                            </IconButton>
+                          </ul></td>
+                   
                     <td class="  align-middle text-left">
                       <div className="flex flex-wrap">
                         {category.subCategories.map((subCategory) => (

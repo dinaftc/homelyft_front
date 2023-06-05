@@ -18,7 +18,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
   
 
-const Login = ({login, isAuthenticated}) => {
+const Login = ({login, isAuthenticated,user}) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const handleEmailChange = (event) => setEmail(event.target.value);
@@ -33,16 +33,28 @@ const Login = ({login, isAuthenticated}) => {
   const onSubmit = async (event) => {
     event.preventDefault();
    login(email,password);
-
+if (user.blocked){
+  return  toast.error("You do not have permision, please contact admin", {
+    position: "top-center",
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "light",
+  });
+}
     }
  
   
   
  
 
-  if (isAuthenticated ) {
+  if (isAuthenticated && !(user.blocked) ) {
     return <Navigate to='/' />
 }
+
 
 
   return (
@@ -168,6 +180,7 @@ const Login = ({login, isAuthenticated}) => {
 
 const mapStateToProps = state => ({
   isAuthenticated: state.auth.isAuthenticated,
+  user:state.auth.user,
 });
 
 export default connect(mapStateToProps, { login })(Login);

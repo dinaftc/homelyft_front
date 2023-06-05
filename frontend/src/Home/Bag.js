@@ -119,7 +119,7 @@ function Bag({ isAuthenticated, user }) {
           return fetch(`http://127.0.0.1:8000/home/${user.id}/checkout/`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ customer: user.id, items: items }),
+           
           });
         } else {
           throw new Error("Failed to verify cart");
@@ -238,7 +238,7 @@ function Bag({ isAuthenticated, user }) {
                 <Divider />
               </div>
             ) : (
-              <p className="text-gray-400 text-xl font-semibold mx-5 my-4 font-pop">it's empty ...</p>
+              <p className="text-gray-400 text-xl font-semibold mx-5 my-4 font-pop"git>it's empty ...</p>
             )}
           </div>
 

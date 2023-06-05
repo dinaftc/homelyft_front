@@ -3,7 +3,7 @@ import Rating from "@mui/material/Rating";
 import { useState } from "react";
 import AddReview from "./AddReview";
 
-const ViewReviews = ({ onClose }) => {
+const ViewReviews = ({ onClose,user,product }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
@@ -103,7 +103,7 @@ const ViewReviews = ({ onClose }) => {
             style={{ userSelect: "none" }}
           >
             <div>
-              <p className="font-pop font-bold text-lg">Username</p>
+              <p className="font-pop font-bold text-lg">{user.fullname}</p>
               <p className="font-pop text-gray-400 text-sm">review</p>
               <Divider />
             </div>
@@ -113,7 +113,7 @@ const ViewReviews = ({ onClose }) => {
       {isModalOpen && (
         <div className="modal-overlay">
           <div className="modal-content">
-            <AddReview  setIsModalOpen={setIsModalOpen} />
+            <AddReview  setIsModalOpen={setIsModalOpen} user={user} product={product} />
           </div>
         </div>
       )}

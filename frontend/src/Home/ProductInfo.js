@@ -246,7 +246,7 @@ const ProductInfo = ({ isAuthenticated, user }) => {
               </svg>
             </IconButton>
             <Modal open={viewReviewsModalOpen} >
-              <ViewReviews onClose={closeViewReviewsModal} />
+              <ViewReviews onClose={closeViewReviewsModal} user={user} product={product}/>
             </Modal>
           </div>
           <Divider className="" />

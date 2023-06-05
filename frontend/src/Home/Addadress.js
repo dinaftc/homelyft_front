@@ -304,7 +304,7 @@ function Addadress({ user, load_user }) {
 
             <h1 className="text-black text-3xl ml-5 font-bold mb-5 font-pop relative" onDoubleClick={(e) => {
                 e.preventDefault();
-              }}
+              }}>
 
               <span className="absolute rounded-full bg-black text-white text-xl font-bold px-3 py-1  -left-11 top-0">
                 2

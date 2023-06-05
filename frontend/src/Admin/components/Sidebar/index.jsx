@@ -19,7 +19,7 @@ import { useState } from "react";
 import { Link, Navigate } from "react-router-dom";
 import { connect } from "react-redux";
 import { logout } from "../../../actions/auth";
-
+import Statistics from "../../pages/Statistics/Statistics";
 const Sidebar = ({ isAuthenticated, logout }) => {
   const logout_user = () => {
     logout();
@@ -62,7 +62,7 @@ const Sidebar = ({ isAuthenticated, logout }) => {
       activesrc: userac,
       Link: "/clients",
     },
-    { title: "Insights", src: insight, activesrc: insightwhite, Link: "/Home" },
+    { title: "Insights", src: insight, activesrc: insightwhite, Link: "/Statistics" },
   ];
   const SecMenus = [
     {

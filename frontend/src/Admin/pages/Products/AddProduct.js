@@ -129,7 +129,7 @@ function AddProduct() {
 
   function handleCategoryChange(event) {
     setCategory(event.target.value);
-    console.log(category)
+    console.log(category);
     fetch(
       `http://127.0.0.1:8000/homeLift/categories/${category}/subcategory/`
     )
@@ -213,7 +213,7 @@ function AddProduct() {
         </div>
         
           {!images ? (
-            <div className="mx-5 my-5 p-5 w-1/2   bg-white h-full shadow-md rounded-2xl">
+            <div className="mx-5 my-5 p-5 w-1/2 bg-white h-full shadow-md rounded-2xl">
             <label className=" outline-none font-inter font-bold text-base leading-5 leading-trim-cap text-gray-700 mb-5" onDoubleClick={(e) => {
                 e.preventDefault();
               }}

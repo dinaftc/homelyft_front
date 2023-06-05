@@ -6,11 +6,12 @@ import "react-toastify/dist/ReactToastify.css";
 import { load_user } from "../actions/auth";
 import Navbar from "./Navbar";
 import { Link } from "react-router-dom";
+import Cookies from 'js-cookie';
 
 function Addadress({ user, load_user }) {
   const [items, setItems] = useState([]);
   const [total, setTotal] = useState(0);
-  const [triggerFetch, setTriggerFetch] = useState(false);
+  const [triggerFetch] = useState(false);
   const [step1, setStep1] = useState(false);
   const [formData, setFormData] = useState({
     fullname: user.fullname,
@@ -104,6 +105,39 @@ function Addadress({ user, load_user }) {
         });
       });
   };
+
+
+  const handleClick = async () => {
+
+    try {
+      const response = await axios.get('/get-csrf-token/');
+      const csrfToken = response.data.csrfToken;
+      const invoice = {
+        amount: 600,
+        client: "diaaa",
+        client_email: 'd.fettache@esi-sba.dz',
+        mode: "CIB",
+      };
+  
+      const config = {
+        headers: {
+          'X-CSRFToken': csrfToken, // Include the CSRF token in the request headers
+          'Content-Type': 'application/json',
+        },
+      };
+  
+      const apiResponse = await axios.post(
+        'http://127.0.0.1:8000/home/cart/pay/',
+        invoice,
+        config
+      );
+  
+      console.log(apiResponse.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  
 
   return (
     <div className="bg-white h-full w-full">
@@ -222,6 +256,7 @@ function Addadress({ user, load_user }) {
               </span>
               Payment Details
             </h1>
+            <button onClick={handleClick}>testing</button>
             <hr />
           </div>
         ) : (
@@ -266,15 +301,62 @@ function Addadress({ user, load_user }) {
 
             <hr />
 
+
             <h1 className="text-black text-3xl ml-5 font-bold mb-5 font-pop relative" onDoubleClick={(e) => {
                 e.preventDefault();
               }}
-              style={{ userSelect: "none" }}>
+
               <span className="absolute rounded-full bg-black text-white text-xl font-bold px-3 py-1  -left-11 top-0">
                 2
               </span>
               Payment Details
             </h1>
+            <form action="post">
+          
+       
+            <input
+              name="fullname"
+              id="fullname"
+              value={formData.fullname}
+              onChange={handleChange}
+              required
+              type="text"
+              placeholder="Full Name*"
+              className="w-3/4 h-12 m-2 px-5 border  outline-none rounded-full border-gray-300 focus:border-primary"
+            />
+            <input
+              name="fullname"
+              id="fullname"
+              value={formData.email}
+              onChange={handleChange}
+              required
+              type="text"
+              placeholder="Full Name*"
+              className="w-3/4 h-12 m-2 px-5 border  outline-none rounded-full border-gray-300 focus:border-primary"
+            />
+            <input
+              name="amount"
+              id="amount"
+              value={total }
+              fixed
+              type="text"
+              className="w-3/4 h-12 m-2 px-5 border  outline-none rounded-full border-gray-300 focus:border-primary"
+            />
+            <select
+              name="payment mode"
+              id="mode"
+              className="w-3/4 h-12 m-2 px-5 border  outline-none rounded-full border-gray-300 focus:border-primary"
+            >
+              <option value="CIB">CIB</option>
+              <option value="Edahabia">Edahabia</option>
+            </select>
+            </form>
+            <button
+              onClick={handleClick}
+              className="w-3/4 h-12 m-2  font-pop btn normal-case text-white rounded-full bg-primary  border-primary hover:bg-hoverADD hover:border-hoverADD "
+            >
+              Pay
+            </button>
           </div>
         )}
         <div className=" w-1/4 mr-3 fixed top-24 -right-1">
@@ -293,10 +375,10 @@ function Addadress({ user, load_user }) {
             {items.length !== 0 ? (
               items.map((item) => (
                 <img
-                src={item.product.image}
-                className="h-20 w-20 mr-4 ml-2 "
-                alt={item.product.name}
-              />
+                  src={item.product.image}
+                  className="h-20 w-20 mr-4 ml-2 "
+                  alt={item.product.name}
+                />
               ))
             ) : (
               <p>Fetching ...</p>
@@ -310,6 +392,7 @@ function Addadress({ user, load_user }) {
             Order Summary
           </p>
           <div className="justify-between flex flex-col">
+
           <div className="justify-between flex flex-row" onDoubleClick={(e) => {
                 e.preventDefault();
               }}
@@ -336,7 +419,8 @@ function Addadress({ user, load_user }) {
               Total to pay
             </p>
             <p className="text-gray-700 text-xl font-semibold  mx-5 my-4 font-pop">
-              {total  }DA </p>
+              {total}DA{" "}
+            </p>
           </div>
           <hr />
         </div>

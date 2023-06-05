@@ -49,14 +49,23 @@ const Login = ({login, isAuthenticated}) => {
     <div className="w-screen h-screen flex justify-center items-center ">
       <form className=" rounded-lg py-4 px-12" onSubmit={e=>onSubmit(e)}>
         <div className="my-2">
-          <h1 className="text-3xl font-bold font-pop text-center text-primary ">
+          <h1 className="text-3xl font-bold font-pop text-center text-primary " onDoubleClick={(e) => {
+                e.preventDefault();
+              }}
+              style={{ userSelect: "none" }}>
             Hello Again!
           </h1>
           <div className="my-1 flex flex-col text-center px-2 mb-7">
-            <p className="text-gray-400 font-pop font-normal font-400 ">
+            <p className="text-gray-400 font-pop font-normal font-400 " onDoubleClick={(e) => {
+                e.preventDefault();
+              }}
+              style={{ userSelect: "none" }}>
               Pour que vous puissiez connecter avec succés
             </p>
-            <p className="text-gray-400 font-pop font-normal font-400">
+            <p className="text-gray-400 font-pop font-normal font-400" onDoubleClick={(e) => {
+                e.preventDefault();
+              }}
+              style={{ userSelect: "none" }}>
               veuillez saisir vos informations{" "}
             </p>
           </div>
@@ -69,8 +78,14 @@ const Login = ({login, isAuthenticated}) => {
               required
             
             />
-            <span>Email*</span>
-            <img src={at} alt="" />
+            <span onDoubleClick={(e) => {
+                e.preventDefault();
+              }}
+              style={{ userSelect: "none" }}>Email*</span>
+            <img src={at} alt="" onDoubleClick={(e) => {
+                e.preventDefault();
+              }}
+              style={{ userSelect: "none" }} />
           </div>
        
           <div className="InputBox ">
@@ -81,9 +96,15 @@ const Login = ({login, isAuthenticated}) => {
               type={showPassword? 'text' : 'password'}
               minLength={8}
             />
-            <span>Password*</span>
+            <span onDoubleClick={(e) => {
+                e.preventDefault();
+              }}
+              style={{ userSelect: "none" }}>Password*</span>
            
-             <img src={showPassword ? eyeoff : eye } alt=""  onClick={handleClickShowPassword}/> 
+             <img src={showPassword ? eyeoff : eye } alt=""  onClick={handleClickShowPassword} onDoubleClick={(e) => {
+                e.preventDefault();
+              }}
+              style={{ userSelect: "none" }}/> 
             
            
           </div>
@@ -92,6 +113,10 @@ const Login = ({login, isAuthenticated}) => {
           <Link to='/Resetpwd'
             className="text-sm font-pop font-normal font-400  text-primary  "
             onClick={handleEmailsent}
+            onDoubleClick={(e) => {
+              e.preventDefault();
+            }}
+            style={{ userSelect: "none" }}
           >
             Forgot password?
           </Link>
@@ -105,7 +130,10 @@ const Login = ({login, isAuthenticated}) => {
           </button>
           <div className="flex flex-row justify-center">
             <div className="my-1 text-center ">
-              <p className="text-sm inline-block text-gray-500 font-pop font-normal font-400">
+              <p className="text-sm inline-block text-gray-500 font-pop font-normal font-400" onDoubleClick={(e) => {
+                e.preventDefault();
+              }}
+              style={{ userSelect: "none" }}>
                 don't have an account yet?&nbsp;
               </p>
 

@@ -50,7 +50,10 @@ const Categories = () => {
       <div className="bg-white rounded-lg">
         <div className="flex flex-row bg-white rounded-lg p-5 gap-3">
           <div className="dashboard-content-header">
-            <p className="text-black text-2xl mt-1 ">Categories</p>
+            <p className="text-black text-2xl mt-1 " onDoubleClick={(e) => {
+                e.preventDefault();
+              }}
+              style={{ userSelect: "none" }}>Categories</p>
           </div>
           <div className="">
             <button
@@ -66,7 +69,10 @@ const Categories = () => {
         )}
 
         <div class="w-full overflow-x-auto p-5 ">
-          <table class="table-auto">
+          <table class="table-auto" onDoubleClick={(e) => {
+                e.preventDefault();
+              }}
+              style={{ userSelect: "none" }}>
             <tbody className="text-xl">
               <tr>
                 <th class=" align-middle text-lg">Category</th>

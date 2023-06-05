@@ -14,6 +14,7 @@ import insightwhite from "./icon/bar-chart.svg";
 import settingswhite from "./icon/settings.svg";
 import logoutwhite from "./icon/logout.svg";
 import user from '../../assets/icons/user.png'
+import userac from "./icon/user.svg";
 import { useState } from "react";
 import { Link, Navigate } from "react-router-dom";
 import { connect } from "react-redux";
@@ -58,7 +59,7 @@ const Sidebar = ({ isAuthenticated, logout }) => {
     {
       title: "Clients",
       src: user,
-      activesrc: productswhite,
+      activesrc: userac,
       Link: "/clients",
     },
     { title: "Insights", src: insight, activesrc: insightwhite, Link: "/Home" },
@@ -86,7 +87,10 @@ const Sidebar = ({ isAuthenticated, logout }) => {
           />
         </div>
         <div>
-          <p className="  font-pop text-gray-500 text-sm pt-10 mb-3 pl-2">
+          <p className="  font-pop text-gray-500 text-sm pt-10 mb-3 pl-2" onDoubleClick={(e) => {
+                e.preventDefault();
+              }}
+              style={{ userSelect: "none" }}>
             Menu
           </p>
         </div>
@@ -110,7 +114,10 @@ const Sidebar = ({ isAuthenticated, logout }) => {
           </ul>
         </div>
         <div>
-          <p className="font-pop text-gray-500 text-sm  pl-2 mt-3 mb-3">
+          <p className="font-pop text-gray-500 text-sm  pl-2 mt-3 mb-3" onDoubleClick={(e) => {
+                e.preventDefault();
+              }}
+              style={{ userSelect: "none" }}>
             Other
           </p>
         </div>

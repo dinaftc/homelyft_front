@@ -46,6 +46,18 @@ function AddProduct() {
 
   const handleAddProduct = (event) => {
     event.preventDefault();
+    if (quantity <= 0 || price <= 0) {
+      toast.error("Quantity and price must be positive numbers!", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      return;}
     const formData = new FormData();
     formData.append("name", name);
     formData.append("price", price);
@@ -53,7 +65,7 @@ function AddProduct() {
     formData.append("quantity", quantity);
     formData.append("category", category);
     formData.append("subcategory", subcategory);
-
+    
     axios
       .post("http://127.0.0.1:8000/homeLift/products/", formData, {
         headers: {
@@ -137,11 +149,15 @@ function AddProduct() {
       <DashboardHeader />
 
       <div className="flex justify-between  w-full">
-        <div className="bg-white mt-5 mx-5 p-5  w-3/5 shadow-md rounded-2xl h-120">
-          <label className="font-inter font-bold text-base leading-5 leading-trim-cap text-gray-700 mb-5">
+        <div className="bg-white mt-5 mx-5 p-5  w-3/5 shadow-md rounded-2xl h-full">
+          <label className="font-inter font-bold text-base leading-5 leading-trim-cap text-gray-700 mb-5" onDoubleClick={(e) => {
+                e.preventDefault();
+              }}
+              style={{ userSelect: "none" }}>
             Basic informations
           </label>
           <input
+          required
             placeholder="Product name*"
             className="bg-fffffb border-2 border-gray-300 outline-none rounded-lg w-full p-3 my-3 h-13"
             type="text"
@@ -188,26 +204,33 @@ function AddProduct() {
           <textarea
             className="textarea textarea-bordered  outline-none bg-fffffb border-2 border-gray-300 rounded-lg w-full p-3 mt-3 "
             value={description}
+            maxLength={80}
             onChange={(event) => setDescription(event.target.value)}
           />
+          <p className="flex justify-end text-sm text-gray-500">
+        {description.length}/80 
+      </p>
         </div>
         
           {!images ? (
-            <div className="mx-5 my-5 p-5 bg-white h-80 shadow-md rounded-2xl">
-            <label className=" outline-none font-inter font-bold text-base leading-5 leading-trim-cap text-gray-700 mb-5">
+            <div className="mx-5 my-5 p-5 w-1/2   bg-white h-full shadow-md rounded-2xl">
+            <label className=" outline-none font-inter font-bold text-base leading-5 leading-trim-cap text-gray-700 mb-5" onDoubleClick={(e) => {
+                e.preventDefault();
+              }}
+              style={{ userSelect: "none" }}>
               Product Image
             </label>
-            <div id="form-file-upload">
+            <div id="form-file-upload" className="w-full h-full">
               <input
                 type="file"
                 id="input-file-upload"
                 multiple={true}
                 onChange={handleFileSelect}
               />
-              <label id="label-file-upload" htmlFor="input-file-upload">
-                <div>
-                  <p className="upload-button">Upload your product image.</p>
-                  <p className="font-inter font-normal text-xs leading-4 leading-trim-cap text-gray-400">
+              <label id="label-file-upload" className="w-full h-full flex justify-center items-center " htmlFor="input-file-upload">
+                <div className="">
+                  <p className="upload-button font-pop">Upload your product image.</p>
+                  <p className="font-pop font-normal text-xs leading-4 leading-trim-cap text-gray-400">
                     Only PNG, JPG format allowed <br />
                     500x500 pixels are recommended
                   </p>
@@ -215,11 +238,11 @@ function AddProduct() {
               </label>
             </div>
             </div>
-          ) :<div className="mx-5 my-5 p-5 bg-white h-96 shadow-md rounded-2xl">
-          <label className="outline-none font-inter font-bold text-base leading-5 leading-trim-cap text-gray-700 mb-5">
+          ) :<div className="mx-5 my-5 p-5 bg-white h-full  w-2/5 shadow-md rounded-2xl">
+          <label className="outline-none font-pop font-bold text-base leading-5 leading-trim-cap text-gray-700 mb-5">
             Product Image
           </label>
-          <div id="form-file-upload">
+          <div id="form-file-upload" className=" h-full">
             <input
               type="file"
               id="input-file-upload"
@@ -228,7 +251,7 @@ function AddProduct() {
             />
             <label id="label-file-upload" htmlFor="input-file-upload">
             {selectedFiles ? (
-              <div className="image-preview-container">
+              <div className="image-preview-container w-full h-full">
                 <img
                   className="w-full h-full absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
                   src={previewImages[0]}
@@ -252,11 +275,14 @@ function AddProduct() {
               </div>
             ) : (
               <>
-                <label id="label-file-upload" htmlFor="input-file-upload">
+                <label id="label-file-upload" className="w-full h-full" htmlFor="input-file-upload">
                   <div className="upload-button">
                     Upload your product image.
                   </div>
-                  <p className="font-inter font-normal text-xs leading-4 leading-trim-cap text-gray-400">
+                  <p className="font-inter font-normal text-xs leading-4 leading-trim-cap text-gray-400" onDoubleClick={(e) => {
+                e.preventDefault();
+              }}
+              style={{ userSelect: "none" }}>
                     Only PNG, JPG format allowed <br />
                      500x500 pixels are recommended
                   </p>
@@ -268,13 +294,16 @@ function AddProduct() {
         }
         
       </div>
-      <div className="flex justify-between w-full">
-        <div className="my-5 ml-5 mr-12 pt-4 px-5 pb-16 bg-white w-3/5 shadow-md rounded-2xl h-3/5">
+      <div className="flex justify-between w-full mt-5">
+        <div className="mt-5 ml-5  pt-4 px-4 pb-16 bg-white w-2/4 shadow-md rounded-2xl h-4/5" onDoubleClick={(e) => {
+                e.preventDefault();
+              }}
+              style={{ userSelect: "none" }}>
           <label className="font-inter font-bold text-base leading-5 leading-trim-cap text-gray-700 ">
             Stock & Price
           </label>
           <br />
-          <div class="flex my-2">
+          <div class="flex mt-2 my-2">
             <input
               placeholder="Quantity*"
               class="bg-fffffb outline-none border-2 border-gray-300 rounded-lg w-1/2 p-3  mx-5 h-13"
@@ -293,14 +322,20 @@ function AddProduct() {
         </div>
 
         <div
-          className="mr-5 ml-12 my-5 p-5 bg-white shadow-md rounded-2xl "
+          className="mr-5 ml-12 mt-5 px-5 py-2 bg-white shadow-md rounded-2xl h-4/5 "
           style={{ flex: 1 }}
         >
-          <label className="font-inter font-bold text-base  outline-none leading-5 leading-trim-cap text-gray-700 ">
+          <label className="font-inter font-bold text-base  outline-none leading-5 leading-trim-cap text-gray-700 " onDoubleClick={(e) => {
+                e.preventDefault();
+              }}
+              style={{ userSelect: "none" }}>
             Visibility
           </label>
           <br />
-          <div class="my-2">
+          <div class="my-2" onDoubleClick={(e) => {
+                e.preventDefault();
+              }}
+              style={{ userSelect: "none" }}>
             <div class="flex items-center">
               <input
                 type="radio"
@@ -350,15 +385,15 @@ function AddProduct() {
           </div>
         </div>
       </div>
-      <div className="flex justify-end w-full">
+      <div className="flex mx-5 mb-4 justify-end  bg-white rounded-2xl shadow-md  ">
         <Link
-          className="btn bg-greey rounded-full p-3 m-3 border-none"
+          className="btn bg-greey hover:bg-gray-300 text-black rounded-full p-3 m-3 border-none"
           to="/products"
         >
           Cancel
         </Link>
         <button
-          className="bg-teal-500 rounded-full p-3 m-3"
+          className="bg-primary text-white rounded-full p-3 m-3"
           type="submit"
           onClick={handleAddProduct}
         >

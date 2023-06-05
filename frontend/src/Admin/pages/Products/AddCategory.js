@@ -90,11 +90,17 @@ const Modal2 = ({ showModal, setShowModal,TriggerFetch,setTriggerFetch }) => {
     <>
       <div className="flex justify-center items-center h-screen w-screen fixed top-0 left-0 bg-opacity-50 bg-gray-900 z-50   ">
         <div className="bg-white rounded-lg p-5 w-1/3">
-          <h2 className="text-black text-2xl font-bold mb-5 font-pop">
+          <h2 className="text-black text-2xl font-bold mb-5 font-pop" onDoubleClick={(e) => {
+                e.preventDefault();
+              }}
+              style={{ userSelect: "none" }}>
             Add category
           </h2>
           <Divider />
-          <p className="text-black mt-5 text-sm w-full font-pop ">
+          <p className="text-black mt-5 text-sm w-full font-pop " onDoubleClick={(e) => {
+                e.preventDefault();
+              }}
+              style={{ userSelect: "none" }}>
             you can add a category here
           </p>
           <div class="relative mt-3 w-full">
@@ -103,10 +109,10 @@ const Modal2 = ({ showModal, setShowModal,TriggerFetch,setTriggerFetch }) => {
               type="text"
               value={Category}
               id="floating_outlined"
-              class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-primary focus:outline-none focus:ring-0 focus:border-primary peer"
+              class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-2 border-gray-300  appearance-none dark:text-white dark:border-gray-600 dark:focus:border-primary focus:outline-none focus:ring-0 focus:border-primary peer"
               placeholder=" "
             />
-            <label
+            <label 
               for="floating_outlined"
               class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-primary peer-focus:dark:text-primary peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1"
             >
@@ -114,7 +120,10 @@ const Modal2 = ({ showModal, setShowModal,TriggerFetch,setTriggerFetch }) => {
             </label>
           </div>
           <div>
-            <p className="text-black text-sm mt-6 font-pop">
+            <p className="text-black text-sm mt-6 font-pop" onDoubleClick={(e) => {
+                e.preventDefault();
+              }}
+              style={{ userSelect: "none" }}>
               you can add a sub-category here
             </p>
           </div>
@@ -123,7 +132,7 @@ const Modal2 = ({ showModal, setShowModal,TriggerFetch,setTriggerFetch }) => {
               <input
                 type="text"
                 id="sub-category-input"
-                class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-primary focus:outline-none focus:ring-0 focus:border-primary peer"
+                class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-primary focus:outline-none focus:ring-0 focus:border-primary peer"
                 placeholder=" "
               />
               <label
@@ -150,6 +159,10 @@ const Modal2 = ({ showModal, setShowModal,TriggerFetch,setTriggerFetch }) => {
             >
               {subCategories.map((subCategory) => (
                 <Chip
+                onDoubleClick={(e) => {
+                  e.preventDefault();
+                }}
+                style={{ userSelect: "none" }}
                   key={subCategory}
                   className="bg-primary hover:bg-primary hover:text-white  "
                   label={subCategory}
@@ -187,9 +200,9 @@ const Modal2 = ({ showModal, setShowModal,TriggerFetch,setTriggerFetch }) => {
             <div>
               <button
                 onClick={handleAddCategory}
-                className=" font-pop w-20 btn normal-case text-white rounded-full bg-primary  border-primary hover:bg-hoverADD hover:border-hoverADD "
+                className="  font-pop  btn normal-case text-white rounded-full bg-primary  border-primary   "
               >
-                Add{" "}
+                Add  {" "}
               </button>
             </div>
           </div>

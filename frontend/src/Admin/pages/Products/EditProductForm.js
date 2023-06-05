@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
@@ -72,7 +71,7 @@ function EditProductForm({ product, onClose }) {
           progress: undefined,
           theme: "light",
         });
-        onClose()
+        onClose();
       } else {
         toast.error("Please delete an image to add another one!", {
           position: "top-center",
@@ -125,7 +124,13 @@ function EditProductForm({ product, onClose }) {
           className="mt-5 mx-5 p-5 bg-offwhite w-3/5  shadow-md rounded-2xl h-120"
           style={{ backgroundColor: "#fffffb" }}
         >
-          <label className="font-inter font-bold text-base leading-5 leading-trim-cap text-gray-700 mb-5">
+          <label
+            className="font-inter font-bold text-base leading-5 leading-trim-cap text-gray-700 mb-5"
+            onDoubleClick={(e) => {
+              e.preventDefault();
+            }}
+            style={{ userSelect: "none" }}
+          >
             Basic informations
           </label>
           <input
@@ -205,14 +210,13 @@ function EditProductForm({ product, onClose }) {
                     className="w-full h-full absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
                     src={productImages[0]}
                     alt=""
-                    
                   />
                   <button
-                          className="absolute -top-1 -right-2 overflow-hidden"
-                          onClick={() => handleDeleteImage(productImages[0].id)}
-                        >
-                          <MdOutlineCancel />
-                        </button>
+                    className="absolute -top-1 -right-2 overflow-hidden"
+                    onClick={() => handleDeleteImage(productImages[0].id)}
+                  >
+                    <MdOutlineCancel />
+                  </button>
                   <div className="smaller-images-container">
                     {productImages.map((file) => (
                       <li
@@ -359,4 +363,3 @@ function EditProductForm({ product, onClose }) {
   );
 }
 export default EditProductForm;
-

@@ -146,7 +146,10 @@ function Addadress({ user, load_user }) {
       <div className="flex mr-5">
         {!step1 ? (
           <div className=" bg-white rounded-lg p-5 m-5 w-3/4">
-            <h1 className="text-black text-3xl ml-5 font-bold mb-5 font-pop relative">
+            <h1 className="text-black text-3xl ml-5 font-bold mb-5 font-pop relative" onDoubleClick={(e) => {
+                e.preventDefault();
+              }}
+              style={{ userSelect: "none" }}>
               <span className="absolute rounded-full bg-black text-white text-xl font-bold px-3 py-1  -left-11 top-0">
                 1
               </span>
@@ -244,7 +247,10 @@ function Addadress({ user, load_user }) {
             </div>
             <hr />
             <br />
-            <h1 className="text-gray-400 text-3xl ml-5 font-bold m-5 font-pop relative">
+            <h1 className="text-gray-400 text-3xl ml-5 font-bold m-5 font-pop relative" onDoubleClick={(e) => {
+                e.preventDefault();
+              }}
+              style={{ userSelect: "none" }}>
               <span className="absolute rounded-full bg-white text-gray-400 border-2 border-gray-400 text-xl font-bold px-3 py-1 -left-11 top-0">
                 2
               </span>
@@ -256,13 +262,19 @@ function Addadress({ user, load_user }) {
         ) : (
           <div className=" bg-white rounded-lg p-5 m-5 w-3/4">
             <hr />
-            <h1 className="text-black text-3xl ml-5 font-bold m-5 font-pop relative">
+            <h1 className="text-black text-3xl ml-5 font-bold m-5 font-pop relative" onDoubleClick={(e) => {
+                e.preventDefault();
+              }}
+              style={{ userSelect: "none" }}>
               <span className="absolute rounded-full bg-white text-black border-2 border-black text-xl font-bold px-3 py-1  -left-11 top-0">
                 1
               </span>
               Your Details
             </h1>
-            <div class="m-4">
+            <div class="m-4" onDoubleClick={(e) => {
+                e.preventDefault();
+              }}
+              style={{ userSelect: "none" }}>
               <p class="text-left text-sm text-gray-400 font-medium">
                 {user.fullname}
               </p>
@@ -289,7 +301,11 @@ function Addadress({ user, load_user }) {
 
             <hr />
 
-            <h1 className="text-black text-3xl ml-5 font-bold my-5 font-pop relative">
+
+            <h1 className="text-black text-3xl ml-5 font-bold mb-5 font-pop relative" onDoubleClick={(e) => {
+                e.preventDefault();
+              }}
+
               <span className="absolute rounded-full bg-black text-white text-xl font-bold px-3 py-1  -left-11 top-0">
                 2
               </span>
@@ -369,26 +385,33 @@ function Addadress({ user, load_user }) {
             )}
           </div>
 
-          <p className="text-black text-xl font-semibold my-4 font-pop">
+          <p className="text-black text-xl font-semibold my-4 font-pop" onDoubleClick={(e) => {
+                e.preventDefault();
+              }}
+              style={{ userSelect: "none" }}>
             Order Summary
           </p>
           <div className="justify-between flex flex-col">
-            <div className="justify-between flex flex-row">
-              <p className="text-gray-400 text-xl font-semibold mx-5 my-4 font-pop">
-                Subtotal
-              </p>
-              <p className="text-gray-400 text-xl font-semibold mx-5 my-4 font-pop">
-                {total}DA
-              </p>
-            </div>
-            <div className="justify-between flex flex-row">
-              <p className="text-gray-400 text-xl font-semibold mx-5 my-4 font-pop">
-                Delivery
-              </p>
-              <p className="text-gray-400 text-xl font-semibold mx-5 my-4 font-pop">
-                200.00 DA
-              </p>
-            </div>
+
+          <div className="justify-between flex flex-row" onDoubleClick={(e) => {
+                e.preventDefault();
+              }}
+              style={{ userSelect: "none" }}>
+                <p className="text-gray-400 text-xl font-semibold mx-5 my-4 font-pop">
+                  Subtotal
+                </p>
+                <p className="text-gray-400 text-xl font-semibold mx-5 my-4 font-pop">
+                  {total}DA
+                </p>
+              </div>
+              <div className="justify-between flex flex-row">
+                <p className="text-gray-400 text-xl font-semibold mx-5 my-4 font-pop">
+                  Delivery
+                </p>
+                <p className="text-gray-400 text-xl font-semibold mx-5 my-4 font-pop">
+                 200.00 DA
+                </p>
+              </div>
           </div>
           <hr className="border-black m-2" />
           <div className="justify-between flex flex-row">

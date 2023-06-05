@@ -6,6 +6,10 @@
 margin-left: 15rem;
 
 }
+
+.dash{
+  margin-left: 15rem;
+}
 .dashboard-content-container {
   position: relative;
   margin: 1em ;
@@ -26,7 +30,7 @@ margin-left: 15rem;
   justify-content: space-between;
   margin-bottom: 10px;
   padding: 0px 25px 0px 0px;
-  
+ 
 }
 .dashboard-content-header p {
   margin-top: auto;

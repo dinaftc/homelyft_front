@@ -139,7 +139,7 @@ function Add_staff() {
 
         <div className="my-7">
           <button
-            className="btn btn-active outline-none rounded-lg text-white w-full bg-primary normal-case  "
+            className="btn btn-active outline-none border border-primary rounded-lg text-white w-full bg-primary normal-case  "
             type="submit"
           >
            Add new staff

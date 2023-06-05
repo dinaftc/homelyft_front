@@ -79,7 +79,7 @@ const Login = ({login, isAuthenticated}) => {
               value={password}
               required
               type={showPassword? 'text' : 'password'}
-              minLength={8}
+              
             />
             <span>Password*</span>
            

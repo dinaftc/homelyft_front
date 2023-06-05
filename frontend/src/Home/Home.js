@@ -7,7 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Rating from "@mui/material/Rating";
 import { Icon } from "@mui/material";
 import { useLocation, useNavigate } from "react-router-dom";
-
+import Orders from '../Admin/pages/Orders/Order'
 function Home({ isAuthenticated, user }) {
   const [products, setProducts] = useState([]);
   const [showFullDescription, setShowFullDescription] = useState(false);
@@ -310,9 +310,7 @@ function Home({ isAuthenticated, user }) {
               </div>
             </div>
           ) : (
-            <div className="bg-white">
-              <h1>Restricted Access</h1>
-            </div>
+           <Orders></Orders>
           )}
         </>
       )}

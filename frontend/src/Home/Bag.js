@@ -170,7 +170,7 @@ function Bag({ isAuthenticated, user }) {
               How would you like to receive your order?
             </p>
 
-            <div className="flex flex-col h-20 sm:flex-row">
+            <div className="flex flex-col h-20 sm:flex-row ">
               <button
                 className={`flex items-center text-center w-full sm:w-1/2 border-gray-300 border rounded px-4 py-2 m-1 focus:border-primary ${
                   delivery ? "bg-primary text-white" : ""
@@ -178,7 +178,7 @@ function Bag({ isAuthenticated, user }) {
                 onClick={() => setDelivery(true)}
               >
                 <img src={truck} alt="" className="mr-2" />
-                <p className="ml-14 text-gray-700 text-md font-semibold">
+                <p className="ml-14 text-gray-700 text-md font-semibold  ">
                   Delivery
                 </p>
               </button>

@@ -15,7 +15,7 @@ import settingswhite from "./icon/settings.svg";
 import logoutwhite from "./icon/logout.svg";
 import user from '../../assets/icons/user.png'
 import userac from "./icon/user.svg";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { Link, Navigate } from "react-router-dom";
 import { connect } from "react-redux";
 import { logout } from "../../../actions/auth";
@@ -26,8 +26,9 @@ const Sidebar = ({ isAuthenticated, logout }) => {
     
   };
 
-  const [selected, setSelected] = useState(true);
-  const [isSelected, setIsSelected] = useState(true);
+  const [selected, setSelected] = useState(0);
+  const [isSelected, setIsSelected] = useState(0);
+  
   const handleSelect = (index) => {
     setSelected(index);
     setIsSelected(null);

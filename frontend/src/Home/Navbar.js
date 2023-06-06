@@ -9,8 +9,8 @@ import { FiLogOut } from 'react-icons/fi';
 import { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
-
+import { useNavigate } from 'react-router-dom';
+import Home from "./Home";
 import axios from "axios";
 function Navbar({ isAuthenticated, logout ,user, setProducts }) {
   const [searchTerm, setSearchTerm] = useState("");
@@ -35,19 +35,23 @@ function Navbar({ isAuthenticated, logout ,user, setProducts }) {
   };
  
  
+  const navigate = useNavigate();
+
   const logout_user = () => {
-    
+   
     logout();
-    return (<Navigate to="/" replace />)
+    navigate('/', { replace: true });
   };
+  
 
   return (
     <div className="bg-white flex flex-wrap items-center justify-between px-4 py-2">
+      <Link to='/'>
        <img
         class="object-center bg-transparent cursor-pointer"
         src={Logo}
         alt="HomeLift admin"
-      />
+      /></Link>
       <div className="w-full md:w-3/5 relative mx-auto mt-2 md:mt-0 md:ml-2">
         <div className="relative">
           <input

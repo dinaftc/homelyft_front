@@ -121,9 +121,7 @@ function Orders({ isAuthenticated, logout }) {
                       <td>
                         <span>{order.customer.wilaya}</span>
                       </td>
-                      <td>
-                        <span>payment details</span>
-                      </td>
+                     
                       <td>
                         <span onClick={()=>setIsModalOpen(true)}>order's details</span>
                         

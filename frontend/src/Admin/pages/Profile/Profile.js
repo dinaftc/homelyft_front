@@ -1,12 +1,12 @@
-import React, {  useState } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import { load_user } from "../../../actions/auth";
-import { connect } from 'react-redux';
+import { connect } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
- function Profile({user,load_user}) {
-
+import DashboardHeader from "../../components/DashboardHeader";
+import Navbar from "../../../Home/Navbar";
+function Profile({ user, load_user }) {
   const [editMode, setEditMode] = useState(false);
   const [formData, setFormData] = useState({
     username: "",
@@ -17,8 +17,6 @@ import "react-toastify/dist/ReactToastify.css";
     payment_info: "",
     profile_picture: null,
   });
-
- 
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -44,7 +42,6 @@ import "react-toastify/dist/ReactToastify.css";
       phone_number: user.phone_number,
       payment_info: user.payment_info,
       profile_picture: user.profile_picture,
-     
     });
   };
 
@@ -59,9 +56,8 @@ import "react-toastify/dist/ReactToastify.css";
 
     data.append("payment_info", formData.payment_info);
     if (formData.profile_picture !== user.profile_picture) {
-      data.append("profile_picture",formData.profile_picture );
+      data.append("profile_picture", formData.profile_picture);
     }
- 
 
     axios
       .patch(`http://127.0.0.1:8000/account/${id}/view-profile/`, data, {
@@ -84,7 +80,7 @@ import "react-toastify/dist/ReactToastify.css";
           progress: undefined,
           theme: "light",
         });
-        load_user ();
+        load_user();
         setEditMode(false);
       })
       .catch((error) => {
@@ -104,7 +100,8 @@ import "react-toastify/dist/ReactToastify.css";
 
   if (editMode && user) {
     return (
-      <div className="dashboard-content">
+      <div className={user.role === 3 ? "bg-white" : "dashboard-content"}>
+        {user.role === 3 ? <Navbar /> : <DashboardHeader />}
         <div className="w-full h-full relative flex  my-20 justify-center items-center">
           <form
             className="bg-white rounded-lg py-6  px-10"
@@ -173,16 +170,7 @@ import "react-toastify/dist/ReactToastify.css";
               />
               <span>Phone number</span>
             </div>
-            <div className="InputBox">
-              <input
-                name="payment_info"
-                id="payment_info"
-                value={formData.payment_info}
-                onChange={handleChange}
-                type="text"
-              />
-              <span>payment info</span>
-            </div>
+           
 
             <div className="my-5">
               <button
@@ -198,9 +186,10 @@ import "react-toastify/dist/ReactToastify.css";
     );
   } else {
     return (
-      <div className="dashboard-content">
+      <div className={user.role === 3 ? "bg-white" : "dashboard-content"}>
+      {user.role === 3 ? <Navbar /> : <DashboardHeader />}
         <div class="container  mt-40 mb-10">
-          <div className="mr-5 ">
+          <div className={user.role === 3 ? "ml-44" : "mr-5"}>
             <div class=" bg-white relative shadow-xl rounded-lg w-full ">
               <div class="flex justify-left p-5">
                 <img
@@ -210,33 +199,19 @@ import "react-toastify/dist/ReactToastify.css";
                 />
               </div>
 
-              <div class="m-4">
-                <h1 class="font-bold text-center text-3xl ">{user.fullname}</h1>
-                <p class="text-center text-sm text-gray-400 font-medium">
-                  {user.username}
-                </p>
-                <p class="text-center text-sm text-gray-400 font-medium">
-                  {user.email}
-                </p>
-                <p class="text-center text-sm text-gray-400 font-medium">
-                  {user.phone_number}
-                </p>
-                <p class="text-center text-sm text-gray-400 font-medium">
-                  {user.shipping_address}
-                </p>
-                <p class="text-center text-sm text-gray-400 font-medium">
-                  {user.payment_info}
-                </p>
-                <p class="text-center text-sm text-gray-400 font-medium">
-                  {user.role === 3 ? "client" : "employee"}
-                </p>
-              </div>
+              <div className="mt-2" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+  <p className="text-center text-ms text-gray-400 font-medium">Name:</p>
+  <p className="text-center text-m text-black-400 font-medium">{user.fullname}</p>
+  <p className="text-center text-ms text-gray-400 font-medium">Email:</p>
+  <p className="text-center text-m text-black-400 font-medium">{user.email}</p>
+</div>
+
               <div className="flex justify-end">
                 <button
                   className="bg-primary text-white rounded-3xl p-4 m-3"
                   onClick={handleEditProfile}
                 >
-                  Edit
+                  Edit Profile
                 </button>
               </div>
             </div>
@@ -248,7 +223,7 @@ import "react-toastify/dist/ReactToastify.css";
   }
 }
 const mapStateToProps = (state) => ({
-  user : state.auth.user,
+  user: state.auth.user,
 });
-  
-export default connect(mapStateToProps, {load_user })(Profile);
+
+export default connect(mapStateToProps, { load_user })(Profile);

@@ -7,13 +7,12 @@ const AddReview = ({ setIsModalOpen, user, product }) => {
   const [review, setReview] = useState("");
   const [rating, setRating] = useState(0);
 
-  async function updateProductRating(id, ratingValue) {
-    const url = `http://127.0.0.1:8000/homeLift/products/rating/${id}/`;
+  async function updateProductRating( id,ratingValue) {
+    const url = `http://127.0.0.1:8000/homeLift/products/${id}/rating-create/`;
 
     try {
-      const response = await axios.put(url, {
-        id: product.id,
-        rating_user: user.id,
+      const response = await axios.post(url, {
+       
         rating: ratingValue,
         active: true
       });

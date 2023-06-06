@@ -11,7 +11,7 @@ import store from "./assets/store.svg";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Divider } from "@mui/material";
-
+import { Link } from "react-router-dom";
 function Bag({ isAuthenticated, user }) {
   const [items, setItems] = useState([]);
   const [total, setTotal] = useState(0);
@@ -88,15 +88,31 @@ function Bag({ isAuthenticated, user }) {
     setItems(updatedItems);
     handleEditSubmit(id, newQuantity);
   };
-
   const handleEditSubmit = (id, quantity) => {
     fetch(`http://127.0.0.1:8000/home/${user.id}/view-cart/${id}/`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ Quantity: quantity }),
     })
-      .then(() => {
-        toast.success("Quantity changed successfully", {
+      .then((response) => {
+        if (response.ok) {
+          toast.success("Quantity changed successfully", {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          });
+        } else {
+          throw new Error("Failed to update quantity");
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+        toast.error(error.message, {
           position: "top-center",
           autoClose: 5000,
           hideProgressBar: false,
@@ -106,11 +122,9 @@ function Bag({ isAuthenticated, user }) {
           progress: undefined,
           theme: "light",
         });
-      })
-      .catch((error) => {
-        console.error(error);
       });
   };
+  
 
   const handleCheckout = () => {
     fetch(`http://127.0.0.1:8000/home/${user.id}/verify-cart/`)
@@ -297,12 +311,13 @@ function Bag({ isAuthenticated, user }) {
               className=" w-full h-12 m-2 px-5 border  outline-none rounded-full border-gray-300 focus:border-primary"
             />  }
             {delivery ? (
-              
+              <Link   to='/Delivery'>
                 <button className="w-full text-white my-5 h-20 bg-primary border-none rounded px-4 py-2"
-                onClick={() => handleCheckout()}>
+              
+               >
                   Continue to Checkout
                 </button>
-          
+                </Link>
             ) : (
               <button
                 className="w-full text-white my-5 h-20 bg-primary border-none rounded px-4 py-2"

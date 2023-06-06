@@ -60,7 +60,19 @@ function Home({ isAuthenticated, user }) {
     if (selectedProductId !== null && quantity > 0) {
       console.log(selectedProductId);
       if (!isAuthenticated) {
-        alert("Please sign up or login to buy");
+       
+          toast.error("Please sign up or login to buy", {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          });
+     
+        
       } else {
         try {
           const response = await axios.post(
@@ -93,11 +105,26 @@ function Home({ isAuthenticated, user }) {
               theme: "light",
             });
           }
+          
         } catch (error) {
           console.error(error);
         }
       }
     }
+    else{
+
+     if(quantity<=0) {
+      toast.error("Negative value", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    }}
 
     setShowPopup(false);
     setSelectedProductId(null);

@@ -1,20 +1,14 @@
 import * as React from "react";
 
-import Rating from "@mui/material/Rating";
 
-import { Icon, IconButton } from "@mui/material";
-import { useState } from "react";
+import {  IconButton } from "@mui/material";
+
 
 
 const AddReview = ({setIsModalOpen,order}) => {
-  const [review, setReview] = useState("");
+ 
 
-  const handleChange = (event) => {
-    const value = event.target.value;
-    if (value.length <= 100) {
-      setReview(value);
-    }
-  };
+  
   const handleModal =()=>{
     setIsModalOpen(false);
   }
@@ -70,13 +64,7 @@ const AddReview = ({setIsModalOpen,order}) => {
       </div>
     ))}
         
-        <div className="w-full mt-5">
-          <div>
-            <button className=" w-1/5 justify-end text-center font-pop  btn normal-case text-white rounded-full bg-red-200  border-red-200  ">
-             delete
-            </button>
-          </div>
-        </div>
+       
       </div>
     </div>
   );

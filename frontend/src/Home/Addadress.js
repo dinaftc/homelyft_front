@@ -6,7 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { load_user } from "../actions/auth";
 import Navbar from "./Navbar";
 import { Link } from "react-router-dom";
-import Cookies from 'js-cookie';
+
 
 function Addadress({ user, load_user }) {
   const [items, setItems] = useState([]);
@@ -105,13 +105,26 @@ function Addadress({ user, load_user }) {
         });
       });
   };
-
+  function getCSRFToken() {
+    const name = 'csrftoken=';
+    const decodedCookie = decodeURIComponent(document.cookie);
+    const cookieArray = decodedCookie.split(';');
+    for (let i = 0; i < cookieArray.length; i++) {
+      let cookie = cookieArray[i];
+      while (cookie.charAt(0) === ' ') {
+        cookie = cookie.substring(1);
+      }
+      if (cookie.indexOf(name) === 0) {
+        return cookie.substring(name.length, cookie.length);
+      }
+    }
+    return null;
+  }
 
   const handleClick = async () => {
-
+    const csrfToken = getCSRFToken();
     try {
-      const response = await axios.get('/get-csrf-token/');
-      const csrfToken = response.data.csrfToken;
+      
       const invoice = {
         amount: 600,
         client: "diaaa",
@@ -124,6 +137,7 @@ function Addadress({ user, load_user }) {
           'X-CSRFToken': csrfToken, // Include the CSRF token in the request headers
           'Content-Type': 'application/json',
         },
+        
       };
   
       const apiResponse = await axios.post(
@@ -351,12 +365,12 @@ function Addadress({ user, load_user }) {
               <option value="Edahabia">Edahabia</option>
             </select>
             </form>
-            <button
-              onClick={handleClick}
+            <Link 
+              to='http://127.0.0.1:8000/home/cart/pay/'
               className="w-3/4 h-12 m-2  font-pop btn normal-case text-white rounded-full bg-primary  border-primary hover:bg-hoverADD hover:border-hoverADD "
             >
               Pay
-            </button>
+            </Link>
           </div>
         )}
         <div className=" w-1/4 mr-3 fixed top-24 -right-1">
@@ -381,7 +395,7 @@ function Addadress({ user, load_user }) {
                 />
               ))
             ) : (
-              <p>Fetching ...</p>
+              <p>No order to fetch ...</p>
             )}
           </div>
 

@@ -19,6 +19,7 @@ import Addstaff from "./Admin/pages/Settings/Add_staff";
 import ProductInfo from "./Home/ProductInfo";
 import Clients from "./Admin/pages/Clients/Clients";
 import Statistics from "./Admin/pages/Statistics/Statistics";
+import Homee from './Home/dina/HomeMain';
 function App() {
   return (
  
@@ -29,9 +30,9 @@ function App() {
           <Routes>
             <Route path="/Login" element={<Login />} />
             <Route path="/Signup" element={<Signup />} />
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<Homee />} />
             <Route path="/Resetpwd" element={<Resetpwd />} />
-            
+            <Route path="/Home" element={<Home />} />
              <Route  path="/password/reset/confirm/:uid/:token" element={<ResetpwdConfirm/>}/>
              <Route  path="/activate/:uid/:token" element={<Activate/>}/>
              <Route exact path="/products" element={< Orders/>} />

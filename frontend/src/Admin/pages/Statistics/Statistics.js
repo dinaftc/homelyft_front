@@ -11,7 +11,7 @@ import product from "./unsplash_Uxqlfigh6oE.png";
 import order from "./unsplash_-gkndM1GvSA.svg";
 import { products } from "./../Products/index";
 import Chart from './Chart';
-
+import img from './unsplash_Ot2iTXgC6fY.png'
 
 function Statistics({ isAuthenticated, logout }) {
   const [orders, setOrders] = useState([]);
@@ -76,19 +76,13 @@ const[statistic,setStatistic]=useState([])
       <div className="dashboard-content">
         <DashboardHeader />
 
-        <div className="dashboard-content-container">
+       
           <div className="dashboard-content-header">
             <p>Statistics</p>
           </div>
-          <div className="flex inline-flex space-x-4">
-  <div className="card inline-block w-96 h-52 m-2 shadow-xl rounded-xl relative">
-    <figure className="absolute inset-0">
-      <img
-        src={product}
-        alt="orders"
-        className="w-full h-full object-cover rounded-lg"
-      />
-    </figure>
+          <div className="flex inline-flex">
+  <div className="card bg-white inline-block w-96 h-52 m-2 shadow-xl rounded-xl relative">
+   
     <div className="card-body absolute inset-0 flex flex-col rounded-xl">
       <h1 className="card-title text-3xl font-bold font-pop text-black-300 z-10">
         Products
@@ -101,14 +95,8 @@ const[statistic,setStatistic]=useState([])
     </div>
   </div>
 
-  <div className="card  inline-block w-96 h-52 m-2 shadow-xl rounded-xl relative">
-    <figure className="absolute inset-0">
-      <img
-        src={order}
-        alt="orders"
-        className="w-full h-full object-cover rounded-lg"
-      />
-    </figure>
+  <div className="card bg-white inline-block w-96 h-52 m-2 shadow-xl rounded-xl relative">
+   
     <div className="card-body absolute inset-0 flex flex-col rounded-xl">
       <h1 className="card-title text-3xl font-bold font-pop text-black-300 z-10">
         Orders
@@ -121,14 +109,8 @@ const[statistic,setStatistic]=useState([])
     </div>
   </div>
 
-  <div className="card inline-block w-96 h-52 m-2 shadow-xl rounded-xl relative">
-    <figure className="absolute inset-0">
-      <img
-        src={order}
-        alt="orders"
-        className="w-full h-full object-cover rounded-lg"
-      />
-    </figure>
+  <div className="card bg-white inline-block w-96 h-52 m-2 shadow-xl rounded-xl relative">
+    
     <div className="card-body absolute inset-0 flex flex-col rounded-xl">
       <h1 className="card-title text-3xl font-bold font-pop text-black-300 z-10">
         Revenue
@@ -140,15 +122,10 @@ const[statistic,setStatistic]=useState([])
       </div>
     </div>
   </div>
-
-  <div className="card inline-block w-96 h-52 m-2 shadow-xl rounded-xl relative">
-    <figure className="absolute inset-0">
-      <img
-        src={order}
-        alt="orders"
-        className="w-full h-full object-cover rounded-lg"
-      />
-    </figure>
+  </div>
+  <div className="flex inline-flex ">
+  <div className="card bg-white inline-block w-96 h-52 m-2 shadow-xl rounded-xl relative">
+   
     <div className="card-body absolute inset-0 flex flex-col rounded-xl">
       <h1 className="card-title text-3xl font-bold font-pop text-black-300 z-10">
         Profits
@@ -161,14 +138,8 @@ const[statistic,setStatistic]=useState([])
     </div>
   </div>
 
-  <div className="card inline-block w-96 h-52 m-2 shadow-xl rounded-xl relative">
-    <figure className="absolute inset-0">
-      <img
-        src={order}
-        alt="orders"
-        className="w-full h-full object-cover rounded-lg"
-      />
-    </figure>
+  <div className="card bg-white inline-block w-96 h-52 m-2 shadow-xl rounded-xl relative">
+    
     <div className="card-body absolute inset-0 flex flex-col rounded-xl">
       <h1 className="card-title text-3xl font-bold font-pop text-black-300 z-10">
         Customers
@@ -180,14 +151,16 @@ const[statistic,setStatistic]=useState([])
       </div>
     </div>
   </div>
-  
-<Chart percentage={statistic.Conversion_rate} />
+  <div  className="card bg-white inline-block w-96 h-52 m-2">
+  <Chart percentage={statistic.Conversion_rate} />
+</div>
+
 </div>
 
 
          
         </div>
-      </div>
+    
     );
   }
 }

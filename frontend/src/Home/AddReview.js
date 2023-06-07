@@ -6,32 +6,76 @@ import { IconButton } from "@mui/material";
 const AddReview = ({ setIsModalOpen, user, product,update,setUpdate }) => {
   const [review, setReview] = useState("");
   const [rating, setRating] = useState(0);
-
-  async function updateProductRating( id,ratingValue) {
-    const url = `http://127.0.0.1:8000/homeLift/products/${id}/rating-create/`;
-    const config = {
-      headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('access')}`,
-          'Accept': 'application/json'
-      }
-  }; 
-    try {
-      const response = await axios.post(url, {
-       
-        rating: ratingValue,
-        active: true
-      },config
-      );
-
-      console.log(response.data); // Optional: Handle the response data
-      setUpdate(true)
-      return response.data; // Optional: Return the response data
-    } catch (error) {
-      console.error(error);
-      throw error;
-    }
+const [Comment,setComment]=useState("");
+const handleSubmit = async () => {
+  if (Comment !== "") {
+    await updateProductComment(product.id, Comment);
   }
+
+  if (rating !== 0) {
+    await updateProductRating(product.id, rating);
+  }
+
+  // Reset the form values
+  setReview("");
+  setRating(0);
+
+  // Close the modal or perform any other necessary actions
+  setIsModalOpen(false);
+};
+
+async function updateProductRating(id, ratingValue) {
+  const url = `http://127.0.0.1:8000/homeLift/products/${id}/rating-create/`;
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${localStorage.getItem('access')}`,
+      'Accept': 'application/json'
+    }
+  };
+
+  try {
+    const response = await axios.post(url, {
+      rating: ratingValue,
+      active: true
+    }, config);
+
+    console.log(response.data); // Optional: Handle the response data
+    setUpdate(true);
+    return response.data; // Optional: Return the response data
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
+
+async function updateProductComment(id, comment) {
+  const url = `http://127.0.0.1:8000/homeLift/products/${id}/comments-create/`;
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${localStorage.getItem('access')}`,
+      'Accept': 'application/json'
+    }
+  };
+
+  try {
+    const response = await axios.post(url, {
+      text: comment,
+      title:comment,
+    }, config);
+
+    console.log(response.data); // Optional: Handle the response data
+    setUpdate(true);
+    return response.data; // Optional: Return the response data
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
+
+ 
+
 
   const handleChange = (event, value) => {
     setRating(value);
@@ -41,18 +85,7 @@ const AddReview = ({ setIsModalOpen, user, product,update,setUpdate }) => {
     setIsModalOpen(false);
   };
 
-  const handleSubmit = () => {
-    // Submit the review and rating to the server
-    updateProductRating(product.id, rating);
-
-    // Reset the form values
-    setReview("");
-    setRating(0);
-
-    // Close the modal or perform any other necessary actions
-    setIsModalOpen(false);
-  };
-
+  
   return (
     <div className="flex justify-end font-pop items-center h-screen w-screen fixed top-0 left-0 bg-opacity-50 bg-gray-900 z-50">
       <div className="bg-white rounded-lg py-6 px-10 w-1/3 h-screen">
@@ -93,8 +126,8 @@ const AddReview = ({ setIsModalOpen, user, product,update,setUpdate }) => {
         />
         <p className="text-3xl font-pop font-bold mt-10">Review</p>
         <textarea
-          value={review}
-          onChange={(e) => setReview(e.target.value)}
+          value={Comment}
+          onChange={(e) => setComment(e.target.value)}
           maxLength={60}
           className="textarea textarea-bordered font-pop outline-none bg-fffffb border-1 border-gray-300 rounded-lg w-full p-3 mt-3"
         />

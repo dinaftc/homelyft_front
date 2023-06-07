@@ -3,25 +3,28 @@ import search from "../Admin/assets/icons/search.png";
 import person from "./assets/person.svg";
 import panier from "./assets/panier.png";
 import { Link, Navigate } from "react-router-dom";
-import { connect } from 'react-redux';
-import { logout } from '../actions/auth';
-import { FiLogOut } from 'react-icons/fi';
+import { connect } from "react-redux";
+import { logout } from "../actions/auth";
+import { FiLogOut } from "react-icons/fi";
 import { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import Home from "./Home";
 import axios from "axios";
-function Navbar({ isAuthenticated, logout ,user, setProducts }) {
+import { Button } from "flowbite-react";
+import Lottie from "lottie-react";
+import cart from "./assets/cart.json";
+function Navbar({ isAuthenticated, logout, user, setProducts }) {
   const [searchTerm, setSearchTerm] = useState("");
 
   const handleSearch = () => {
     axios
       .get(`http://127.0.0.1:8000/homeLift/products/?search=${searchTerm}`)
-       .then((response) => {
+      .then((response) => {
         // handle the response data here
         console.log(response.data);
-       setProducts(response.data);
+        setProducts(response.data);
       })
       .catch((error) => {
         // handle errors here
@@ -33,25 +36,27 @@ function Navbar({ isAuthenticated, logout ,user, setProducts }) {
       handleSearch();
     }
   };
- 
- 
+
   const navigate = useNavigate();
 
   const logout_user = () => {
-   
     logout();
-    navigate('/', { replace: true });
+    navigate("/", { replace: true });
   };
-  
 
+  const positionStyles = {
+    width: "100px",
+    height: "100px",
+  };
   return (
     <div className="bg-white flex flex-wrap items-center justify-between px-4 py-2">
-      <Link to='/'>
-       <img
-        class="object-center bg-transparent cursor-pointer"
-        src={Logo}
-        alt="HomeLift admin"
-      /></Link>
+      <Link to="/">
+        <img
+          class="object-center bg-transparent cursor-pointer"
+          src={Logo}
+          alt="HomeLift admin"
+        />
+      </Link>
       <div className="w-full md:w-3/5 relative mx-auto mt-2 md:mt-0 md:ml-2">
         <div className="relative">
           <input
@@ -90,11 +95,18 @@ function Navbar({ isAuthenticated, logout ,user, setProducts }) {
             </Link>
           </div>
         )}
-        <div className="ml-2">
+        <div className="flex flex-row">
           {isAuthenticated ? (
-            <Link to="/Shopping-bag">
-              <img src={panier} alt="" className="h-6 w-6" />
-            </Link>
+            <>
+              <Link className=" mt-10" to="/MyOrders">
+                <p className="font-pop text-base hover:text-primary">
+                  See Orders
+                </p>
+              </Link>
+              <Link to="/Shopping-bag">
+                <Lottie animationData={cart} loop style={positionStyles} />
+              </Link>
+            </>
           ) : (
             <button
               onClick={() => {
@@ -110,7 +122,7 @@ function Navbar({ isAuthenticated, logout ,user, setProducts }) {
                 });
               }}
             >
-              <img src={panier} alt="" className="h-6 w-6" />
+              <Lottie animationData={cart} loop style={positionStyles} />
             </button>
           )}
         </div>
@@ -118,7 +130,7 @@ function Navbar({ isAuthenticated, logout ,user, setProducts }) {
       <ToastContainer />
     </div>
   );
-};
+}
 
 const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated,

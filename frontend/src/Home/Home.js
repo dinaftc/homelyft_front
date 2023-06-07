@@ -146,7 +146,7 @@ function Home({ isAuthenticated, user }) {
                       className="select w-36 max-w-xs bg-transparent outline-none border-none focus:bg-offwhite"
                       onChange={(e) => setSelectedSubcategory(e.target.value)}
                     >
-                      <option disabled selected>
+                      <option >
                         {category.name}
                       </option>
                       {category.subCategories.map((subcategory) => (

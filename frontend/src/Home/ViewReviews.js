@@ -7,8 +7,7 @@ import axios from "axios";
 const ViewReviews = ({ onClose,user,product }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [update, setUpdate] = useState(false);
-    const [ratings, setRatings] = useState([]);
-  
+    
     
     const [data, setData] = useState([]);
 
@@ -24,7 +23,7 @@ const ViewReviews = ({ onClose,user,product }) => {
           const comments = commentsResponse.data;
     
           const combinedData = ratings.map((rating) => {
-            const comment = comments.find((c) => c.rating_id === rating.id);
+            const comment = comments.find((c) => c.comment_user === rating.rating_user);
             return { rating, comment };
           });
     
@@ -70,42 +69,39 @@ const ViewReviews = ({ onClose,user,product }) => {
         </h2>
 
         <p
-          className=" font-pop  text-3xl mt-3 font-bold text-black"
-          onDoubleClick={(e) => {
-            e.preventDefault();
-          }}
-          style={{ userSelect: "none" }}
-        >
-          3.0
-        </p>
-        <p
-          className="text-sm mb-1 text-gray-400 font-pop"
-          onDoubleClick={(e) => {
-            e.preventDefault();
-          }}
-          style={{ userSelect: "none" }}
-        >
-          {" "}
-          <span>
-            <Rating
-              name="size-large"
-              className=" cursor-not-allowed mt-2  "
-              readOnly
-              defaultValue={0}
-              size="small"
-            />
-          </span>{" "}
-          (100)
-        </p>
-        <p
-          className="text-lg font-pop text-gray-400 mt-10"
-          onDoubleClick={(e) => {
-            e.preventDefault();
-          }}
-          style={{ userSelect: "none" }}
-        >
-          Please log in to leave a review !{" "}
-        </p>
+  className="font-pop text-3xl mt-3 font-bold text-black"
+  onDoubleClick={(e) => {
+    e.preventDefault();
+  }}
+  style={{ userSelect: "none" }}
+>
+  {data.find((r) => r.rating.rating_user === user.email)?.rating.rating}
+</p>
+<p
+  className="text-sm mb-1 text-gray-400 font-pop"
+  onDoubleClick={(e) => {
+    e.preventDefault();
+  }}
+  style={{ userSelect: "none" }}
+>
+  <span>
+    <Rating
+      name="size-large"
+      className="cursor-not-allowed mt-2"
+   
+      defaultValue={0}
+      
+      
+         
+        
+          size="large"
+          value={data.find((r) => r.rating.rating_user === user.email)?.rating.rating}
+     
+    />
+  </span>{" "}
+</p>
+
+       
 
         <div className="w-full mt-5">
           <div>
@@ -113,7 +109,7 @@ const ViewReviews = ({ onClose,user,product }) => {
               onClick={() => setIsModalOpen(true)}
               className=" w-full font-pop text-lg btn normal-case text-white rounded-full bg-primary  border-primary hover:bg-hoverADD hover:border-hoverADD "
             >
-              Write a review{" "}
+              Write a review
             </button>
           </div>
           <p
@@ -140,8 +136,9 @@ const ViewReviews = ({ onClose,user,product }) => {
         >
           <div>
             <p className="font-pop font-bold text-lg">{item.rating.rating_user}</p>
-            <p className="font-pop font-bold text-lg">{item.comment.comment}</p>
-            <Rating
+          { item.comment && <div className="flex flex-row"> <p className="font-pop font-bold text-lg">Comments :</p>
+          <p className="font-pop mt-1 mx-1">{item.comment.text}</p></div>
+           } <Rating
           name="size-large"
           className="space-x-3 px-32 mt-5"
           value={item.rating.rating}

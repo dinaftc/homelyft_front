@@ -279,7 +279,7 @@ const ProductInfo = ({ isAuthenticated, user }) => {
               return (
                 <div
                   key={index}
-                  className="card card-compact w-full md:w-1/2 lg:w-1/3 xl:w-1/4 bg-base-100 shadow-xl m-5"
+                  className="card card-compact w-full md:w-1/2 lg:w-1/3 xl:w-1/4 bg-base-100 shadow-xl m-4"
                 >
                   <figure className="h-2/3 rounded-md">
                     <img src={product.image} alt={product.name} />

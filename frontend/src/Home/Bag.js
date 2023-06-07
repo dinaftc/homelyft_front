@@ -47,11 +47,31 @@ function Bag({ isAuthenticated, user }) {
       .delete(`http://127.0.0.1:8000/home/${user.id}/view-cart/${id}`)
       .then(function (response) {
         console.log("deleted successfully");
-        alert("done");
+        
         setTriggerFetch(true);
+        toast.success("Item deleted successfully", {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light"
+        });
       })
       .catch(function (error) {
         console.log(error);
+        toast.error("failed to delete", {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light"
+        });
       });
   };
 
@@ -132,8 +152,7 @@ function Bag({ isAuthenticated, user }) {
         if (response.status === 200) {
           return fetch(`http://127.0.0.1:8000/home/${user.id}/checkout/`, {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
-           
+            headers: { "Content-Type": "application/json" }
           });
         } else {
           throw new Error("Failed to verify cart");
@@ -141,9 +160,31 @@ function Bag({ isAuthenticated, user }) {
       })
       .then((response) => {
         if (response.status === 200) {
+          setTriggerFetch(true);
+          toast.success("Order added Successfully", {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light"
+          });
           // Checkout successful, handle the response as needed
         } else {
           throw new Error("Checkout failed");
+          toast.error("Chouckout failed", {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light"
+          });
+
         }
       })
       .catch((error) => {
@@ -151,6 +192,7 @@ function Bag({ isAuthenticated, user }) {
         // Handle the error, show an error message, etc.
       });
   };
+  
   
 
   if (!isAuthenticated) {
@@ -170,7 +212,7 @@ function Bag({ isAuthenticated, user }) {
               How would you like to receive your order?
             </p>
 
-            <div className="flex flex-col h-20 sm:flex-row">
+            <div className="flex flex-col h-20 sm:flex-row ">
               <button
                 className={`flex items-center text-center w-full sm:w-1/2 border-gray-300 border rounded px-4 py-2 m-1 focus:border-primary ${
                   delivery ? "bg-primary text-white" : ""
@@ -178,7 +220,7 @@ function Bag({ isAuthenticated, user }) {
                 onClick={() => setDelivery(true)}
               >
                 <img src={truck} alt="" className="mr-2" />
-                <p className="ml-14 text-gray-700 text-md font-semibold">
+                <p className="ml-14 text-gray-700 text-md font-semibold  ">
                   Delivery
                 </p>
               </button>

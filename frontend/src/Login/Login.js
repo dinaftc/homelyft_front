@@ -44,7 +44,17 @@ const Login = ({ login, isAuthenticated, user }) => {
         theme: "light",
       });
     }
-  };
+
+
+ 
+  
+  
+ 
+
+  if (isAuthenticated && !(user.blocked) ) {
+    return <Navigate to='/Home' />
+}
+
 
   if (isAuthenticated && !user.blocked && user.role===3) {
     return <Navigate to="/" />;

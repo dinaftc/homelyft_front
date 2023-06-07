@@ -98,7 +98,9 @@ function Navbar({ isAuthenticated, logout, user, setProducts }) {
         <div className="flex flex-row">
           {isAuthenticated ? (
             <>
-              <Link className=" mt-10" to="">
+
+              <Link className=" mt-10" to="/MyOrders">
+
                 <p className="font-pop text-base hover:text-primary">
                   See Orders
                 </p>

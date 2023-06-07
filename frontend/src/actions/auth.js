@@ -9,7 +9,10 @@ ACTIVATION_SUCCESS,
 ACTIVATION_FAIL} from "./types";
 import axios from "axios";
 import { Navigate } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
+  
 export const checkAuthenticated = () => async (dispatch) => {
     const access = localStorage.getItem('access');
     if (access) {
@@ -93,6 +96,16 @@ export  const login = (email,password)=>async dispatch =>{
             dispatch ({
                 type:LOGIN_FAIL
                })
+               return  toast.error('No existing account', {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+              });
 
          }
 }
@@ -112,10 +125,32 @@ export const signup =(fullname, email,phone_number, password) => async dispatch 
             type: SIGNUP_SUCCESS,
             payload: res.data
         });
+        return  toast.success('Check your account', {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          });
+
     } catch (err) {
         dispatch({
             type: SIGNUP_FAIL
         })
+        return  toast.error('Can not add account', {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          });
+
     }
 };
 

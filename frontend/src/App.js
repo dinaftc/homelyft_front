@@ -22,6 +22,8 @@ import Statistics from "./Admin/pages/Statistics/Statistics";
 import Homee from './Home/dina/HomeMain';
 import Inbox from "./Admin/pages/Inbox";
 import Notifications from "./Admin/pages/Notifications";
+import MyOrders from './Home/Orders'
+
 function App() {
   return (
  
@@ -50,6 +52,7 @@ function App() {
              <Route exact path="/Shopping-bag" element={<Bag/>} />
              <Route exact path="/Delivery" element={<Addresse/>} />
              <Route path="/product-details/:id"  element={<ProductInfo/>}/>
+             <Route exact path="/MyOrders" element={<MyOrders/>} />
           </Routes>
           </Layout>
 

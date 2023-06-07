@@ -36,11 +36,8 @@ function AddProduct() {
     const files = e.target.files;
     const selectedFilesArray = Array.from(files);
     setSelectedFiles(selectedFilesArray);
-
-    const previewImagesArray = selectedFilesArray.map((file) => {
-      return URL.createObjectURL(file);
-    });
-    setPreviewImages(previewImagesArray);
+  
+    setPreviewImages(selectedFilesArray.length);
     setImages(true);
   };
 
@@ -215,7 +212,7 @@ function AddProduct() {
       </p>
         </div>
         
-          {!images ? (
+        
             <div className="mx-5 my-5 p-5 w-1/2 bg-white h-full shadow-md rounded-2xl">
             <label className=" outline-none font-inter font-bold text-base leading-5 leading-trim-cap text-gray-700 mb-5" onDoubleClick={(e) => {
                 e.preventDefault();
@@ -231,70 +228,32 @@ function AddProduct() {
                 onChange={handleFileSelect}
               />
               <label id="label-file-upload" className="w-full h-full flex justify-center items-center " htmlFor="input-file-upload">
+                {!images?
                 <div className="">
+
                   <p className="upload-button font-pop">Upload your product image.</p>
                   <p className="font-pop font-normal text-xs leading-4 leading-trim-cap text-gray-400">
                     Only PNG, JPG format allowed <br />
                     500x500 pixels are recommended
                   </p>
-                </div>
+                </div> : 
+                <div className="">
+
+                <p className="upload-button font-pop">{previewImages}  Selected</p>
+                <p className="font-pop font-normal text-xs leading-4 leading-trim-cap text-gray-400">
+                Would you like to Add more ? 
+                
+                </p>
+              </div>}
               </label>
             </div>
             </div>
-          ) :<div className="mx-5 my-5 p-5 bg-white h-full  w-2/5 shadow-md rounded-2xl">
-          <label className="outline-none font-pop font-bold text-base leading-5 leading-trim-cap text-gray-700 mb-5">
-            Product Image
-          </label>
-          <div id="form-file-upload" className=" h-full">
-            <input
-              type="file"
-              id="input-file-upload"
-              multiple={true}
-              onChange={handleFileSelect}
-            />
-            <label id="label-file-upload" htmlFor="input-file-upload">
-            {selectedFiles ? (
-              <div className="image-preview-container w-full h-full">
-                <img
-                  className="w-full h-full absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
-                  src={previewImages[0]}
-                  alt=""
-                />
-                <div className="smaller-images-container">
-                  {previewImages.slice(1).map((file) => (
-                    <li
-                      
-                      className="w-1/5 mx-2 mb-4 relative list-none"
-                    >
-                      <img
-                        src={file}
-                        alt=""
-                        className="smaller-image"
-                      />
-                     
-                    </li>
-                  ))}
-                </div>
-              </div>
-            ) : (
-              <>
-                <label id="label-file-upload" className="w-full h-full" htmlFor="input-file-upload">
-                  <div className="upload-button">
-                    Upload your product image.
-                  </div>
-                  <p className="font-inter font-normal text-xs leading-4 leading-trim-cap text-gray-400" onDoubleClick={(e) => {
-                e.preventDefault();
-              }}
-              style={{ userSelect: "none" }}>
-                    Only PNG, JPG format allowed <br />
-                     500x500 pixels are recommended
-                  </p>
-                </label>
-              </>
-            )}</label>
-          </div>
-        </div>
-        }
+       
+          
+            
+          
+         
+        
         
       </div>
       <div className="flex justify-between w-full mt-5">

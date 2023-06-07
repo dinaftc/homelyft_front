@@ -8,7 +8,7 @@ import Navbar from "./Navbar";
 import { Link } from "react-router-dom";
 
 
-function Addadress({ user, load_user }) {
+function Addadress({ user, load_user,total_amount }) {
   const [items, setItems] = useState([]);
   const [total, setTotal] = useState(0);
   const [triggerFetch] = useState(false);
@@ -92,7 +92,7 @@ function Addadress({ user, load_user }) {
         setStep1(true);
       })
       .catch((error) => {
-        console.error("Error updating profile:", error);
+        console.error("Error :", error);
         toast.error("Error updating adresse", {
           position: "top-center",
           autoClose: 5000,
@@ -125,12 +125,7 @@ function Addadress({ user, load_user }) {
     const csrfToken = getCSRFToken();
     try {
       
-      const invoice = {
-        amount: 600,
-        client: "diaaa",
-        client_email: 'd.fettache@esi-sba.dz',
-        mode: "CIB",
-      };
+    
   
       const config = {
         headers: {
@@ -142,7 +137,7 @@ function Addadress({ user, load_user }) {
   
       const apiResponse = await axios.post(
         'http://127.0.0.1:8000/home/cart/pay/',
-        invoice,
+       
         config
       );
   

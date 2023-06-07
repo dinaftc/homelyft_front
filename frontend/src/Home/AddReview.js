@@ -3,22 +3,29 @@ import axios from "axios";
 import Rating from "@mui/material/Rating";
 import { IconButton } from "@mui/material";
 
-const AddReview = ({ setIsModalOpen, user, product }) => {
+const AddReview = ({ setIsModalOpen, user, product,update,setUpdate }) => {
   const [review, setReview] = useState("");
   const [rating, setRating] = useState(0);
 
   async function updateProductRating( id,ratingValue) {
     const url = `http://127.0.0.1:8000/homeLift/products/${id}/rating-create/`;
-
+    const config = {
+      headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('access')}`,
+          'Accept': 'application/json'
+      }
+  }; 
     try {
       const response = await axios.post(url, {
        
         rating: ratingValue,
         active: true
-      });
+      },config
+      );
 
       console.log(response.data); // Optional: Handle the response data
-
+      setUpdate(true)
       return response.data; // Optional: Return the response data
     } catch (error) {
       console.error(error);

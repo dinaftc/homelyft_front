@@ -52,7 +52,7 @@ if (user.blocked){
  
 
   if (isAuthenticated && !(user.blocked) ) {
-    return <Navigate to='/' />
+    return <Navigate to='/Home' />
 }
 
 

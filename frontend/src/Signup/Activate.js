@@ -2,7 +2,10 @@ import React, { useState } from "react";
 import { Navigate, useParams } from "react-router-dom";
 import { connect } from "react-redux";
 import { verify } from "../actions/auth";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
+  
 const Activate = ({ verify, match }) => {
   const [verified, setVerified] = useState(false);
   const routeParams = useParams();
@@ -12,6 +15,17 @@ const Activate = ({ verify, match }) => {
 
     verify(uid, token);
     setVerified(true);
+    return  toast.success('Check your account', {
+      position: "top-center",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+
   };
 
   if (verified) {

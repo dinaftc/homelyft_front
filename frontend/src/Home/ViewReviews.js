@@ -2,10 +2,40 @@ import { Divider, IconButton, Icon } from "@mui/material";
 import Rating from "@mui/material/Rating";
 import { useState } from "react";
 import AddReview from "./AddReview";
-
+import { useEffect } from "react";
+import axios from "axios";
 const ViewReviews = ({ onClose,user,product }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [update, setUpdate] = useState(false);
+    const [ratings, setRatings] = useState([]);
+  
+    
+    const [data, setData] = useState([]);
 
+    useEffect(() => {
+      const fetchData = async () => {
+        try {
+          const [ratingsResponse, commentsResponse] = await Promise.all([
+            axios.get(`http://127.0.0.1:8000/homeLift/products/${product.id}/rating/`),
+            axios.get(`http://127.0.0.1:8000/homeLift/products/${product.id}/comments/`),
+          ]);
+    
+          const ratings = ratingsResponse.data;
+          const comments = commentsResponse.data;
+    
+          const combinedData = ratings.map((rating) => {
+            const comment = comments.find((c) => c.rating_id === rating.id);
+            return { rating, comment };
+          });
+    
+          setData(combinedData);
+        } catch (error) {
+          console.log(error);
+        }
+      };
+    
+      fetchData();
+    }, [product.id,update]);
   return (
     <div className="flex justify-end font-pop items-center h-screen w-screen fixed top-0 left-0 bg-opacity-50 bg-gray-900 z-50">
       <div className="bg-white rounded-lg py-6 px-8 w-1/3 h-screen">
@@ -95,25 +125,40 @@ const ViewReviews = ({ onClose,user,product }) => {
           >
             Here's some reviews !
           </p>
-          <div
-            className="mt-2 rounded-lg p-3 border-2 border-gray-200 shadow-lg"
-            onDoubleClick={(e) => {
-              e.preventDefault();
-            }}
-            style={{ userSelect: "none" }}
-          >
-            <div>
-              <p className="font-pop font-bold text-lg">{user.fullname}</p>
-              <p className="font-pop text-gray-400 text-sm">review</p>
-              <Divider />
-            </div>
+          
+         
+            
+          <div>
+      {data.map((item) => (
+        <div
+          key={data.id}
+          className="mt-2 rounded-lg p-3 border-2 border-gray-200 shadow-lg"
+          onDoubleClick={(e) => {
+            e.preventDefault();
+          }}
+          style={{ userSelect: "none" }}
+        >
+          <div>
+            <p className="font-pop font-bold text-lg">{item.rating.rating_user}</p>
+            <p className="font-pop font-bold text-lg">{item.comment.comment}</p>
+            <Rating
+          name="size-large"
+          className="space-x-3 px-32 mt-5"
+          value={item.rating.rating}
+         
+          defaultValue={0}
+          size="large"
+        />  <Divider />
           </div>
+        </div>
+      ))}
+    </div>
         </div>
       </div>
       {isModalOpen && (
         <div className="modal-overlay">
           <div className="modal-content">
-            <AddReview  setIsModalOpen={setIsModalOpen} user={user} product={product} />
+            <AddReview  setIsModalOpen={setIsModalOpen} user={user} product={product} setUpdate={setUpdate} />
           </div>
         </div>
       )}

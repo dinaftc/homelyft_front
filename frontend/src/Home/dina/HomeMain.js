@@ -90,7 +90,7 @@ const HomeMain = ({ user, isAuthenticated }) => {
                   <img src={Rect32} />
                   <div className="absolute inset-0 flex flex-col items-center justify-center opacity-0 hover:opacity-100 transition-opacity bg-gray-900 bg-opacity-75">
                     <p className=" text-white text-xl font-pop ">
-                      Select a Sub-Category and shop now{" "}
+                    Check our Categories!
                     </p>
 
                     <Link
@@ -120,7 +120,7 @@ const HomeMain = ({ user, isAuthenticated }) => {
                   <img src={Rect33} />
                   <div className="absolute inset-0 flex flex-col items-center justify-center opacity-0 hover:opacity-100 transition-opacity bg-gray-900 bg-opacity-75">
                     <p className=" text-white text-xl font-pop ">
-                      Select a Sub-Category and shop now{" "}
+                      Check our Products!
                     </p>
                     <Link
                       to="/Home"
@@ -155,7 +155,7 @@ const HomeMain = ({ user, isAuthenticated }) => {
                   Contact Us !
                 </p>
                 <p className="text-gray-500 font-pop mt-2 text-sm">
-                  0552883989 | 0552883989
+                  0553211226 | 0791031112
                 </p>
                 <p className="text-gray-500 font-pop  text-sm">
                   contact@homelift.com

@@ -12,9 +12,10 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { connect } from 'react-redux';
 import { logout } from '../../../actions/auth';
-
+export let products;
+export let setProducts;
 function Clients({ isAuthenticated, logout }) {
-
+  
   const [orders, setOrders] = useState([]);
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(6);
@@ -23,7 +24,9 @@ function Clients({ isAuthenticated, logout }) {
 const [TotalOrders,setTotalOrders]=useState(0);
 const [triggerFetch, setTriggerFetch] = useState(false);
 const place='account/customer-list'
-  
+products = orders;
+setProducts = setOrders;
+
 
  
 
@@ -113,9 +116,9 @@ else{
             <th>USERNAME</th>
             <th>EMAIL</th>
             <th>PHONE NUMBER</th>
-            <th>shipping address</th>
+            <th>code postal</th>
             <th>STATUSES</th>
-            <th>more</th>
+            
           </thead>
 
           {orders.length !== 0 ? (
@@ -149,7 +152,7 @@ else{
                     <span>{order.phone_number}</span>
                   </td>
                   <td>
-                  <span>{order.shipping_address}</span>
+                  <span>{order.code_postal}</span>
                   </td>
                   <td>
                     {!order.blocked ? (
@@ -158,38 +161,13 @@ else{
                       <button className="status-desabled" onClick={() => handleDesactivate(order.id,order.blocked)}> desable</button>
                     )}
                   </td>
-                  <td>
-                    <div className="dropdown dropdown-bottom dropdown-end">
-                      <label tabIndex={0}>
-                        <img src={seemore} alt="" />
-                      </label>
-                      <ul
-                        tabIndex={0}
-                        className="dropdown-content menu p-3 shadow bg-offwhite rounded-box flex flex-wrap items-center"
-                      >
-                        <li className="m-1">
-                          <button
-                            className="py-1 px-2 bg-primary text-white rounded"
-                           
-                          >
-                            Edit
-                          </button>
-                        </li>
-                        <li className="m-1">
-                          <button
-                            className="py-1 px-2 bg-red-500  text-white rounded"
-                            
-                          >
-                            Delete
-                          </button>
-                        </li>
-                      </ul>
-                    </div>
-                  </td>
+                 
                 </tr>
               ))}
             </tbody>
-          ) : null}
+          ) : <div className="">
+          <span className="empty-table">No data</span>
+        </div>}
         </table>
 
         {orders.length !== 0 ? (

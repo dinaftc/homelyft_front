@@ -68,6 +68,7 @@ const[statistic,setStatistic]=useState([])
       })
       .catch((error) => console.error(error));
   }, []);
+  
 
   if (!isAuthenticated) {
     return <Navigate to="/" />;

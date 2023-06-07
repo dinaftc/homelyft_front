@@ -108,7 +108,7 @@ export default function Settings() {
       {user.role !== 3 && (
         <div className="w-full">
           <div className="dashboard-content">
-            <DashboardHeader place={place}/>
+            
           </div>
           <Profile />
           <div className="dash ml-7 my-5">

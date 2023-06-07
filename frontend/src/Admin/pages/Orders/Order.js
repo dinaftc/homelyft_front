@@ -56,28 +56,7 @@ function Orders({ isAuthenticated, logout }) {
   const handleChangePage = (newPage) => {
     setPage(newPage);
   };
-  const handleDelete = (ID) => {
-    axios
-      .delete(`http://127.0.0.1:8000/homeLift/orders/${ID}`)
-      .then(function (response) {
-        console.log("Product deleted successfully");
-        fetch("http://127.0.0.1:8000/homeLift/products/")
-          .then((response) => response.json())
-          .then((data) => {
-            const totalOrders = data.length;
-            setTotalOrders(totalOrders);
-            const totalPages = Math.ceil(totalOrders / pageSize);
-            setTotalPages(totalPages);
-            const slicedOrders = sliceData(data, page, pageSize);
-            setOrders(slicedOrders);
-            const urls = data.map((item) => item.image);
-            setImagee(urls);
-          });
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  };
+ 
  
   if (!isAuthenticated) {
     return <Navigate to="/" />;
@@ -98,7 +77,6 @@ function Orders({ isAuthenticated, logout }) {
                 <th>phone number</th>
                 <th>Total</th>
                 <th>shipping address</th>
-                <th>payment </th>
                 <th>details</th>
               </thead>
 

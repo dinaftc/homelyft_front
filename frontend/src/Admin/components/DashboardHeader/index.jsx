@@ -4,6 +4,9 @@ import "./styles.css";
 import search from "../../assets/icons/search.png";
 import axios from "axios";
 import { Link } from "react-router-dom";
+
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 function DashboardHeader({ orders,place }) {
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -11,9 +14,22 @@ function DashboardHeader({ orders,place }) {
     axios
       .get(`http://127.0.0.1:8000/${place}/?search=${searchTerm}`)
        .then((response) => {
+        if (response.data.length ==0){
+          toast.warning('no data found', {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          })
+        }
         // handle the response data here
         console.log(response.data);
         setProducts(response.data);
+       
       })
       .catch((error) => {
         // handle errors here

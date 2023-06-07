@@ -6,7 +6,9 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import Navbar from "../../../Home/Navbar";
+import DashboardHeader from "../../components/DashboardHeader";
 function Profile({ user, load_user }) {
+  const place = "account/staff-list";
   const [editMode, setEditMode] = useState(false);
   const [formData, setFormData] = useState({
     username: "",
@@ -101,7 +103,7 @@ function Profile({ user, load_user }) {
   if (editMode && user) {
     return (
       <div className={user.role === 3 ? "bg-white" : "dashboard-content"}>
-        {user.role === 3 && <Navbar /> }
+        {user.role === 3 ? <Navbar />  : <DashboardHeader place={place}/>}
         <div className="w-full h-full relative flex  my-20 justify-center items-center">
           <form
             className="bg-white rounded-lg py-6  px-10"
@@ -187,7 +189,7 @@ function Profile({ user, load_user }) {
   } else {
     return (
       <div className={user.role === 3 ? "bg-white" : "dashboard-content"}>
-      {user.role === 3 && <Navbar /> }
+     {user.role === 3 ? <Navbar />  : <DashboardHeader place={place}/>}
         <div class="container  mt-40 mb-10">
           <div className={user.role === 3 ? "ml-44" : "mr-5"}>
             <div class=" bg-white relative shadow-xl rounded-lg w-full ">

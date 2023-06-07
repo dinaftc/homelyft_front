@@ -102,7 +102,10 @@ const Sidebar = ({ isAuthenticated, logout }) => {
           </p>
         </div>
         <div>
-          <ul className="text-gray-500 font-pop text-base">
+          <ul className="text-gray-500 font-pop text-base"  onDoubleClick={(e) => {
+              e.preventDefault();
+            }}
+            style={{ userSelect: "none" }}>
             {Menus.map((menu, index) => (
               <Link
 

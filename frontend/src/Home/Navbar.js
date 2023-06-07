@@ -58,6 +58,7 @@ function Navbar({ isAuthenticated, logout, user, setProducts }) {
         />
       </Link>
       <div className="w-full md:w-3/5 relative mx-auto mt-2 md:mt-0 md:ml-2">
+        {isAuthenticated ?
         <div className="relative">
           <input
             type="text"
@@ -72,6 +73,21 @@ function Navbar({ isAuthenticated, logout, user, setProducts }) {
             className="absolute inset-y-0 left-8 w-6 h-6 my-auto mr-2 text-gray-400 pointer-events-none"
           />
         </div>
+        : <Link to='/Home'> 
+        <div className="relative">
+        <input
+          type="text"
+          className="w-full h-10 py-6 px-10 m-5 rounded-full leading-5 bg-gray-200 text-gray-900 placeholder-gray-400 focus:outline-none focus:placeholder-gray-400"
+          placeholder="What are you looking for?"
+          onChange={(e) => setSearchTerm(e.target.value)}
+          onKeyDown={handleKeyPress}
+        />
+        <img
+          src={search}
+          alt=""
+          className="absolute inset-y-0 left-8 w-6 h-6 my-auto mr-2 text-gray-400 pointer-events-none"
+        />
+      </div></Link>}
       </div>
       <div className="flex items-center">
         {isAuthenticated ? (

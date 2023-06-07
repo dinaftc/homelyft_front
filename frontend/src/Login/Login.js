@@ -47,7 +47,7 @@ const Login = ({ login, isAuthenticated, user }) => {
 
 
  
-  
+  }
   
  
 

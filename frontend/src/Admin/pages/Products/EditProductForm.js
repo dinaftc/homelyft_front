@@ -12,7 +12,7 @@ function EditProductForm({ product, onClose }) {
   const [id] = useState(product.id);
   const [subcategory] = useState(product.subcategory);
 
-  const [productImages, setProductImages] = useState(product.productImages);
+  const [productImage, setProductImage] = useState(product.image);
   const [selectedFiles, setSelectedFiles] = useState([]);
 
   const [previewImages, setPreviewImages] = useState([]);
@@ -44,49 +44,35 @@ function EditProductForm({ product, onClose }) {
         formData
       );
 
-      if (productImages.length < 5) {
-        const formData = new FormData();
+      const formData = new FormData();
 
-        selectedFiles.forEach((file) => {
-          formData.append("image", file);
-        });
+      selectedFiles.forEach((file) => {
+        formData.append("image", file);
+      });
 
-        await axios.post(
-          `http://127.0.0.1:8000/homeLift/products/${response.data.id}/images-create/`,
-          formData,
-          {
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-          }
-        );
-        console.log("Product edited successfully");
-        toast.success("Product edited successfully!", {
-          position: "top-center",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
-        onClose();
-      } else {
-        toast.error("Please delete an image to add another one!", {
-          position: "top-center",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
-      }
+      await axios.post(
+        `http://127.0.0.1:8000/homeLift/products/${response.data.id}/images-create/`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      console.log("Product edited successfully");
+      toast.success("Product edited successfully!", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
     } catch (error) {
       console.error(error);
-      toast.error("Quantity and price must be positive numbers!", {
+      toast.error("Could not edit product", {
         position: "top-center",
         autoClose: 5000,
         hideProgressBar: false,
@@ -107,9 +93,8 @@ function EditProductForm({ product, onClose }) {
         if (!response.ok) {
           throw new Error("Failed to delete image.");
         }
-        // remove the deleted image from the state
-        setProductImages(productImages.filter((file) => file.id !== ID));
       })
+
       .catch((error) => {
         console.error(error);
         // display an error message to the user
@@ -124,13 +109,7 @@ function EditProductForm({ product, onClose }) {
           className="mt-5 mx-5 p-5 bg-offwhite w-3/5  shadow-md rounded-2xl h-120"
           style={{ backgroundColor: "#fffffb" }}
         >
-          <label
-            className="font-inter font-bold text-base leading-5 leading-trim-cap text-gray-700 mb-5"
-            onDoubleClick={(e) => {
-              e.preventDefault();
-            }}
-            style={{ userSelect: "none" }}
-          >
+          <label className="font-inter font-bold text-base leading-5 leading-trim-cap text-gray-700 mb-5">
             Basic informations
           </label>
           <input
@@ -149,111 +128,39 @@ function EditProductForm({ product, onClose }) {
           />
         </div>
 
-        {selectedFiles.length === 0 ? (
-          <div className="mx-5 my-5 p-5 bg-white h-96 shadow-md rounded-2xl">
-            <label className="outline-none font-inter font-bold text-base leading-5 leading-trim-cap text-gray-700 mb-5">
-              Product Image
+        <div className="mx-5 my-5 p-5 bg-white h-96 shadow-md rounded-2xl">
+          <label className="outline-none font-inter font-bold text-base leading-5 leading-trim-cap text-gray-700 mb-5">
+            Product Image
+          </label>
+          <div id="form-file-upload" className="w-full h-full">
+            <input
+              type="file"
+              id="input-file-upload"
+              multiple={true}
+              onChange={handleFileSelect}
+            />
+            <label
+              id="label-file-upload"
+              className="w-full h-full flex justify-center items-center "
+              htmlFor="input-file-upload"
+            >
+              <div className="rounded-lg">
+                <img
+                  src={productImage}
+                 className="w-full h-full"
+                  id="form-file-upload"
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover",
+                  }}
+                />
+              </div>
             </label>
-            <div id="form-file-upload">
-              <input
-                type="file"
-                id="input-file-upload"
-                multiple={true}
-                onChange={handleFileSelect}
-              />
-              <label id="label-file-upload" htmlFor="input-file-upload">
-                <div className="image-preview-container">
-                  <img
-                    className="w-full h-full absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
-                    src={product.image}
-                    alt=""
-                  />
-                  <div className="smaller-images-container">
-                    {productImages.map((file) => (
-                      <li
-                        key={file.name}
-                        className="w-1/5 mx-2 mb-4 relative list-none"
-                      >
-                        <img
-                          src={file.image}
-                          alt=""
-                          className="smaller-image"
-                        />
-                        <button
-                          className="absolute bottom-14 left-10"
-                          onClick={() => handleDeleteImage(file.id)}
-                        >
-                          <MdOutlineCancel />
-                        </button>
-                      </li>
-                    ))}
-                  </div>
-                </div>
-              </label>
-            </div>
           </div>
-        ) : (
-          <div className="mx-5 my-5 p-5 bg-white h-96 shadow-md rounded-2xl">
-            <label className="outline-none font-inter font-bold text-base leading-5 leading-trim-cap text-gray-700 mb-5">
-              Product Image
-            </label>
-            <div id="form-file-upload">
-              <input
-                type="file"
-                id="input-file-upload"
-                multiple={true}
-                onChange={handleFileSelect}
-              />
-              <label id="label-file-upload" htmlFor="input-file-upload">
-                <div className="image-preview-container ">
-                  <img
-                    className="w-full h-full absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
-                    src={productImages[0]}
-                    alt=""
-                  />
-                  <button
-                    className="absolute -top-1 -right-2 overflow-hidden"
-                    onClick={() => handleDeleteImage(productImages[0].id)}
-                  >
-                    <MdOutlineCancel />
-                  </button>
-                  <div className="smaller-images-container">
-                    {productImages.map((file) => (
-                      <li
-                        key={file.name}
-                        className="w-1/5 mx-2 mb-4 relative list-none"
-                      >
-                        <img
-                          src={file.image}
-                          alt=""
-                          className="smaller-image"
-                        />
-                        <button
-                          className="absolute bottom-14 left-10"
-                          onClick={() => handleDeleteImage(file.id)}
-                        >
-                          <MdOutlineCancel />
-                        </button>
-                      </li>
-                    ))}
-                    {previewImages.map((file) => (
-                      <li
-                        key={file.name}
-                        className="w-1/5 mx-2 mb-4 relative list-none"
-                      >
-                        <img src={file} alt="" className="smaller-image" />
-                        <button className="absolute bottom-14 left-10">
-                          <MdOutlineCancel />
-                        </button>
-                      </li>
-                    ))}
-                  </div>
-                </div>
-              </label>
-            </div>
-          </div>
-        )}
+        </div>
       </div>
+
       <div className="flex justify-between w-full">
         <div
           className="mt-5 ml-5 mr-12 p-5 bg-offwhite w-3/5 shadow-md rounded-2xl h-3/5"

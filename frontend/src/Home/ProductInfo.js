@@ -1,20 +1,110 @@
 import { Divider, Icon, IconButton, Box, Modal } from "@mui/material";
 import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
 import Navbar from "./Navbar";
 import ViewReviews from "./ViewReviews";
 import { connect } from "react-redux";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Rating from "@mui/material/Rating";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const ProductInfo = ({ isAuthenticated, user }) => {
+  const navigate = useNavigate();
   const location = useLocation();
-  const product = location.state.product;
-
   const [products, setProducts] = useState([]);
 
-  const [quantity, setQuantity] = useState(0);
+  const [value, setValue] = useState(0);
+  const [selectedProductId, setSelectedProductId] = useState(null);
+  const [selectedProductDescription, setSelectedProductDescription] =
+    useState("");
+ 
+
+  const [showPopup, setShowPopup] = useState(false);
+
+  const [quantity, setQuantity] = useState(1);
+  const [Categories, setCategories] = useState([]);
+  const [selectedSubcategory, setSelectedSubcategory] = useState("");
+
+  const product = location.state.product;
+  
+  
+  
+
+  const handleAddToCartClick = (productId) => {
+    setSelectedProductId(productId);
+    setShowPopup(true);
+  };
+
+  const handleAddToCartSubmit = async () => {
+    if (selectedProductId !== null && quantity > 0) {
+      console.log(selectedProductId);
+      if (!isAuthenticated) {
+        toast.error("Please sign up or login to buy", {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      } else {
+        try {
+          const response = await axios.post(
+            `http://127.0.0.1:8000/home/${user.id}/${selectedProductId}/addtocart/`,
+            { Quantity: quantity },
+            { headers: { "Content-Type": "application/json" } }
+          );
+
+          console.log(response.data);
+          if (response.status === 201) {
+            toast.success("Added to cart", {
+              position: "top-center",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+            });
+          } else {
+            toast.error("Product already exists in cart", {
+              position: "top-center",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+            });
+          }
+        } catch (error) {
+          console.error(error);
+        }
+      }
+    } else {
+      if (quantity <= 0) {
+        toast.error("Negative value", {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      }
+    }
+
+    setShowPopup(false);
+    setSelectedProductId(null);
+    setQuantity(1);
+  };
   const handleAddSubmit = (Quantity) => {
     if (isAuthenticated) {
       axios
@@ -135,22 +225,7 @@ const ProductInfo = ({ isAuthenticated, user }) => {
             <p className="text-gray-500 text-lg font-pop justify-start">
               {product.description}
             </p>
-            <IconButton className="justify-end">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="feather feather-heart"
-              >
-                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
-              </svg>
-            </IconButton>
+           
           </div>
           <p
             className="text-black text-2xl font-pop font-bold "
@@ -159,7 +234,7 @@ const ProductInfo = ({ isAuthenticated, user }) => {
             }}
             style={{ userSelect: "none" }}
           >
-            10 000 DA
+            {product.price} <span>DA</span>
           </p>
           <p
             className="text-gray-500 text-xl font-pop text-md"
@@ -245,8 +320,12 @@ const ProductInfo = ({ isAuthenticated, user }) => {
                 <polyline points="12 5 19 12 12 19"></polyline>
               </svg>
             </IconButton>
-            <Modal open={viewReviewsModalOpen} >
-              <ViewReviews onClose={closeViewReviewsModal} user={user} product={product}/>
+            <Modal open={viewReviewsModalOpen}>
+              <ViewReviews
+                onClose={closeViewReviewsModal}
+                user={user}
+                product={product}
+              />
             </Modal>
           </div>
           <Divider className="" />
@@ -266,92 +345,77 @@ const ProductInfo = ({ isAuthenticated, user }) => {
           </p>
           <Divider />
         </div>
-        <div className="">
-          <div className="card-container flex flex-wrap justify-start p-5">
-            {products.map((product, index) => {
-              const shortDescription = product.description.slice(
-                0,
-                DESCRIPTION_LIMIT
-              );
-              const showFullDescriptionForThisProduct =
-                showFullDescription[product.id] || false;
+        <div className="w-fit bg-white" style={{ display: "flex" }}>
+          {products.map((product, index) => {
+            const shortDescription = product.description.slice(
+              0,
+              DESCRIPTION_LIMIT
+            );
+            const showFullDescriptionForThisProduct =
+              showFullDescription[product.id] || false;
 
-              return (
-                <div
-                  key={index}
-                  className="card card-compact w-full md:w-1/2 lg:w-1/3 xl:w-1/4 bg-base-100 shadow-xl m-4"
-                >
-                  <figure className="h-2/3 rounded-md">
-                    <img src={product.image} alt={product.name} />
-                  </figure>
-                  <div className="card-body">
-                    <h2
-                      className="card-title"
-                      onDoubleClick={(e) => {
-                        e.preventDefault();
-                      }}
-                      style={{ userSelect: "none" }}
-                    >
-                      {product.name}
-                    </h2>
-                    {product.description.length > DESCRIPTION_LIMIT ? (
-                      <div
-                        className=""
-                        onDoubleClick={(e) => {
-                          e.preventDefault();
-                        }}
-                        style={{ userSelect: "none" }}
-                      >
-                        <p
-                          onDoubleClick={(e) => {
-                            e.preventDefault();
-                          }}
-                          style={{ userSelect: "none" }}
+            return (
+              <div className="card  card-compact w-full sm:w-1/2 md:w-1/3 lg:w-1/4 bg-base-100 shadow-xl m-3">
+                <figure className=" h-1/3 rounded-md">
+                  <img
+                    src={product.image}
+                    alt={product.name}
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "cover",
+                    }}
+                  />
+                </figure>
+                <div className="card-body ">
+                  <h2 className="font-pop font-bold text-xl">{product.name}</h2>
+                  {product.description.length > DESCRIPTION_LIMIT ? (
+                    <div className="">
+                      <p>
+                        {showFullDescriptionForThisProduct
+                          ? product.description
+                          : `${shortDescription}...`}
+                        <span
+                          className="text-primary ml-1 cursor-pointer"
+                          onClick={() =>
+                            setShowFullDescription({
+                              ...showFullDescription,
+                              [product.id]: !showFullDescriptionForThisProduct,
+                            })
+                          }
                         >
                           {showFullDescriptionForThisProduct
-                            ? product.description
-                            : `${shortDescription}...`}
-                          <span
-                            className="text-primary ml-1 cursor-pointer"
-                            onClick={() =>
-                              setShowFullDescription({
-                                ...showFullDescription,
-                                [product.id]:
-                                  !showFullDescriptionForThisProduct,
-                              })
-                            }
-                          >
-                            {showFullDescriptionForThisProduct
-                              ? "See less"
-                              : "See more"}
-                          </span>
-                        </p>
-                      </div>
-                    ) : (
-                      <p
-                        onDoubleClick={(e) => {
-                          e.preventDefault();
-                        }}
-                        style={{ userSelect: "none" }}
-                      >
-                        {product.description}
+                            ? "See less"
+                            : "See more"}
+                        </span>
                       </p>
-                    )}
-                    <p
-                      className=""
-                      onDoubleClick={(e) => {
-                        e.preventDefault();
-                      }}
-                      style={{ userSelect: "none" }}
-                    >
-                      <span className="font-pop text-bold text-primary">
-                        Price:
-                      </span>{" "}
+                    </div>
+                  ) : (
+                    <p>{product.description}</p>
+                  )}
+                  <div>
+                    <p className="font-pop font-bold text-primary text-2xl">
+                      {" "}
                       {product.price} DA
                     </p>
-
-                    <div className="flex justify-between">
-                      <div className="flex justify-start mt-2 space-x-3 cursor-pointer">
+                  </div>
+                  <div className="flex flex-row">
+                    <Rating name="read-only" value={value} readOnly />
+                    <p className="mt-1 ml-1 font-pop text-gray-500">(100)</p>
+                  </div>
+                  <div className="flex justify-between ">
+                    <div className="flex justify-start mt-2 space-x-3 cursor-pointer ">
+                      <button
+                        className="underline "
+                        onClick={() =>
+                          navigate(`/product-details/${product.id}`, {
+                            state: { product },
+                          })
+                        }
+                      >
+                        more details
+                      </button>
+                      <button onClick={() => handleAddToCartClick(product.id)}>
                         <Icon className="">
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -370,29 +434,93 @@ const ProductInfo = ({ isAuthenticated, user }) => {
                             <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
                           </svg>
                         </Icon>
-                        <Icon>
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="24"
-                            height="24"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            className="feather feather-heart"
-                          >
-                            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
-                          </svg>
-                        </Icon>
-                      </div>
+                      </button>
+                     
                     </div>
                   </div>
                 </div>
-              );
-            })}
-          </div>
+              </div>
+            );
+          })}
+          {showPopup && (
+            <div className="popup">
+              <div className="popup-inner">
+                <h3>Enter Quantity</h3>
+                <input
+                  type="number"
+                  value={quantity}
+                  onChange={(e) => setQuantity(e.target.value)}
+                />
+                <button onClick={handleAddToCartSubmit}>Add to Cart</button>
+                <button onClick={() => setShowPopup(false)}>Cancel</button>
+              </div>
+            </div>
+          )}
+          <style jsx>{`
+            .card-container {
+              display: flex;
+              flex-wrap: wrap;
+              justify-content: flex-start;
+            }
+
+            .card {
+              flex: 1 0 20%;
+              height: 400px;
+            }
+            .card-body {
+              padding: 0.5rem;
+
+              display: flex;
+              justify-content: space-between;
+            }
+
+            .card-title {
+              margin-top: 0.2rem;
+              font-size: 1rem;
+            }
+            .popup {
+              position: fixed;
+              width: 100%;
+              height: 100%;
+              top: 0;
+              left: 0;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+
+              background-color: rgba(0, 0, 0, 0.7);
+            }
+            .popup-inner {
+              width: 50%;
+              padding: 2rem;
+              background-color: white;
+              border-radius: 50px;
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              align-items: center;
+            }
+            .popup-inner h3 {
+              margin-top: 0;
+            }
+            .popup-inner input {
+              margin-bottom: 1rem;
+            }
+            .popup-inner button {
+              margin: 0.5rem;
+              padding: 0.5rem 1rem;
+              border: none;
+              border-radius: 50px;
+              background-color: #25a5aa;
+              color: white;
+              font-size: 1rem;
+              cursor: pointer;
+              transition: all 0.2s ease-in;
+            }
+            .popup-inner button:hover {
+              background-color: #1a7680;
+            }
+          `}</style>
         </div>
       </div>
 

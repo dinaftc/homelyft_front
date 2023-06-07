@@ -144,9 +144,7 @@ function Home({ isAuthenticated, user }) {
                       className="select w-36 max-w-xs bg-transparent outline-none border-none focus:bg-offwhite"
                       onChange={(e) => setSelectedSubcategory(e.target.value)}
                     >
-                      <option >
-                        {category.name}
-                      </option>
+                      <option>{category.name}</option>
                       {category.subCategories.map((subcategory) => (
                         <option
                           key={subcategory.id}
@@ -160,10 +158,7 @@ function Home({ isAuthenticated, user }) {
                 ))}
                 <hr />
               </div>
-              <div
-                className="w-fit bg-white"
-                style={{ display: "flex" }}
-              >
+              <div className="w-fit bg-white" style={{ display: "flex" }}>
                 {products.map((product, index) => {
                   const shortDescription = product.description.slice(
                     0,
@@ -186,7 +181,9 @@ function Home({ isAuthenticated, user }) {
                         />
                       </figure>
                       <div className="card-body ">
-                        <h2 className="font-pop font-bold text-xl">{product.name}</h2>
+                        <h2 className="font-pop font-bold text-xl">
+                          {product.name}
+                        </h2>
                         {product.description.length > DESCRIPTION_LIMIT ? (
                           <div className="">
                             <p>
@@ -213,10 +210,10 @@ function Home({ isAuthenticated, user }) {
                           <p>{product.description}</p>
                         )}
                         <div>
-                        <p className="font-pop font-bold text-primary text-2xl">
-                          {" "}
-                          {product.price} DA
-                        </p>
+                          <p className="font-pop font-bold text-primary text-2xl">
+                            {" "}
+                            {product.price} DA
+                          </p>
                         </div>
                         <div className="flex flex-row">
                           <Rating name="read-only" value={value} readOnly />
@@ -258,22 +255,7 @@ function Home({ isAuthenticated, user }) {
                                 </svg>
                               </Icon>
                             </button>
-                            <Icon>
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="24"
-                                height="24"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                stroke="currentColor"
-                                strokeWidth="2"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                className="feather feather-heart"
-                              >
-                                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
-                              </svg>
-                            </Icon>
+                           
                           </div>
                         </div>
                       </div>

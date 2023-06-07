@@ -281,32 +281,14 @@ else{
                     )}
                   </td>
                   <td>
-                    <div className="dropdown dropdown-bottom dropdown-end">
-                      <label tabIndex={0}>
-                        <img src={seemore} alt="" />
-                      </label>
-                      <ul
-                        tabIndex={0}
-                        className="dropdown-content menu p-3 shadow bg-offwhite rounded-box flex flex-wrap items-center"
-                      >
-                        <li className="m-1">
+                   
                           <button
-                            className="py-1 px-2 bg-primary text-white rounded"
+                            className="py-1 px-2 bg-primary text-white rounded-full text-sm"
                             onClick={() => handleClickEdit(order)}
                           >
                             Edit
                           </button>
-                        </li>
-                        <li className="m-1">
-                          <button
-                            className="py-1 px-2 bg-red-500  text-white rounded"
-                            onClick={() => handleDelete(order.id)}
-                          >
-                            Delete
-                          </button>
-                        </li>
-                      </ul>
-                    </div>
+                       
                   </td>
                 </tr>
               ))}

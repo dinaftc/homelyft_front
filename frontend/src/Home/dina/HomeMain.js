@@ -31,8 +31,7 @@ const HomeMain = ({ user, isAuthenticated }) => {
     <div>
       {((user && user.role === 3) || !isAuthenticated) && (
         <div className="bg-white">
-          <Navbar />
-
+         <Navbar />  
           <div
             className="w-full "
             onDoubleClick={(e) => {
@@ -157,7 +156,7 @@ const HomeMain = ({ user, isAuthenticated }) => {
                   Contact Us !
                 </p>
                 <p className="text-gray-500 font-pop mt-2 text-sm">
-                  0553211226 | 0791031112
+                  0552883989 | 0791031112
                 </p>
                 <p className="text-gray-500 font-pop  text-sm">
                   contact@homelift.com

@@ -46,9 +46,11 @@ const Login = ({ login, isAuthenticated, user }) => {
     }
   };
 
-  if (isAuthenticated && !user.blocked) {
+  if (isAuthenticated && !user.blocked && user.role===3) {
     return <Navigate to="/" />;
   }
+
+  if(isAuthenticated && !(user.role===3)){ return <Navigate to="/Home" />}
 
   return (
     <div className="w-screen h-screen flex justify-center items-center ">

@@ -227,7 +227,7 @@ const HomeMain = ({ user, isAuthenticated }) => {
                   </Link>
                 </div>
                 <p className="font-pop text-gray-500 text-sm flex justify-center mt-10 ">
-                  HomeLift | All Rights Reserved
+                  <span className="text-primary font-bold mr-1" >HomeLift </span>  | All Rights Reserved
                 </p>
               </div>
            

@@ -10,11 +10,10 @@ import facebook from "../facebook.json";
 import twitter from "../twitter.json";
 import { useState, useEffect } from "react";
 
-import {  Element, animateScroll as scroll, scroller } from "react-scroll";
+import { Element, animateScroll as scroll, scroller } from "react-scroll";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import Navbar from "../Navbar";
-
 const HomeMain = ({ user, isAuthenticated }) => {
   useEffect(() => {
     // Optional: Configure the scroll behavior
@@ -23,8 +22,11 @@ const HomeMain = ({ user, isAuthenticated }) => {
       smooth: true,
     });
   }, []);
- 
-
+  const positionStyles2 = {
+    // Center the animation using translate
+    width: "60px",
+    height: "60px",
+  };
   return (
     <div>
       {((user && user.role === 3) || !isAuthenticated) && (
@@ -47,7 +49,7 @@ const HomeMain = ({ user, isAuthenticated }) => {
                 </div>
                 <div className="text-white font-pop text-2xl font-normal">
                   <p className="mt-8">
-                   Turn your room with HomeLift into a lot
+                    Turn your room with HomeLift into a lot
                   </p>
                   <p className="mt-1">More modern one</p>
                 </div>
@@ -193,20 +195,42 @@ const HomeMain = ({ user, isAuthenticated }) => {
                   In case you want to follow us ! Here's our social media{" "}
                 </p>
                 <div className="flex flex-row justify-center cursor-pointer ">
-                  <Lottie
-                    animationData={facebook}
-                    style={{ width: 150, height: 150 }}
-                  />
-                  <Lottie
-                    animationData={instagram}
-                    style={{ width: 150, height: 150 }}
-                  />
-                  <Lottie
-                    animationData={twitter}
-                    style={{ width: 150, height: 150 }}
-                  />
+                  <Link
+                    to="https://www.facebook.com/yassine.gzn/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Lottie
+                      animationData={facebook}
+                      style={{ width: 150, height: 150 }}
+                    />
+                  </Link>
+                  <Link
+                    to="https://www.instagram.com/yvcine.guezz/ "
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Lottie
+                      animationData={instagram}
+                      style={{ width: 150, height: 150 }}
+                    />
+                  </Link>
+                  <Link
+                    to="https://twitter.com/TGuezzen "
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Lottie
+                      animationData={twitter}
+                      style={{ width: 150, height: 150 }}
+                    />
+                  </Link>
                 </div>
+                <p className="font-pop text-gray-500 text-sm flex justify-center mt-10 ">
+                  <span className="text-primary font-bold mr-1" >HomeLift </span>  | All Rights Reserved
+                </p>
               </div>
+           
             </div>
           </div>
         </div>

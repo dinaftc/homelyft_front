@@ -33,7 +33,7 @@ function Signup({ signup, isAuthenticated, SIGNUP_SUCCESS }) {
     event.preventDefault();
       signup(full_name, email, phone_number, password);
       if (SIGNUP_SUCCESS){
-        toast.success('Account Created Sucessfully! Check your email', {
+        toast.success('Account Created Successfully! Check your email', {
           position: "top-center",
           autoClose: 5000,
           hideProgressBar: false,

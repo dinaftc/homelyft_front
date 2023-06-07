@@ -153,6 +153,7 @@ function AddProduct() {
               style={{ userSelect: "none" }}>
             Basic informations
           </label>
+         
           <input
           required
             placeholder="Product name*"
@@ -160,7 +161,9 @@ function AddProduct() {
             type="text"
             value={name}
             onChange={(event) => setName(event.target.value)}
+            maxLength={20}
           />
+         
           <br />
           <select
             className=" outline-none bg-fffffb border-2 border-gray-300 rounded-lg w-full p-3 my-3 h-13 font-poppins font-normal text-base leading-6 "
@@ -281,7 +284,7 @@ function AddProduct() {
         </div>
 
         <div
-          className="mr-5 ml-12 mt-5 px-5 py-2 bg-white shadow-md rounded-2xl h-4/5 "
+          className="flex flex-col mr-5 ml-12 mt-5 px-5 py-4 bg-white shadow-md rounded-2xl h-4/5 "
           style={{ flex: 1 }}
         >
           <label className="font-inter font-bold text-base  outline-none leading-5 leading-trim-cap text-gray-700 " onDoubleClick={(e) => {
@@ -291,7 +294,7 @@ function AddProduct() {
             Visibility
           </label>
           <br />
-          <div class="my-2" onDoubleClick={(e) => {
+          <div class=" " onDoubleClick={(e) => {
                 e.preventDefault();
               }}
               style={{ userSelect: "none" }}>

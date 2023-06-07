@@ -20,7 +20,10 @@ import ProductInfo from "./Home/ProductInfo";
 import Clients from "./Admin/pages/Clients/Clients";
 import Statistics from "./Admin/pages/Statistics/Statistics";
 import Homee from './Home/dina/HomeMain';
+import Inbox from "./Admin/pages/Inbox";
+import Notifications from "./Admin/pages/Notifications";
 import MyOrders from './Home/Orders'
+
 function App() {
   return (
  
@@ -34,6 +37,8 @@ function App() {
             <Route path="/" element={<Homee />} />
             <Route path="/Resetpwd" element={<Resetpwd />} />
             <Route path="/Home" element={<Home />} />
+            <Route path="/Inbox" element={<Inbox />} />
+            <Route path="/Notifications" element={<Notifications />} />
              <Route  path="/password/reset/confirm/:uid/:token" element={<ResetpwdConfirm/>}/>
              <Route  path="/activate/:uid/:token" element={<Activate/>}/>
              <Route exact path="/products" element={< Orders/>} />

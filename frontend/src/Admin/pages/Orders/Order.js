@@ -119,11 +119,12 @@ function Orders({ isAuthenticated, logout }) {
                         <span>{order.total_amount}</span>
                       </td>
                       <td>
-                        <span>{order.customer.wilaya}</span>
+                     
+                        <span>{order.customer.code_postal? order.customer.code_postal :  <p> no shipping addresse yet</p> }</span>
                       </td>
                      
                       <td>
-                        <span onClick={()=>setIsModalOpen(true)}>order's details</span>
+                        <span className="  border-2 border-primary p-1 rounded-full font-normal bg-primary text-white" onClick={()=>setIsModalOpen(true)}>order's details</span>
                         
                       </td>
                       {IsModalOpen && <Details setIsModalOpen={setIsModalOpen} order={order}></Details>}

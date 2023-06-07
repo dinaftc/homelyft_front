@@ -86,7 +86,7 @@ function EditProductForm({ product, onClose }) {
       }
     } catch (error) {
       console.error(error);
-      toast.error("Could not edit product", {
+      toast.error("Quantity and price must be positive numbers!", {
         position: "top-center",
         autoClose: 5000,
         hideProgressBar: false,

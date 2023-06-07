@@ -1,4 +1,3 @@
-
 import * as React from "react";
 import Modal2 from "./AddCategory";
 import { useState, useEffect } from "react";
@@ -36,16 +35,13 @@ const Categories = () => {
 
   const handleDeleteCategory = (categoryId) => {
     axios
-      .delete(
-        `http://127.0.0.1:8000/homeLift/categories/${categoryId}`
-      )
+      .delete(`http://127.0.0.1:8000/homeLift/categories/${categoryId}`)
       .then((response) => {
         // If the request is successful, update the state by removing the deleted subcategory
-      setTriggerFetch(true)
+        setTriggerFetch(true);
       })
       .catch((error) => console.error(error));
   };
-
 
   useEffect(() => {
     fetch("http://127.0.0.1:8000/homeLift/categories/")
@@ -63,10 +59,15 @@ const Categories = () => {
       <div className="bg-white rounded-lg">
         <div className="flex flex-row bg-white rounded-lg p-5 gap-3">
           <div className="dashboard-content-header">
-            <p className="text-black text-2xl mt-1 " onDoubleClick={(e) => {
+            <p
+              className="text-black text-2xl mt-1 "
+              onDoubleClick={(e) => {
                 e.preventDefault();
               }}
-              style={{ userSelect: "none" }}>Categories</p>
+              style={{ userSelect: "none" }}
+            >
+              Categories
+            </p>
           </div>
           <div className="">
             <button
@@ -78,18 +79,25 @@ const Categories = () => {
           </div>
         </div>
         {showModal && (
-          <Modal2 showModal={showModal} setShowModal={setShowModal} setTriggerFetch={setTriggerFetch} />
+          <Modal2
+            showModal={showModal}
+            setShowModal={setShowModal}
+            setTriggerFetch={setTriggerFetch}
+          />
         )}
 
         <div class="w-full overflow-x-auto p-5 ">
-          <table class="table-auto" onDoubleClick={(e) => {
-                e.preventDefault();
-              }}
-              style={{ userSelect: "none" }}>
+          <table
+            class="table-auto"
+            onDoubleClick={(e) => {
+              e.preventDefault();
+            }}
+            style={{ userSelect: "none" }}
+          >
             <tbody className="text-xl">
               <tr>
                 <th class=" align-middle text-lg">Category</th>
-               
+
                 <th class=" align-middle text-left text-lg">Sub-Categories</th>
               </tr>
             </tbody>
@@ -97,33 +105,34 @@ const Categories = () => {
               {Categories.map((category) => (
                 <React.Fragment key={category.id}>
                   <tr>
-                    <td class="  align-middle"> <ul className="  border-primary mx-1 border pl-2 text-sm rounded-full bg-white font-pop outline-primary text-black hover:text-white hover:bg-primary">
-                            <label>{category.name}</label>
-                            <IconButton
-                              id="deleteSubCategory"
-                              onClick={() =>
-                                handleDeleteCategory(
-                                  category.id,
-                                 
-                                )
-                              }
-                            >
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                height="18px"
-                                viewBox="0 0 24 24"
-                                width="18px"
-                                fill="#f44335"
-                              >
-                                <path d="M0 0h24v24H0z" fill="none" />
-                                <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
-                              </svg>
-                            </IconButton>
-                          </ul></td>
-                   
+                    <td class="  align-middle">
+                      {" "}<div className="mb-2">
+                      <ul className="border border-primary bg-primary font-pop rounded-full px-2 text-white hover:bg-transparent hover:text-black"  >
+                        <label>{category.name}</label>
+                        <IconButton
+                          id="deleteSubCategory"
+                          onClick={() => handleDeleteCategory(category.id)}
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            height="18px"
+                            viewBox="0 0 24 24"
+                            width="18px"
+                            fill="#f44335"
+                          >
+                            <path d="M0 0h24v24H0z" fill="none" />
+                            <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
+                          </svg>
+                        </IconButton>
+                      </ul>
+                      </div>
+                      <Divider />
+                    </td>
+
                     <td class="  align-middle text-left">
                       <div className="flex flex-wrap">
                         {category.subCategories.map((subCategory) => (
+                          <div className="mb-2">
                           <ul className="  border-primary mx-1 border pl-2 text-sm rounded-full bg-white font-pop outline-primary text-black hover:text-white hover:bg-primary">
                             <label>{subCategory.name}</label>
                             <IconButton
@@ -146,10 +155,15 @@ const Categories = () => {
                                 <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
                               </svg>
                             </IconButton>
+                            
                           </ul>
+                         
+                          </div>
+                         
+
                         ))}
 
-                        <div className=" my-1 ml-1 border-primary border  text-sm rounded-full bg-white font-pop outline-primary  hover:bg-gray-200">
+                        <div className=" mb-2  ml-1 border-primary border  text-sm rounded-full bg-white font-pop outline-primary  hover:bg-gray-200">
                           <IconButton
                             id="addSub"
                             onClick={() => setShowModalSub(!showModalSub)}

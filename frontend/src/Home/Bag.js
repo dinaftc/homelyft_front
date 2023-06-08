@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { logout } from "../actions/auth";
 import Navbar from "./Navbar";
-import { Navigate} from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import axios from "axios";
 import discount from "./assets/Vector.svg";
 import down from "./assets/down.svg";
@@ -12,18 +12,22 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Divider } from "@mui/material";
 import { Link } from "react-router-dom";
+export let choosed;
+export let setProducts;
 function Bag({ isAuthenticated, user }) {
   const [items, setItems] = useState([]);
   const [total, setTotal] = useState(0);
   const [triggerFetch, setTriggerFetch] = useState(false);
   const [delivery, setDelivery] = useState(false);
-  const[discode,Setdisode]=useState(0);
-  const[Down,Setdown]=useState(false);
+  const [choosed, setChoosed] = useState(false);
+  const [discode, Setdisode] = useState(0);
+  const [Down, Setdown] = useState(false);
+
   useEffect(() => {
     fetch(`http://127.0.0.1:8000/home/${user.id}/view-cart/`)
       .then((response) => response.json())
       .then(async (data) => {
-
+        setChoosed(true);
         setTotal(data[0].total_amount);
         // Map through the items and fetch product information for each item
         const updatedItems = await Promise.all(
@@ -47,7 +51,7 @@ function Bag({ isAuthenticated, user }) {
       .delete(`http://127.0.0.1:8000/home/${user.id}/view-cart/${id}`)
       .then(function (response) {
         console.log("deleted successfully");
-        
+
         setTriggerFetch(true);
         toast.success("Item deleted successfully", {
           position: "top-center",
@@ -57,7 +61,7 @@ function Bag({ isAuthenticated, user }) {
           pauseOnHover: true,
           draggable: true,
           progress: undefined,
-          theme: "light"
+          theme: "light",
         });
       })
       .catch(function (error) {
@@ -70,7 +74,7 @@ function Bag({ isAuthenticated, user }) {
           pauseOnHover: true,
           draggable: true,
           progress: undefined,
-          theme: "light"
+          theme: "light",
         });
       });
   };
@@ -144,7 +148,6 @@ function Bag({ isAuthenticated, user }) {
         });
       });
   };
-  
 
   const handleCheckout = () => {
     fetch(`http://127.0.0.1:8000/home/${user.id}/verify-cart/`)
@@ -152,7 +155,7 @@ function Bag({ isAuthenticated, user }) {
         if (response.status === 200) {
           return fetch(`http://127.0.0.1:8000/home/${user.id}/checkout/`, {
             method: "POST",
-            headers: { "Content-Type": "application/json" }
+            headers: { "Content-Type": "application/json" },
           });
         } else {
           throw new Error("Failed to verify cart");
@@ -169,11 +172,10 @@ function Bag({ isAuthenticated, user }) {
             pauseOnHover: true,
             draggable: true,
             progress: undefined,
-            theme: "light"
+            theme: "light",
           });
           // Checkout successful, handle the response as needed
         } else {
-          
           toast.error("Chouckout failed", {
             position: "top-center",
             autoClose: 5000,
@@ -182,9 +184,8 @@ function Bag({ isAuthenticated, user }) {
             pauseOnHover: true,
             draggable: true,
             progress: undefined,
-            theme: "light"
+            theme: "light",
           });
-
         }
       })
       .catch((error) => {
@@ -192,8 +193,6 @@ function Bag({ isAuthenticated, user }) {
         // Handle the error, show an error message, etc.
       });
   };
-  
-  
 
   if (!isAuthenticated) {
     return <Navigate to="/" replace />;
@@ -294,7 +293,12 @@ function Bag({ isAuthenticated, user }) {
                 <Divider />
               </div>
             ) : (
-              <p className="text-gray-400 text-xl font-semibold mx-5 my-4 font-pop"git>it's empty ...</p>
+              <p
+                className="text-gray-400 text-xl font-semibold mx-5 my-4 font-pop"
+                git
+              >
+                it's empty ...
+              </p>
             )}
           </div>
 
@@ -335,31 +339,34 @@ function Bag({ isAuthenticated, user }) {
             </div>
             <Divider />
             <div className="flex flex-row">
-            <img src={discount} alt="" className="mr-4" />
+              <img src={discount} alt="" className="mr-4" />
               <p className="text-gray-700 text-xl font-semibold my-4 mr-8 font-pop">
-                
                 Have a discount code?
               </p>
-              <img src={down} alt="" className="ml-10" onClick={()=>Setdown(true)} />
-              
+              <img
+                src={down}
+                alt=""
+                className="ml-10"
+                onClick={() => Setdown(true)}
+              />
             </div>
-            {Down &&  <input
-              name="discode"
-              id="discode"
-              value={discode}
-              onChange={handleChange}
-              type="text"
-              placeholder="Discount code"
-              className=" w-full h-12 m-2 px-5 border  outline-none rounded-full border-gray-300 focus:border-primary"
-            />  }
+            {Down && (
+              <input
+                name="discode"
+                id="discode"
+                value={discode}
+                onChange={handleChange}
+                type="text"
+                placeholder="Discount code"
+                className=" w-full h-12 m-2 px-5 border  outline-none rounded-full border-gray-300 focus:border-primary"
+              />
+            )}
             {delivery ? (
-              <Link   to='/Delivery'>
-                <button className="w-full text-white my-5 h-20 bg-primary border-none rounded px-4 py-2"
-              
-               >
+              <Link to="/Delivery">
+                <button className="w-full text-white my-5 h-20 bg-primary border-none rounded px-4 py-2">
                   Continue to Checkout
                 </button>
-                </Link>
+              </Link>
             ) : (
               <button
                 className="w-full text-white my-5 h-20 bg-primary border-none rounded px-4 py-2"

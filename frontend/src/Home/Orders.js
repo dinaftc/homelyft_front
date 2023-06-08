@@ -45,13 +45,13 @@ const Orders = ({ user }) => {
         <p className="font-pop text-xl text-secondary">Total Price: {order.total_amount}</p>
         <div
           key={order.id}
-          className="flex justify-between mt-5 border-2 shadow-xl border-gray-300 rounded-xl"
+          className="flex justify-between mt-5 border-2 shadow-xl border-gray-300 rounded-xl inline-block"
         >
           {order.items.map((item) => (
             <div className="flex flex-row" key={item.id}>
               <div
                 className="rounded-lg"
-                style={{ width: "260px", height: "260px" }}
+                style={{ width: "190px", height: "300px" }}
               >
                 <img
                   src={item.image}
@@ -64,7 +64,7 @@ const Orders = ({ user }) => {
                   alt="Product"
                 />
               </div>
-              <div className="flex flex-col justify-between ml-10 my-5">
+              <div className="flex flex-col justify-between ml-5 my-5">
                 <div>
                   <p className="font-pop text-3xl font-bold">{item.product_name}</p>
                   <p className="font-pop text-2xl font-normal">{item.description}</p>

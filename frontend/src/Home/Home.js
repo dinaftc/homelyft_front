@@ -8,7 +8,9 @@ import Rating from "@mui/material/Rating";
 import { Icon } from "@mui/material";
 import { useLocation, useNavigate } from "react-router-dom";
 import Orders from "../Admin/pages/Orders/Order";
-function Home({ isAuthenticated, user }) {
+
+function Home({ isAuthenticated, user}) {
+
   const [products, setProducts] = useState([]);
   const [showFullDescription, setShowFullDescription] = useState(false);
   const DESCRIPTION_LIMIT = 100;
@@ -18,7 +20,6 @@ function Home({ isAuthenticated, user }) {
     useState("");
   const navigate = useNavigate();
   const location = useLocation();
-
   const [showPopup, setShowPopup] = useState(false);
 
   const [quantity, setSelectedQuantity] = useState(1);
@@ -63,16 +64,7 @@ function Home({ isAuthenticated, user }) {
     if (selectedProductId !== null && quantity > 0) {
       console.log(selectedProductId);
       if (!isAuthenticated) {
-        toast.error("Please sign up or login to buy", {
-          position: "top-center",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
+        toast.error("Please sign up or login to buy", toastConfig);
       } else {
         try {
           const response = await axios.post(
@@ -80,62 +72,47 @@ function Home({ isAuthenticated, user }) {
             { Quantity: quantity },
             { headers: { "Content-Type": "application/json" } }
           );
-
+  
           console.log(response.data);
           if (response.status === 201) {
-            toast.success("Added to cart", {
-              position: "top-center",
-              autoClose: 5000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "light",
-            });
+            toast.success("Added to cart", toastConfig);
           } else {
-            toast.error("Product already exists in cart", {
-              position: "top-center",
-              autoClose: 5000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "light",
-            });
+            toast.error("Product already exists in cart", toastConfig);
           }
         } catch (error) {
           console.error(error);
+          toast.error("lease select a smaller value", toastConfig);
         }
       }
     } else {
       if (quantity <= 0) {
-        toast.error("Negative value", {
-          position: "top-center",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
+        toast.error("Negative value", toastConfig);
       }
     }
-
+  
     setShowPopup(false);
     setSelectedProductId(null);
     setSelectedQuantity(1);
   };
-
+  
+  const toastConfig = {
+    position: "top-center",
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "light",
+  };
+  
   return (
     <div>
       {(user || !isAuthenticated) && (
         <>
           {(isAuthenticated && user.role === 3) || !isAuthenticated ? (
             <div className="bg-white">
-              <Navbar setProducts={setProducts} />
+              <Navbar  setProducts={setProducts} place={'homeLift/products'}/>
 
               <div className="mb-5">
                 {Categories.map((category) => (
@@ -216,7 +193,7 @@ function Home({ isAuthenticated, user }) {
                           </p>
                         </div>
                         <div className="flex flex-row">
-                          <Rating name="read-only" value={value} readOnly />
+                          <Rating name="read-only" value={product.rating_rv} readOnly />
                           <p className="mt-1 ml-1 font-pop text-gray-500">
                             (100)
                           </p>

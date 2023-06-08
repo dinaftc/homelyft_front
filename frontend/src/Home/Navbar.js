@@ -15,18 +15,18 @@ import axios from "axios";
 import { Button } from "flowbite-react";
 import Lottie from "lottie-react";
 import cart from "./assets/cart.json";
-function Navbar({ isAuthenticated, logout, user, setProducts }) {
+function Navbar({ isAuthenticated, logout, user, setProducts,place }) {
   const [searchTerm, setSearchTerm] = useState("");
 
   const handleSearch = () => {
     axios
-      .get(`http://127.0.0.1:8000/homeLift/products/?search=${searchTerm}`)
-      .then((response) => {
-        // handle the response data here
-        console.log(response.data);
-        setProducts(response.data);
-        if (response.data.length == 0){
-        return  toast.warning('no data found', {
+    .get(`http://127.0.0.1:8000/${place}/?search=${searchTerm}`)
+     .then((response) => {
+      
+        if (response.data.length > 0) {
+          setProducts(response.data);
+        } else {
+          toast.warning('No data found', {
             position: "top-center",
             autoClose: 5000,
             hideProgressBar: false,
@@ -35,13 +35,13 @@ function Navbar({ isAuthenticated, logout, user, setProducts }) {
             draggable: true,
             progress: undefined,
             theme: "light",
-          })
+          });
         }
       })
       .catch((error) => {
         // handle errors here
         console.log(error);
-        toast.warning('notfound', {
+        toast.warning('Error occurred', {
           position: "top-center",
           autoClose: 5000,
           hideProgressBar: false,
@@ -50,23 +50,23 @@ function Navbar({ isAuthenticated, logout, user, setProducts }) {
           draggable: true,
           progress: undefined,
           theme: "light",
-        })
-      
-    
+        });
       });
   };
+  
   const handleKeyPress = (e) => {
     if (e.key === "Enter") {
       handleSearch();
     }
   };
-
+  
   const navigate = useNavigate();
-
+  
   const logout_user = () => {
     logout();
     navigate("/", { replace: true });
   };
+  
 
   const positionStyles = {
     width: "100px",
@@ -82,7 +82,7 @@ function Navbar({ isAuthenticated, logout, user, setProducts }) {
         />
       </Link>
       <div className="w-full md:w-3/5 relative mx-auto mt-2 md:mt-0 md:ml-2">
-        {isAuthenticated ?
+        {(isAuthenticated ) ?
         <div className="relative">
           <input
             type="text"
@@ -116,7 +116,7 @@ function Navbar({ isAuthenticated, logout, user, setProducts }) {
       <div className="flex items-center">
         {isAuthenticated ? (
           <div className="flex items-center text-center">
-            <Link to="/profile" className="mr-2">
+            <Link to="/profile" className="mr-4">
               {user.fullname}
             </Link>
             <button onClick={logout_user} className="mr-8">

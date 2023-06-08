@@ -113,7 +113,7 @@ const AddReview = ({ setIsModalOpen, user, product, update, setUpdate }) => {
           theme: "light",
         }); // Optional: Return the response data
       } else {
-        toast.error('already made a rating', {
+        toast.error('already Have a comment', {
           position: "top-center",
           autoClose: 5000,
           hideProgressBar: false,

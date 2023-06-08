@@ -335,8 +335,9 @@ const ProductInfo = ({ isAuthenticated, user }) => {
 
       <div className="mt-5">
         <div className="px-14">
+          <Divider></Divider>
           <p
-            className=" font-pop font-bold text-3xl mb-3"
+            className=" font-pop font-bold text-3xl mb-3 mt-3"
             onDoubleClick={(e) => {
               e.preventDefault();
             }}
@@ -346,7 +347,7 @@ const ProductInfo = ({ isAuthenticated, user }) => {
           </p>
           <Divider />
         </div>
-        <div className="w-fit bg-white" style={{ display: "flex" }}>
+        <div className="w-fit bg-white m-3" style={{ display: "flex" }}>
           {products.map((product, index) => {
             const shortDescription = product.description.slice(
               0,

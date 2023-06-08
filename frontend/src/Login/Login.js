@@ -57,7 +57,7 @@ const Login = ({ login, isAuthenticated, user }) => {
 
 
   if (isAuthenticated && !user.blocked && user.role===3) {
-    return <Navigate to="/" />;
+    return <Navigate to="/Home" />;
   }
 
   if(isAuthenticated && (user.role!==3)){ return <Navigate to="/Home" />}

@@ -173,7 +173,7 @@ function Bag({ isAuthenticated, user }) {
           });
           // Checkout successful, handle the response as needed
         } else {
-          throw new Error("Checkout failed");
+          
           toast.error("Chouckout failed", {
             position: "top-center",
             autoClose: 5000,

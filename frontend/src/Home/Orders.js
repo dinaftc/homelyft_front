@@ -37,55 +37,54 @@ const Orders = ({ user }) => {
             <h2>Orders Here !</h2>
           </div>
    
-  {orders.length > 0 ? (
+          {orders.length > 0 ? (
   <div>
     {orders.map((order) => (
-      // Display individual order item
-      <div
-        key={order.id}
-        className="flex justify-between mt-10 border-2 shadow-xl border-gray-300 rounded-xl"
-      >
-        <div className="flex flex-row">
-          <div
-            className="rounded-lg"
-            style={{ width: "300px", height: "300px" }}
-          >
-            <img
-              src={order.imageSrc}
-              className="rounded-lg"
-              style={{
-                width: "100%",
-                height: "100%",
-                objectFit: "cover",
-              }}
-              alt="Product"
-            />
-          </div>
-          <div className="flex flex-col justify-between ml-10 my-5">
-            <div>
-              <p className="font-pop text-3xl font-bold">{order.title}</p>
-              <p className="font-pop text-2xl font-normal">
-                {order.description}
-              </p>
+      <div className="my-5 mx-8">
+        <h1 className="font-pop  text-3xl font-bold">Order number {order.id}:</h1>
+        <p className="font-pop text-xl text-secondary">Total Price: {order.total_amount}</p>
+        <div
+          key={order.id}
+          className="flex justify-between mt-5 border-2 shadow-xl border-gray-300 rounded-xl"
+        >
+          {order.items.map((item) => (
+            <div className="flex flex-row" key={item.id}>
+              <div
+                className="rounded-lg"
+                style={{ width: "260px", height: "260px" }}
+              >
+                <img
+                  src={item.image}
+                  className="rounded-lg"
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover",
+                  }}
+                  alt="Product"
+                />
+              </div>
+              <div className="flex flex-col justify-between ml-10 my-5">
+                <div>
+                  <p className="font-pop text-3xl font-bold">{item.product_name}</p>
+                  <p className="font-pop text-2xl font-normal">{item.description}</p>
+                </div>
+                {order.shipping_adress && <p>Order type: {order.orderType}</p>}
+              </div>
+              <div className="pr-20 flex flex-col justify-end my-3">
+                <p className="font-pop text-2xl font-semibold">Price: {item.unit_price}</p>
+                <p className="font-pop text-lg font-semibold">Quantity: {item.Quantity}</p>
+              </div>
             </div>
-            <p>Order type: {order.orderType}</p>
-          </div>
-        </div>
-        <div className="pr-20 flex flex-col justify-end my-3">
-          <p className="font-pop text-2xl font-semibold">
-            Price: {order.price}
-          </p>
-          <p className="font-pop text-lg font-semibold">
-            Quantity: {order.quantity}
-          </p>
+          ))}
         </div>
       </div>
     ))}
   </div>
-    
 ) : (
   <div className="text-secondary text-xl">No Orders found</div>
-)} 
+)}
+
 
 
         </div>

@@ -287,11 +287,9 @@ const ProductInfo = ({ isAuthenticated, user }) => {
               </button>
             </div>
           </div>
-        </div>
-      </div>
-
-      <div className="w-full ">
-        <div className="w-3/5  px-14 space-y-4">
+       
+        <div className="w-full ">
+        <div className=" my-8 space-y-4">
           <Divider className="" />
           <div className="flex justify-between">
             <h2
@@ -331,6 +329,9 @@ const ProductInfo = ({ isAuthenticated, user }) => {
           <Divider className="" />
         </div>
       </div>
+      </div> </div>
+
+     
 
       <div className="mt-5">
         <div className="px-14">

@@ -5,14 +5,15 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { load_user } from "../actions/auth";
 import Navbar from "./Navbar";
-import { Link } from "react-router-dom";
-
+import { Link , Navigate, useLocation} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function Addadress({ user, load_user,total_amount }) {
   const [items, setItems] = useState([]);
   const [total, setTotal] = useState(0);
   const [triggerFetch] = useState(false);
   const [step1, setStep1] = useState(false);
+  const[ordered,setOrdered]=useState([])
   const [formData, setFormData] = useState({
     fullname: user.fullname,
     email: user.email,
@@ -105,49 +106,45 @@ function Addadress({ user, load_user,total_amount }) {
         });
       });
   };
-  function getCSRFToken() {
-    const name = 'csrftoken=';
-    const decodedCookie = decodeURIComponent(document.cookie);
-    const cookieArray = decodedCookie.split(';');
-    for (let i = 0; i < cookieArray.length; i++) {
-      let cookie = cookieArray[i];
-      while (cookie.charAt(0) === ' ') {
-        cookie = cookie.substring(1);
-      }
-      if (cookie.indexOf(name) === 0) {
-        return cookie.substring(name.length, cookie.length);
-      }
-    }
-    return null;
-  }
+ 
 
-  const handleClick = async () => {
-    const csrfToken = getCSRFToken();
-    try {
-      
-    
-  
-      const config = {
-        headers: {
-          'X-CSRFToken': csrfToken, // Include the CSRF token in the request headers
-          'Content-Type': 'application/json',
-        },
-        
-      };
-  
-      const apiResponse = await axios.post(
-        'http://127.0.0.1:8000/home/cart/pay/',
-       
-        config
-      );
-  
-      console.log(apiResponse.data);
-    } catch (error) {
-      console.error(error);
-    }
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const handleCheckout = () => {
+    fetch(`http://127.0.0.1:8000/home/${user.id}/verify-cart/`)
+      .then((response) => {
+        if (response.status === 200) {
+          return fetch(`http://127.0.0.1:8000/home/${user.id}/checkout/`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+          });
+        } else {
+          throw new Error("Failed to verify cart");
+        }
+      })
+      .then((response) => {
+        if (response.status === 200) {
+          return response.json();
+        } else {
+          throw new Error("Checkout failed");
+        }
+      })
+      .then((data) => {
+        setOrdered(data);
+        toast.success("Order added Successfully", {
+          // Toast notification options
+        });
+        window.location.href = `http://127.0.0.1:8000/home/cart/${data.id}/${user.id}/pay/`;
+      })
+      .catch((error) => {
+        console.error(error);
+        toast.error("Checkout failed", {
+          // Toast notification options
+        });
+      });
   };
   
-
   return (
     <div className="bg-white h-full w-full">
       <Navbar></Navbar>
@@ -265,8 +262,7 @@ function Addadress({ user, load_user,total_amount }) {
               </span>
               Payment Details
             </h1>
-            <button onClick={handleClick}>testing</button>
-            <hr />
+          
           </div>
         ) : (
           <div className=" bg-white rounded-lg p-5 m-5 w-3/4">
@@ -360,12 +356,12 @@ function Addadress({ user, load_user,total_amount }) {
               <option value="Edahabia">Edahabia</option>
             </select>
             </form>
-            <Link 
-              to='http://127.0.0.1:8000/home/cart/pay/'
+            <button
+             onClick={() => handleCheckout()}
               className="w-3/4 h-12 m-2  font-pop btn normal-case text-white rounded-full bg-primary  border-primary hover:bg-hoverADD hover:border-hoverADD "
             >
               Pay
-            </Link>
+            </button>
           </div>
         )}
         <div className=" w-1/4 mr-3 fixed top-24 -right-1">

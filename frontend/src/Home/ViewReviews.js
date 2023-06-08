@@ -75,7 +75,7 @@ const ViewReviews = ({ onClose,user,product }) => {
   }}
   style={{ userSelect: "none" }}
 >
-  {data.find((r) => r.rating.rating_user === user.email)?.rating.rating}
+ {product.rating_rv}
 </p>
 <p
   className="text-sm mb-1 text-gray-400 font-pop"
@@ -95,7 +95,7 @@ const ViewReviews = ({ onClose,user,product }) => {
          
         
           size="large"
-          value={data.find((r) => r.rating.rating_user === user.email)?.rating.rating}
+          value={ product.rating_rv}
      
     />
   </span>{" "}

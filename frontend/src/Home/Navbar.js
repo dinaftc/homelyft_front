@@ -25,10 +25,34 @@ function Navbar({ isAuthenticated, logout, user, setProducts }) {
         // handle the response data here
         console.log(response.data);
         setProducts(response.data);
+        if (response.data.length == 0){
+        return  toast.warning('no data found', {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          })
+        }
       })
       .catch((error) => {
         // handle errors here
         console.log(error);
+        toast.warning('notfound', {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        })
+      
+    
       });
   };
   const handleKeyPress = (e) => {

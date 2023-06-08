@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import axios from "axios";
 import Rating from "@mui/material/Rating";
 import { IconButton } from "@mui/material";
-
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const AddReview = ({ setIsModalOpen, user, product, update, setUpdate }) => {
   const [review, setReview] = useState("");
   const [rating, setRating] = useState(0);
@@ -46,11 +47,43 @@ const AddReview = ({ setIsModalOpen, user, product, update, setUpdate }) => {
 
       console.log(response.data); // Optional: Handle the response data
       setUpdate(true);
-      return response.data; // Optional: Return the response data
+      if (response.status === 200) {
+       return toast.success('review added', {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        }); // Optional: Return the response data
+      } else {
+      return  toast.error('already made a rating', {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      }
     } catch (error) {
-      console.error(error);
-      throw error;
+     return toast.error(error, {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
     }
+    
+   
   }
 
   async function updateProductComment(id, comment) {
@@ -62,25 +95,53 @@ const AddReview = ({ setIsModalOpen, user, product, update, setUpdate }) => {
         Accept: "application/json",
       },
     };
-
+  
     try {
-      const response = await axios.post(
-        url,
-        {
-          text: comment,
-          title: comment,
-        },
-        config
-      );
-
+      const response = await axios.post(url, { text: comment }, config);
+    
       console.log(response.data); // Optional: Handle the response data
       setUpdate(true);
-      return response.data; // Optional: Return the response data
+      if (response.status === 200) {
+        toast.success('review added', {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        }); // Optional: Return the response data
+      } else {
+        toast.error('already made a rating', {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      }
     } catch (error) {
-      console.error(error);
-      throw error;
+      toast.error(error, {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
     }
+    
+    return; // Optional: Return any other necessary value
+    
   }
+  
+  
 
   const handleChange = (event, value) => {
     setRating(value);
@@ -147,7 +208,9 @@ const AddReview = ({ setIsModalOpen, user, product, update, setUpdate }) => {
           </div>
         </div>
       </div>
+      <ToastContainer/>
     </div>
+    
   );
 };
 

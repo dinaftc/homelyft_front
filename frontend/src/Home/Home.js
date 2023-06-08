@@ -53,6 +53,8 @@ function Home({ isAuthenticated, user}) {
 
   useEffect(() => {
     handleSearch();
+    const filteredProducts = products.filter(product => !product.archived);
+    setProducts(filteredProducts);
   }, [selectedSubcategory]);
 
   const handleAddToCartClick = (productId) => {

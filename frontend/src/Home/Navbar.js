@@ -73,7 +73,7 @@ function Navbar({ isAuthenticated, logout, user, setProducts,place }) {
     height: "100px",
   };
   return (
-    <div className="bg-white flex flex-wrap items-center justify-between px-4 py-2">
+    <div className="bg-white  flex flex-wrap items-center justify-between px-4 py-2">
       <Link to="/">
         <img
           class="object-center bg-transparent cursor-pointer"
@@ -86,7 +86,7 @@ function Navbar({ isAuthenticated, logout, user, setProducts,place }) {
         <div className="relative">
           <input
             type="text"
-            className="w-full h-10 py-6 px-10 m-5 rounded-full leading-5 bg-gray-200 text-gray-900 placeholder-gray-400 focus:outline-none focus:placeholder-gray-400"
+            className="w-full h-10 py-5 px-10 m-5 rounded-full leading-5 bg-gray-200 text-gray-900 placeholder-gray-400 focus:outline-none focus:placeholder-gray-400"
             placeholder="What are you looking for?"
             onChange={(e) => setSearchTerm(e.target.value)}
             onKeyDown={handleKeyPress}
@@ -97,11 +97,11 @@ function Navbar({ isAuthenticated, logout, user, setProducts,place }) {
             className="absolute inset-y-0 left-8 w-6 h-6 my-auto mr-2 text-gray-400 pointer-events-none"
           />
         </div>
-        : <Link to='/Home'> 
-        <div className="relative">
+        : <Link to='/Home' className="relative"> 
+     
         <input
           type="text"
-          className="w-full h-10 py-6 px-10 m-5 rounded-full leading-5 bg-gray-200 text-gray-900 placeholder-gray-400 focus:outline-none focus:placeholder-gray-400"
+          className="w-full h-10 py-6 px-10 m-1 rounded-full leading-5 bg-gray-200 text-gray-900 placeholder-gray-400 focus:outline-none focus:placeholder-gray-400"
           placeholder="What are you looking for?"
           onChange={(e) => setSearchTerm(e.target.value)}
           onKeyDown={handleKeyPress}
@@ -111,26 +111,26 @@ function Navbar({ isAuthenticated, logout, user, setProducts,place }) {
           alt=""
           className="absolute inset-y-0 left-8 w-6 h-6 my-auto mr-2 text-gray-400 pointer-events-none"
         />
-      </div></Link>}
+ </Link>}
       </div>
       <div className="flex items-center">
         {isAuthenticated ? (
           <div className="flex items-center text-center">
-            <Link to="/profile" className="mr-4">
+            <Link to="/profile" className="mr-3">
               {user.fullname}
             </Link>
-            <button onClick={logout_user} className="mr-8">
+            <button onClick={logout_user} className="mr-7">
               <FiLogOut />
             </button>
           </div>
         ) : (
           <div className="flex items-center text-center">
-            <img src={person} alt="" className="h-6 w-6 mr-2" />
+            <img src={person} alt="" className="h-6 w-6 mr-1" />
             <Link to="/Login" className="mr-2">
               Login
             </Link>
             <span className="mr-2">or</span>
-            <Link to="/Signup" className="mr-2">
+            <Link to="/Signup" className="mr-1">
               Sign up
             </Link>
           </div>

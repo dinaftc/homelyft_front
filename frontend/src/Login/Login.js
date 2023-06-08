@@ -33,8 +33,9 @@ const Login = ({ login, isAuthenticated, user }) => {
     setLoading(true);
     login(email, password);
     if (user.blocked) {
-      return toast.error("You do not have permision, please contact admin", {
-        position: "top-center",
+       event.preventDefault();
+      return  toast.error("You do not have permision, please contact admin", {
+        posiion: "top-center",
         autoClose: 5000,
         hideProgressBar: false,
         closeOnClick: true,
@@ -42,39 +43,26 @@ const Login = ({ login, isAuthenticated, user }) => {
         draggable: true,
         progress: undefined,
         theme: "light",
-      });
+      })        
     }
-
-
- 
   }
-  
- 
 
-  if (isAuthenticated && !(user.blocked) ) {
+
+
+  if (isAuthenticated && !(user.blocked)) {
     return <Navigate to='/Home' />
-}
+  }
 
 
-  if (isAuthenticated && !user.blocked && user.role===3) {
+  if (isAuthenticated && !user.blocked && user.role === 3) {
     return <Navigate to="/Home" />;
   }
 
-  if(isAuthenticated && (user.role!==3)){ return <Navigate to="/Home" />}
 
   return (
     <div className="w-screen h-screen flex justify-center items-center ">
-      {loading ? (
-        <Lottie
-          options={{
-            loop: true,
-            autoplay: true,
-            animationData: loadingAnimation,
-          }}
-          height={120}
-          width={120}
-        />
-      ) : (
+    
+     
         <form className=" rounded-lg py-4 px-12" onSubmit={(e) => onSubmit(e)}>
           <div className="my-2">
             <h1
@@ -209,7 +197,7 @@ const Login = ({ login, isAuthenticated, user }) => {
   </button> */}
           </div>
         </form>
-      )}
+     
 
       <ToastContainer />
     </div>

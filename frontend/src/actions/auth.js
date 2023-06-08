@@ -125,7 +125,7 @@ export const signup =(fullname, email,phone_number, password) => async dispatch 
             type: SIGNUP_SUCCESS,
             payload: res.data
         });
-        return  toast.success('Check your account', {
+        return  toast.success('Account created,check your email!', {
             position: "top-center",
             autoClose: 5000,
             hideProgressBar: false,

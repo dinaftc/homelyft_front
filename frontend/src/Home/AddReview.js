@@ -8,6 +8,7 @@ const AddReview = ({ setIsModalOpen, user, product, update, setUpdate }) => {
   const [review, setReview] = useState("");
   const [rating, setRating] = useState(0);
   const [Comment, setComment] = useState("");
+  const [fetch, setFetch] = useState(false);
   const handleSubmit = async () => {
     if (Comment !== "") {
       await updateProductComment(product.id, Comment);
@@ -20,7 +21,7 @@ const AddReview = ({ setIsModalOpen, user, product, update, setUpdate }) => {
     // Reset the form values
     setReview("");
     setRating(0);
-
+setFetch(true)
     // Close the modal or perform any other necessary actions
     setIsModalOpen(false);
   };

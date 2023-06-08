@@ -27,7 +27,7 @@ const Orders = ({ user }) => {
       <Navbar setProducts={setOrders} />
       <div className="mb-5">
         <div
-          className=" p-40 flex flex-col"
+          className=" py-2 px-20 flex flex-col"
           onDoubleClick={(e) => {
             e.preventDefault();
           }}
@@ -43,6 +43,7 @@ const Orders = ({ user }) => {
       <div className="my-5 mx-8">
         <h1 className="font-pop  text-3xl font-bold">Order number {order.id}:</h1>
         <p className="font-pop text-xl text-secondary">Total Price: {order.total_amount}</p>
+        <p className="font-pop text-xl text-secondary">Order status: {order.status}</p>
         <div
           key={order.id}
           className="flex justify-between mt-5 border-2 shadow-xl border-gray-300 rounded-xl inline-block"
@@ -69,7 +70,7 @@ const Orders = ({ user }) => {
                   <p className="font-pop text-3xl font-bold">{item.product_name}</p>
                   <p className="font-pop text-2xl font-normal">{item.description}</p>
                 </div>
-                {order.shipping_adress && <p>Order type: {order.orderType}</p>}
+                {order.shipping_adress && order.status== 'Completed' && <p>Order being Delivered</p>}
               </div>
               <div className="pr-20 flex flex-col justify-end my-3">
                 <p className="font-pop text-2xl font-semibold">Price: {item.unit_price}</p>

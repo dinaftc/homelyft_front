@@ -25,7 +25,7 @@ function Home({ isAuthenticated, user}) {
   const [quantity, setSelectedQuantity] = useState(1);
   const [Categories, setCategories] = useState([]);
   const [selectedSubcategory, setSelectedSubcategory] = useState("");
-
+const[archived,setArchived]=useState(false)
   useEffect(() => {
     fetch("http://127.0.0.1:8000/homeLift/categories/")
       .then((response) => response.json())
@@ -53,12 +53,11 @@ function Home({ isAuthenticated, user}) {
 
   useEffect(() => {
     handleSearch();
-    const filteredProducts = products.filter(product => !product.archived);
-    setProducts(filteredProducts);
   }, [selectedSubcategory]);
 
-  const handleAddToCartClick = (productId) => {
+  const handleAddToCartClick = (productId,productarchived) => {
     setSelectedProductId(productId);
+    setArchived(productarchived)
     setShowPopup(true);
   };
 
@@ -68,6 +67,10 @@ function Home({ isAuthenticated, user}) {
       if (!isAuthenticated) {
         toast.error("Please sign up or login to buy", toastConfig);
       } else {
+        if(archived){
+          toast.error("Product not available", toastConfig);
+        }
+        else{
         try {
           const response = await axios.post(
             `http://127.0.0.1:8000/home/${user.id}/${selectedProductId}/addtocart/`,
@@ -85,7 +88,7 @@ function Home({ isAuthenticated, user}) {
           console.error(error);
           toast.error("lease select a smaller value", toastConfig);
         }
-      }
+      }}
     } else {
       if (quantity <= 0) {
         toast.error("Negative value", toastConfig);
@@ -213,7 +216,7 @@ function Home({ isAuthenticated, user}) {
                               more details
                             </button>
                             <button
-                              onClick={() => handleAddToCartClick(product.id)}
+                              onClick={() => handleAddToCartClick(product.id,product.archived)}
                             >
                               <Icon className="">
                                 <svg

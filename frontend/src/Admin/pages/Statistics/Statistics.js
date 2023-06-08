@@ -154,6 +154,7 @@ const[statistic,setStatistic]=useState([])
   </div>
   <div  className="card bg-white inline-block w-96 h-52 m-2">
   <Chart percentage={statistic.Conversion_rate} />
+  <p>Our Conversion Rate</p>
 </div>
 
 </div>

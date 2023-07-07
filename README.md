@@ -1,3 +1,34 @@
+
+<div align="center">
+<img width="30%" src="https://user-images.githubusercontent.com/72341453/134747028-7e2d90cc-a92f-4f66-815e-54a0d50cca54.PNG">
+
+# homelyft frontend code
+This repository contains the frontend code for Homelyft, an ecommerce website specializing in furniture. The frontend is developed using React.js, a popular JavaScript library for building user interfaces.
+</div>
+
+## Features
+
+- User-friendly and intuitive interface for easy navigation and seamless shopping experience.
+- Responsive design to ensure compatibility across different devices and screen sizes.
+- Product listing with detailed information, including images, descriptions, prices, and availability.
+- Search functionality to help users find specific furniture items quickly.
+- Shopping cart functionality for adding, removing, and updating items in the cart.
+- Secure checkout process with integrated payment gateway for a smooth transaction experience.
+- User authentication and account management, allowing users to create accounts, login, and manage their profiles.
+- Order history and tracking, enabling users to view their previous orders and track the status of current orders.
+- Wishlist feature for users to save their favorite furniture items for future reference.
+
+## Technologies Used
+
+- React.js: A JavaScript library for building user interfaces.
+- React Router: For handling navigation and routing within the application.
+- Redux: A predictable state container for managing the application state.
+- Axios: For making HTTP requests to the backend API.
+- Tailwind css: A popular CSS framework for responsive web design.
+- CSS Modules: For modular and scoped CSS styling.
+- Chargili: An Algerian payment gateway for secure online transactions.
+
+- 
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
